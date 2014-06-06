@@ -1,0 +1,116 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartomatic.Utils", "..\..\Generic\Utils\Cartomatic.Utils.csproj", "{718A23F3-4082-444B-9D26-D4225E67A790}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "web", "web", "{EE936F71-D07A-42E1-8FE6-6A71DDB24849}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cartomatic", "cartomatic", "{B4332238-DC51-4839-A8F2-021F89D3581A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartomatic.Wms.WmsDriver", "..\..\Generic\Wms\Driver\Cartomatic.Wms.WmsDriver.csproj", "{BF233752-D713-4251-947B-68EF0C7C2478}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartomatic.MapUtils.TileCache", "..\..\Generic\MapUtils\TileCache\Cartomatic.MapUtils.TileCache.csproj", "{134B753A-F1DD-43C1-ABD9-35552253878D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartomatic.MapUtils.Tiling", "..\..\Generic\MapUtils\Tiling\Cartomatic.MapUtils.Tiling.csproj", "{145DD93C-F0B0-4386-A647-4EEDCB243A73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartomatic.Ogc.Schemas", "..\..\Generic\Ogc\Schemas\Cartomatic.Ogc.Schemas.csproj", "{C8B58B6E-B944-4881-BAC1-412785DB8286}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartomatic.Manifold.WmsDriver", "..\..\Manifold\Wms\Cartomatic.Manifold.WmsDriver.csproj", "{F0621CAD-38B4-4B11-9911-2DFF9E093C82}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "hgis_wms", "http://localhost/hgis_wms", "{6BA2C33C-47B9-4326-A626-7535986EBDB9}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "false"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		ProjectReferences = "{bf233752-d713-4251-947b-68ef0c7c2478}|Cartomatic.Wms.WmsDriver.dll;{C8B58B6E-B944-4881-BAC1-412785DB8286}|Cartomatic.Ogc.Schemas.dll;{718A23F3-4082-444B-9D26-D4225E67A790}|Cartomatic.Utils.dll;{134b753a-f1dd-43c1-abd9-35552253878d}|Cartomatic.MapUtils.TileCache.dll;{145DD93C-F0B0-4386-A647-4EEDCB243A73}|Cartomatic.MapUtils.Tiling.dll;{f0621cad-38b4-4b11-9911-2dff9e093c82}|Cartomatic.Manifold.WmsDriver.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/hgis_wms"
+		Debug.AspNetCompiler.PhysicalPath = "..\web\wms_front\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\hgis_wms\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/hgis_wms"
+		Release.AspNetCompiler.PhysicalPath = "..\web\wms_front\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\hgis_wms\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "..\web\wms_front\"
+	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "hgis_wms_back", "http://localhost/hgis_wms_back", "{21A472D5-0F8A-48E4-B96F-4141F593AE84}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "false"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		ProjectReferences = "{f0621cad-38b4-4b11-9911-2dff9e093c82}|Cartomatic.Manifold.WmsDriver.dll;{C8B58B6E-B944-4881-BAC1-412785DB8286}|Cartomatic.Ogc.Schemas.dll;{718A23F3-4082-444B-9D26-D4225E67A790}|Cartomatic.Utils.dll;{BF233752-D713-4251-947B-68EF0C7C2478}|Cartomatic.Wms.WmsDriver.dll;{134b753a-f1dd-43c1-abd9-35552253878d}|Cartomatic.MapUtils.TileCache.dll;{145DD93C-F0B0-4386-A647-4EEDCB243A73}|Cartomatic.MapUtils.Tiling.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/hgis_wms_back"
+		Debug.AspNetCompiler.PhysicalPath = "..\web\wms_back\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\hgis_wms_back\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/hgis_wms_back"
+		Release.AspNetCompiler.PhysicalPath = "..\web\wms_back\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\hgis_wms_back\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "..\web\wms_back\"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{718A23F3-4082-444B-9D26-D4225E67A790}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{718A23F3-4082-444B-9D26-D4225E67A790}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{718A23F3-4082-444B-9D26-D4225E67A790}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{718A23F3-4082-444B-9D26-D4225E67A790}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF233752-D713-4251-947B-68EF0C7C2478}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF233752-D713-4251-947B-68EF0C7C2478}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF233752-D713-4251-947B-68EF0C7C2478}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF233752-D713-4251-947B-68EF0C7C2478}.Release|Any CPU.Build.0 = Release|Any CPU
+		{134B753A-F1DD-43C1-ABD9-35552253878D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{134B753A-F1DD-43C1-ABD9-35552253878D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{134B753A-F1DD-43C1-ABD9-35552253878D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{134B753A-F1DD-43C1-ABD9-35552253878D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{145DD93C-F0B0-4386-A647-4EEDCB243A73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{145DD93C-F0B0-4386-A647-4EEDCB243A73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{145DD93C-F0B0-4386-A647-4EEDCB243A73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{145DD93C-F0B0-4386-A647-4EEDCB243A73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8B58B6E-B944-4881-BAC1-412785DB8286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8B58B6E-B944-4881-BAC1-412785DB8286}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8B58B6E-B944-4881-BAC1-412785DB8286}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8B58B6E-B944-4881-BAC1-412785DB8286}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0621CAD-38B4-4B11-9911-2DFF9E093C82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0621CAD-38B4-4B11-9911-2DFF9E093C82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0621CAD-38B4-4B11-9911-2DFF9E093C82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0621CAD-38B4-4B11-9911-2DFF9E093C82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BA2C33C-47B9-4326-A626-7535986EBDB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BA2C33C-47B9-4326-A626-7535986EBDB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BA2C33C-47B9-4326-A626-7535986EBDB9}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BA2C33C-47B9-4326-A626-7535986EBDB9}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{21A472D5-0F8A-48E4-B96F-4141F593AE84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21A472D5-0F8A-48E4-B96F-4141F593AE84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21A472D5-0F8A-48E4-B96F-4141F593AE84}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{21A472D5-0F8A-48E4-B96F-4141F593AE84}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{718A23F3-4082-444B-9D26-D4225E67A790} = {B4332238-DC51-4839-A8F2-021F89D3581A}
+		{BF233752-D713-4251-947B-68EF0C7C2478} = {B4332238-DC51-4839-A8F2-021F89D3581A}
+		{134B753A-F1DD-43C1-ABD9-35552253878D} = {B4332238-DC51-4839-A8F2-021F89D3581A}
+		{145DD93C-F0B0-4386-A647-4EEDCB243A73} = {B4332238-DC51-4839-A8F2-021F89D3581A}
+		{C8B58B6E-B944-4881-BAC1-412785DB8286} = {B4332238-DC51-4839-A8F2-021F89D3581A}
+		{F0621CAD-38B4-4B11-9911-2DFF9E093C82} = {B4332238-DC51-4839-A8F2-021F89D3581A}
+		{6BA2C33C-47B9-4326-A626-7535986EBDB9} = {EE936F71-D07A-42E1-8FE6-6A71DDB24849}
+		{21A472D5-0F8A-48E4-B96F-4141F593AE84} = {EE936F71-D07A-42E1-8FE6-6A71DDB24849}
+	EndGlobalSection
+EndGlobal

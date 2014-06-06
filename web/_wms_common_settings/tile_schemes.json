@@ -1,0 +1,20 @@
+/*
+ * tile schemes used
+ */
+[
+	{
+		Name: 'geoportal.gov.pl v1',
+		Epsg: 'EPSG:2180',
+		NumZoomLevels: 13,
+		TileSize: 256,
+		TilesetBaseWidth: 3,
+		TilesetBaseHeight: 2,
+		TilesetBounds: {
+			MinX: 0,
+			MinY: 0,
+			MaxX: 1228800,
+			MaxY: 819200
+		},
+		MaxRes: 1600
+	}
+]

@@ -1,0 +1,19 @@
+{
+	/*
+	 * cache destination
+	 */
+	CacheFolder: '',
+	
+	/*
+	 * whether or not the generated pngs should be size optimised prior to saving the cache
+	 */
+	OptimisePng: false,
+	
+	/*
+	 * output formats the cache is built for
+	 */
+	CachedFormats: [
+		'image/jpeg',
+		'image/png'
+	]
+}

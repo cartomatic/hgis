@@ -1,0 +1,20 @@
+{
+	Title: '',
+	Abstract: '',
+	Keywords: [],
+	ContactPerson: '',
+	ContactOrganization: 'cartomatic.pl',
+	ContactPosition: '',
+	AddressType: 'postal',
+	Address: 'Puławska 30/5',
+	City: 'Warsaw',
+	StateOrProvince: 'Mazowieckie',
+	PostCode: '02-512 Warszawa',
+	Country: 'Poland',
+	ContactVoiceTelephone: '+48228490093',
+	ContactElectronicMailAddress: 'info@cartomatic.pl',
+	AccessConstraints: 'none',
+	Fees: 'none',
+	MaxHeight: 256,
+	MaxWidth: 256
+}

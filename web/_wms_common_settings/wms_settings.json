@@ -1,0 +1,16 @@
+{
+	/*
+	 * the url of the public facing service; since the public WMS is proxied, it is needed to generate a valid Capabilities document
+	 */
+	PublicAccessUrl: '',
+	
+	/*
+	 * data folder for the manifold wms driver
+	 */
+	WmsDataFolder: '',
+	
+	/*
+	 * path to the bitmap to be used as a watermark; must be a file that can be opened by the Bitmap object
+	 */
+	Watermark: ''
+}
