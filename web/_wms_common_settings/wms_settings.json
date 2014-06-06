@@ -7,10 +7,10 @@
 	/*
 	 * data folder for the manifold wms driver
 	 */
-	WmsDataFolder: '',
+	WmsDataFolder: 'F:\\hgisdata\\manifold',
 	
 	/*
 	 * path to the bitmap to be used as a watermark; must be a file that can be opened by the Bitmap object
 	 */
-	Watermark: ''
+	Watermark: '../../resx/watermark/watermark.png'
 }

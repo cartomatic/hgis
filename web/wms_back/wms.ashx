@@ -155,7 +155,7 @@ public class Wms : IHttpHandler
         //finally read in the watermark image
         try
         {
-            Watermark = new Bitmap(Settings.Watermark);
+            Watermark = (Bitmap)Bitmap.FromFile(Settings.Watermark);
         }
         catch { } //silently fail, no watermark will be painted
     }
@@ -335,7 +335,7 @@ public class Wms : IHttpHandler
             Fail(context);
         }
         
-        return Settings.WmsDataFolder + source + ".map";
+        return System.IO.Path.Combine(Settings.WmsDataFolder, source + ".map");
     }
 
     /// <summary>
