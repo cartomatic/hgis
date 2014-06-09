@@ -1,7 +1,7 @@
 {
-	Title: '',
-	Abstract: '',
-	Keywords: [],
+	Title: 'wms.hgis.cartomatic.pl',
+	Abstract: 'Usługa przeglądania historycznych map Polski.',
+	Keywords: ['WIG', 'WIG 500k', 'WIG 300k', 'WIG 100k', 'WIG 25k', 'Wojskowy Instytut Geograficzny'],
 	ContactPerson: '',
 	ContactOrganization: 'cartomatic.pl',
 	ContactPosition: '',
@@ -15,6 +15,7 @@
 	ContactElectronicMailAddress: 'info@cartomatic.pl',
 	AccessConstraints: 'none',
 	Fees: 'none',
+	LayerLimit: 1,
 	MaxHeight: 256,
 	MaxWidth: 256
 }

@@ -34,6 +34,11 @@ public class Wms : IHttpHandler
         public string WmsDataFolder { get; set; }
 
         /// <summary>
+        /// Name of the map component used to render the data
+        /// </summary>
+        public string MapComponent { get; set; }
+        
+        /// <summary>
         /// Watermark file path
         /// </summary>
         public string Watermark { get; set; }
@@ -68,6 +73,12 @@ public class Wms : IHttpHandler
     /// Watermark bitmap; will not be applied if could not be read
     /// </summary>
     private static Bitmap Watermark;
+
+    /// <summary>
+    /// Allowed data sources; basically a list of map file names (epsg codes) that provide the data
+    /// So far assuming 2180, will be accessed the most often
+    /// </summary>
+    private static string[] AllowedSources = new string[] {"2180", "3857", "4326" };
     
     
     public void ProcessRequest (HttpContext context) {
@@ -304,16 +315,6 @@ public class Wms : IHttpHandler
     /// <returns></returns>
     private Cartomatic.Manifold.WmsDriver GetWmsdriver(HttpContext context)
     {
-        //first get the map file and map component
-        var source = context.Request.Params["source"];
-        var map = context.Request.Params["map"];
-
-        //fail if the map file has not been supplied
-        if (string.IsNullOrEmpty(source))
-        {
-            Fail(context);
-        }
-
         return new Cartomatic.Manifold.WmsDriver(
             GetMapFileLocation(context),
             GetMapComponent(context),
@@ -322,13 +323,20 @@ public class Wms : IHttpHandler
     }
     
     /// <summary>
-    /// Returns a full path to a map file that should be loaded by mapserver
+    /// Returns a full path to a map file that should be loaded by the mapserver
     /// </summary>
     /// <param name="context"></param>
     /// <returns></returns>
     private string GetMapFileLocation(HttpContext context)
     {
+        //first get the map file and map component
         var source = context.Request.Params["source"];
+
+        //fail if the map file does not 'fit'
+        if (!Array.Exists(AllowedSources, src => src == source))
+        {
+            Fail(context);
+        }
         
         //fail if the map file has not been supplied
         if(string.IsNullOrEmpty(source)){
@@ -346,12 +354,13 @@ public class Wms : IHttpHandler
     private string GetMapComponent(HttpContext context)
     {
         //try to extract map component to be used with this Request
+        //this is so, the map component can be overwritten if needed.
         string mapComp = context.Request.Params["map"];
-        
-        //if the param has not been supplied default to 'Map'
+
+        //if the param has not been supplied default to 'wms.hgis.cartomatic.pl'
         if (string.IsNullOrEmpty(mapComp))
         {
-            mapComp = "Map";
+            mapComp = Settings.MapComponent;
         }
         return mapComp;
     }

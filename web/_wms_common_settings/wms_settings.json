@@ -2,12 +2,17 @@
 	/*
 	 * the url of the public facing service; since the public WMS is proxied, it is needed to generate a valid Capabilities document
 	 */
-	PublicAccessUrl: '',
+	PublicAccessUrl: 'http://wms.hgis.cartomatic.pl/topo/',
 	
 	/*
 	 * data folder for the manifold wms driver
 	 */
 	WmsDataFolder: 'F:\\hgisdata\\manifold',
+	
+	/*
+	 * Name of the map component used to render the data
+	 */
+	MapComponent: 'wms.hgis.cartomatic.pl',
 	
 	/*
 	 * path to the bitmap to be used as a watermark; must be a file that can be opened by the Bitmap object
