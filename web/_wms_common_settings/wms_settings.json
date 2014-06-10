@@ -2,7 +2,12 @@
 	/*
 	 * the url of the public facing service; since the public WMS is proxied, it is needed to generate a valid Capabilities document
 	 */
-	PublicAccessUrl: 'http://wms.hgis.cartomatic.pl/topo/',
+	PublicAccessUrl: 'http://localhost/hgis_wms/public.ashx/',
+	
+	/*
+	 * the url of the backend service
+	 */
+	BackendServiceUrl: 'http://localhost/hgis_wms/internal.ashx/',
 	
 	/*
 	 * data folder for the manifold wms driver
