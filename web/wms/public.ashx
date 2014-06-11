@@ -31,12 +31,22 @@ namespace HGIS
             {
                 //Token valid so talking directly to the tilecache
 
+                //get the wms driver
+                //and make sure it was possible to create it (wms driver will not be created if source does not meet the 'allowed sources' criteria
+                //in such case just fail
+                var wmsdrv = wms.GetWmsdriver(context);
+                if (wmsdrv == null)
+                {
+                    wms.Fail(context);
+                    return;
+                }
+                
                 //Let the tilecache process the Request
                 var tcout = Cartomatic.MapUtils.TileCache.WmsRequestProcessor.ProcessRequest(
                     wms.GetTileCacheSettings(),
                     wms.GetTileScheme(context),
                     context.Request.Url.AbsoluteUri,
-                    wms.GetWmsdriver(context)
+                    wmsdrv
                 );
 
                 //transfer the tile cache response to the response object
@@ -61,13 +71,16 @@ namespace HGIS
 
                 //adjust the base url and call the backend asynchronously
                 var response = await Cartomatic.Utils.Http.ExecuteWebRequestAsync(
-                    ""//wms.GetCompleteBackendServiceUrl(context)
+                    wms.GetCompleteBackendServiceUrl(context)
                 );
 
                 //make sure response is available
                 if (response == null)
                 {
                     wms.Fail(context);
+                    
+                    //make sure to return as code after Fail MIGHT execute
+                    return;
                 }
                 
                 //get the content type
@@ -80,11 +93,8 @@ namespace HGIS
                 response.Close();
             }
 
-            //end the response
-            //context.Response.End();
-            HttpContext.Current.Response.Flush();
-            HttpContext.Current.Response.SuppressContent = true;
-            HttpContext.Current.ApplicationInstance.CompleteRequest();
+            //complete the request
+            context.ApplicationInstance.CompleteRequest();
         }
 
 

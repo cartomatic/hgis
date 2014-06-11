@@ -24,12 +24,22 @@ namespace HGIS
         
         public void ProcessRequest(HttpContext context)
         {
+            //get the wms driver
+            //and make sure it was possible to create it (wms driver will not be created if source does not meet the 'allowed sources' criteria
+            //in such case just fail
+            var wmsdrv = wms.GetWmsdriver(context);
+            if (wmsdrv == null)
+            {
+                wms.Fail(context);
+                return;
+            }
+            
             //Let the tilecache process the Request
             var tcout = Cartomatic.MapUtils.TileCache.WmsRequestProcessor.ProcessRequest(
                 wms.GetTileCacheSettings(),
                 wms.GetTileScheme(context),
                 context.Request.Url.AbsoluteUri,
-                wms.GetWmsdriver(context)
+                wmsdrv
             );
 
             //transfer the tile cache response to the response object
@@ -50,7 +60,8 @@ namespace HGIS
                 context.Response.Write(tcout.ResponseText);
             }
 
-            context.Response.End();
+            //complete the request
+            context.ApplicationInstance.CompleteRequest();
         }
 
         /// <summary>

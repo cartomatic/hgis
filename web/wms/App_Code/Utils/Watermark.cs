@@ -11,7 +11,7 @@ namespace HGIS
     public partial class WmsUtils
     {
         /// <summary>
-        /// paints a watermark over the incoming bitmap
+        /// paints a watermark over the incoming bitmap and writes it to the response
         /// </summary>
         /// <param name="b"></param>
         /// <returns></returns>
@@ -32,7 +32,7 @@ namespace HGIS
         }
 
         /// <summary>
-        /// paints a watermark over the incoming bitmap
+        /// paints a watermark over the incoming bitmap and writes it to the response
         /// </summary>
         /// <param name="b"></param>
         /// <param name="contentType"></param>

@@ -19,7 +19,7 @@ namespace HGIS
         /// <returns></returns>
         public async Task<bool> CheckIfTokenValid(HttpContext context)
         {
-            bool tokenValaid = false;
+            bool tokenValid = false;
 
             //TODO
             //redis based token checkup utility
@@ -27,10 +27,10 @@ namespace HGIS
             //for now just a basic dev test
             if (context.Request.Params["t"] == "xxx")
             {
-                tokenValaid = true;
+                tokenValid = true;
             }
 
-            return tokenValaid;
+            return tokenValid;
         }
     }
 }
