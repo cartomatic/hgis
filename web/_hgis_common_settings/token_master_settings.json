@@ -1,0 +1,8 @@
+{
+	Host: 'localhost',
+	Port: '10000',
+	SecondsTicketValid: 10,
+	Email: {
+		
+	}
+}

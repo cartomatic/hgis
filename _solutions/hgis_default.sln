@@ -21,23 +21,27 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "hgis_wms", "http://localhos
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "false"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
-		ProjectReferences = "{bf233752-d713-4251-947b-68ef0c7c2478}|Cartomatic.Wms.WmsDriver.dll;{C8B58B6E-B944-4881-BAC1-412785DB8286}|Cartomatic.Ogc.Schemas.dll;{718A23F3-4082-444B-9D26-D4225E67A790}|Cartomatic.Utils.dll;{134b753a-f1dd-43c1-abd9-35552253878d}|Cartomatic.MapUtils.TileCache.dll;{145DD93C-F0B0-4386-A647-4EEDCB243A73}|Cartomatic.MapUtils.Tiling.dll;{f0621cad-38b4-4b11-9911-2dff9e093c82}|Cartomatic.Manifold.WmsDriver.dll;"
+		ProjectReferences = "{bf233752-d713-4251-947b-68ef0c7c2478}|Cartomatic.Wms.WmsDriver.dll;{C8B58B6E-B944-4881-BAC1-412785DB8286}|Cartomatic.Ogc.Schemas.dll;{718A23F3-4082-444B-9D26-D4225E67A790}|Cartomatic.Utils.dll;{134b753a-f1dd-43c1-abd9-35552253878d}|Cartomatic.MapUtils.TileCache.dll;{145DD93C-F0B0-4386-A647-4EEDCB243A73}|Cartomatic.MapUtils.Tiling.dll;{f0621cad-38b4-4b11-9911-2dff9e093c82}|Cartomatic.Manifold.WmsDriver.dll;{88d776df-fb00-4492-ab4d-a050a7ca4d7e}|HGIS.TokenMaster.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/hgis_wms"
-		Debug.AspNetCompiler.PhysicalPath = "..\web\wms_front\"
+		Debug.AspNetCompiler.PhysicalPath = "..\web\wms\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\hgis_wms\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/hgis_wms"
-		Release.AspNetCompiler.PhysicalPath = "..\web\wms_front\"
+		Release.AspNetCompiler.PhysicalPath = "..\web\wms\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\hgis_wms\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "..\web\wms_front\"
+		SlnRelativePath = "..\web\wms\"
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hgis", "hgis", "{2E5DB7FA-928A-43F6-8B14-EE85C0056C0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HGIS.TokenMaster", "..\TokenMaster\HGIS.TokenMaster.csproj", "{88D776DF-FB00-4492-AB4D-A050A7CA4D7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +77,10 @@ Global
 		{6BA2C33C-47B9-4326-A626-7535986EBDB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BA2C33C-47B9-4326-A626-7535986EBDB9}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{6BA2C33C-47B9-4326-A626-7535986EBDB9}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{88D776DF-FB00-4492-AB4D-A050A7CA4D7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88D776DF-FB00-4492-AB4D-A050A7CA4D7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88D776DF-FB00-4492-AB4D-A050A7CA4D7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88D776DF-FB00-4492-AB4D-A050A7CA4D7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,5 +93,6 @@ Global
 		{C8B58B6E-B944-4881-BAC1-412785DB8286} = {B4332238-DC51-4839-A8F2-021F89D3581A}
 		{F0621CAD-38B4-4B11-9911-2DFF9E093C82} = {B4332238-DC51-4839-A8F2-021F89D3581A}
 		{6BA2C33C-47B9-4326-A626-7535986EBDB9} = {EE936F71-D07A-42E1-8FE6-6A71DDB24849}
+		{88D776DF-FB00-4492-AB4D-A050A7CA4D7E} = {2E5DB7FA-928A-43F6-8B14-EE85C0056C0E}
 	EndGlobalSection
 EndGlobal

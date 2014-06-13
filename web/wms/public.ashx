@@ -21,11 +21,17 @@ namespace HGIS
         /// WMS utils
         /// </summary>
         private static WmsUtils wms = new WmsUtils();
+        
+        /// <summary>
+        /// Token master
+        /// </summary>
+        private static TokenMaster tm = TokenMaster.FromFile(ConfigurationManager.AppSettings["token_master_settings"]);
 
+        
         public async void ProcessRequest(HttpContext context)
         {
             //check the auth token
-            bool tokenValid = await wms.CheckIfTokenValid(context);
+            bool tokenValid = await tm.CheckIfTokenValidAsync(context.Request.QueryString["t"]);
 
             if (tokenValid)
             {
