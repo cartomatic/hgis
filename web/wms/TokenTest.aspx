@@ -5,8 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>TokenMaster Test</title>
-    <link rel="stylesheet" href="http://dev.openlayers.org/releases/OpenLayers-2.12/theme/default/style.css" type="text/css" />
-    <script src="http://dev.openlayers.org/releases/OpenLayers-2.12/lib/OpenLayers.js"></script>
+    <link rel="stylesheet" href="http://localhost/jslibs/OpenLayers/2.12/theme/default/style.css" type="text/css" />
+    <script src="http://localhost/jslibs/OpenLayers/2.12/lib/OpenLayers.js"></script>
     <script type="text/javascript">
         var map;
         function init() {
@@ -30,19 +30,21 @@
 
             map.addLayer(
                 new OpenLayers.Layer.WMS(
-                    "kdr_100k",
+                    "wig500k",
                     [
-                        "http://wms1.hgis.cartomatic.pl/topo/?source=3857",
-                        "http://wms2.hgis.cartomatic.pl/topo/?source=3857",
-                        "http://wms3.hgis.cartomatic.pl/topo/?source=3857",
-                        "http://wms4.hgis.cartomatic.pl/topo/?source=3857",
-                        "http://wms5.hgis.cartomatic.pl/topo/?source=3857",
-                        "http://wms6.hgis.cartomatic.pl/topo/?source=3857",
-                        "http://wms7.hgis.cartomatic.pl/topo/?source=3857",
-                        "http://wms8.hgis.cartomatic.pl/topo/?source=3857",
+                        //"http://wms1.hgis.cartomatic.pl/topo/?source=3857",
+                        //"http://wms2.hgis.cartomatic.pl/topo/?source=3857",
+                        //"http://wms3.hgis.cartomatic.pl/topo/?source=3857",
+                        //"http://wms4.hgis.cartomatic.pl/topo/?source=3857",
+                        //"http://wms5.hgis.cartomatic.pl/topo/?source=3857",
+                        //"http://wms6.hgis.cartomatic.pl/topo/?source=3857",
+                        //"http://wms7.hgis.cartomatic.pl/topo/?source=3857",
+                        //"http://wms8.hgis.cartomatic.pl/topo/?source=3857",
+                        "http://localhost/hgis_wms/gdal.ashx"
+                        //"http://geoserver.hgis.cartomatic.pl/topo3857/wms"
                     ],
                     {
-                        layers: 'kdr_100k',
+                        layers: 'wig500k_google',
                         FORMAT: 'image/jpeg',
                         VERSION: '1.3.0',
                         t: token

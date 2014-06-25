@@ -4,31 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Web;
+
 namespace HGIS
 {
     public partial class TokenMaster
     {
         /// <summary>
-        /// saves the passed token to the db;
+        /// saves the passed token and its value in the db;
         /// Note: does not check if token exists, so will overwrite it if already in the db!
         /// </summary>
         /// <param name="token"></param>
-        public void CreateToken(string token)
+        public void CreateToken(string token, string tokenValue)
         {
             //just save the token
-            db.StringSet(token, "x", expiry: TimeSpan.FromSeconds(this.settings.GetSecondsTicketValid()));
+            db.StringSet(token, tokenValue, expiry: TimeSpan.FromSeconds(this.settings.GetSecondsTicketValid()));
         }
 
         /// <summary>
         /// Generates a new token and saves it to a redis db
         /// </summary>
         /// <returns></returns>
-        public string GimmeToken()
+        public string GimmeToken(HttpRequest request)
         {
             //generate new token
             string newToken = System.Guid.NewGuid().ToString();
+            string tokenValue = Cartomatic.Utils.Http.GetCallerFingerPrint(request);
 
-            CreateToken(newToken);
+            CreateToken(newToken, tokenValue);
 
             return newToken;
         }
@@ -39,17 +42,21 @@ namespace HGIS
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        public bool CheckIfTokenValid(string ticket)
+        public bool CheckIfTokenValid(HttpRequest request, string ticketParam)
         {
             bool ticketValid = false;
 
             try
             {
-                string dbticket = db.StringGet(ticket);
-
-                if (dbticket == "x")
+                var token = request.QueryString[ticketParam];
+                if (!string.IsNullOrEmpty(token))
                 {
-                    ticketValid = true;
+                    string dbticket = db.StringGet(token);
+
+                    if (dbticket == Cartomatic.Utils.Http.GetCallerFingerPrint(request))
+                    {
+                        ticketValid = true;
+                    }
                 }
             }
             catch (Exception ex)
@@ -65,18 +72,23 @@ namespace HGIS
         /// </summary>
         /// <param name="ticket"></param>
         /// <returns></returns>
-        public async Task<bool> CheckIfTokenValidAsync(string ticket)
+        public async Task<bool> CheckIfTokenValidAsync(HttpRequest request, string ticketParam)
         {
             bool ticketValid = false;
 
             try
             {
-                string dbticket = await db.StringGetAsync(ticket);
+                var token =  request.QueryString[ticketParam];
 
-                if (dbticket == "x")
+                if (!string.IsNullOrEmpty(token))
                 {
-                    ticketValid = true;
-                }
+                    string dbticket = await db.StringGetAsync(token);
+
+                    if (dbticket == Cartomatic.Utils.Http.GetCallerFingerPrint(request))
+                    {
+                        ticketValid = true;
+                    }
+                }               
             }
             catch (Exception ex)
             {

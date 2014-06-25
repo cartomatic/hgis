@@ -18,7 +18,7 @@ public partial class TokenTest : System.Web.UI.Page
             System.Web.UI.HtmlControls.HtmlGenericControl localhostScript = new System.Web.UI.HtmlControls.HtmlGenericControl("script");
             localhostScript.Attributes["type"] = "text/javascript";
             localhostScript.InnerHtml =
-                "var __token__ = '" + tm.GimmeToken() + "';";
+                "var __token__ = '" + tm.GimmeToken(Request) + "';";
             Page.Header.Controls.Add(localhostScript);
         }
     }
