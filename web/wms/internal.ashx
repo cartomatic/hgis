@@ -10,7 +10,8 @@ using System.IO;
 namespace HGIS
 {
     /// <summary>
-    /// HGIS.cartomatic.pl internal WMS service handler.
+    /// HGIS.cartomatic.pl internal WMS service handler. Uses manifold gis as the raster handling engine.
+    /// 
     /// Meant to be a lower performance endpoint serving the data for the public unauthenticated users;
     /// in general should not be visible to the public and should be asynchronously proxied in order to enable
     /// the public endpoint to act as a higher performance service for the authenticated users as well as the lower performance service for the public users at the same time

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace HGIS
 {
     /// <summary>
-    /// HGIS.cartomatic.pl public WMS service handler.
+    /// HGIS.cartomatic.pl public WMS service handler. Uses manifold gis as the raster handling engine
     /// </summary>
     public class Wms : IHttpHandler
     {
@@ -31,7 +31,7 @@ namespace HGIS
         public async void ProcessRequest(HttpContext context)
         {
             //check the auth token
-            bool tokenValid = await tm.CheckIfTokenValidAsync(context.Request.QueryString["t"]);
+            bool tokenValid = await tm.CheckIfTokenValidAsync(context.Request, "t");
 
             if (tokenValid)
             {
