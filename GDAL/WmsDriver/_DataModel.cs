@@ -45,7 +45,7 @@ namespace HGIS.GDAL
         /// <summary>
         /// Name of the root layer
         /// </summary>
-        protected static string RootLayerName = "wms.hgis.cartomatic.pl";
+        //protected static string RootLayerName = "wms.hgis.cartomatic.pl";
 
         /// <summary>
         /// Raster MinX in the cs units

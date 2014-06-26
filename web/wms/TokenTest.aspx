@@ -44,7 +44,7 @@
                         //"http://geoserver.hgis.cartomatic.pl/topo3857/wms"
                     ],
                     {
-                        layers: 'wig500k_google',
+                        layers: 'wms.hgis.cartomatic.pl', //'wig500k_google',
                         FORMAT: 'image/jpeg',
                         VERSION: '1.3.0',
                         t: token

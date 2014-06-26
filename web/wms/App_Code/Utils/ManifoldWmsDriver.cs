@@ -16,7 +16,7 @@ namespace HGIS
         /// <param name="context"></param>
         /// <exception cref=""></exception>
         /// <returns></returns>
-        public Cartomatic.Manifold.WmsDriver GetWmsdriver(HttpContext context)
+        public Cartomatic.Manifold.WmsDriver GetManifoldWmsdriver(HttpContext context)
         {
             //get the ma file location
             var source = context.Request.Params["source"];

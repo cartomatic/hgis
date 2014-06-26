@@ -76,9 +76,7 @@ namespace HGIS.GDAL
 
 
             //Note:
-            //manifold WMS driver does not support styles so far as there is no such concept within manifold
-            //Although themes linked with drawings could potentially be treated as styles they would also have to be added as layers and that
-            //kinda would makes styles useless again...
+            //gdal WMS driver does not support styles so far as there is no such concept within gdal
             string[] styles = GetParam("styles").Split(',');
 
             //Some clients will Request an emtpy style per each layer

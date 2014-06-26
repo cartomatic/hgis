@@ -40,7 +40,7 @@ namespace HGIS
                 //get the wms driver
                 //and make sure it was possible to create it (wms driver will not be created if source does not meet the 'allowed sources' criteria
                 //in such case just fail
-                var wmsdrv = wms.GetWmsdriver(context);
+                var wmsdrv = wms.GetManifoldWmsdriver(context);
                 if (wmsdrv == null)
                 {
                     wms.Fail(context);

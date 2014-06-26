@@ -22,8 +22,8 @@ namespace HGIS.GDAL
     /// 
     /// Note: comparing to jp2 ecw is lightning fast, though its licensing is pretty restrictive, so ecw should NOT be used as soon as this software is used commercially
     /// 
-    /// Note: this class is not meant to provide fully features wms operations stack, but rather aims at being quick in raster data extraction and processing.
-    /// so for example reprojections are not handled at all - use the data that do not requires cs adjustments!
+    /// Note: this class is not meant to provide fully featured wms operations stack, but rather aims at being quick in raster data extraction and processing.
+    /// so for example reprojections are not handled at all - use the data that does not require cs adjustments!
     /// </summary>
     public partial class WmsDriver : Cartomatic.Wms.WmsDriver.Base, IDisposable
     {
@@ -50,15 +50,6 @@ namespace HGIS.GDAL
 
             ApplyWmsSettings();
         }
-
-        /// <summary>
-        /// cleanup, cleanup, everybody cleanup...
-        /// </summary>
-        //~WmsDriver()
-        //{
-        //    GdalDataset.Dispose();
-        //    GdalDataset = null;
-        //}
 
         private void ApplyWmsSettings()
         {
