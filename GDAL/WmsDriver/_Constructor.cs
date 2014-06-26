@@ -25,7 +25,7 @@ namespace HGIS.GDAL
     /// Note: this class is not meant to provide fully features wms operations stack, but rather aims at being quick in raster data extraction and processing.
     /// so for example reprojections are not handled at all - use the data that do not requires cs adjustments!
     /// </summary>
-    public partial class WmsDriver : Cartomatic.Wms.WmsDriver.Base
+    public partial class WmsDriver : Cartomatic.Wms.WmsDriver.Base, IDisposable
     {
         /// <summary>
         /// creates a new driver instance
@@ -54,11 +54,11 @@ namespace HGIS.GDAL
         /// <summary>
         /// cleanup, cleanup, everybody cleanup...
         /// </summary>
-        ~WmsDriver()
-        {
-            GdalDataset.Dispose();
-            GdalDataset = null;
-        }
+        //~WmsDriver()
+        //{
+        //    GdalDataset.Dispose();
+        //    GdalDataset = null;
+        //}
 
         private void ApplyWmsSettings()
         {
@@ -78,5 +78,14 @@ namespace HGIS.GDAL
 
         }
 
+
+        /// <summary>
+        /// cleanup, cleanup, everybody cleanup
+        /// </summary>
+        public void Dispose()
+        {
+            GdalDataset.Dispose();
+            GdalDataset = null;
+        }
     }
 }

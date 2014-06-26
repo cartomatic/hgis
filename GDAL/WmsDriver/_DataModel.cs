@@ -39,34 +39,48 @@ namespace HGIS.GDAL
         /// <summary>
         /// Name of the file being served - also the name of the layer
         /// </summary>
-        private string DataSourceName { get; set; }
+        protected string DataSourceName { get; set; }
 
 
         /// <summary>
         /// Name of the root layer
         /// </summary>
-        private static string RootLayerName = "wms.hgis.cartomatic.pl";
+        protected static string RootLayerName = "wms.hgis.cartomatic.pl";
 
         /// <summary>
         /// Raster MinX in the cs units
         /// </summary>
-        private double MinX { get; set; }
+        protected double RasterMinX { get; set; }
 
         /// <summary>
         /// Raster MinY in the cs units
         /// </summary>
-        private double MinY { get; set; }
+        protected double RasterMinY { get; set; }
 
         /// <summary>
         /// Raster MaxX in the cs units
         /// </summary>
-        private double MaxX { get; set; }
+        protected double RasterMaxX { get; set; }
 
         /// <summary>
         /// Raster MaxY in the cs units
         /// </summary>
-        private double MaxY { get; set; }
+        protected double RasterMaxY { get; set; }
 
+        /// <summary>
+        /// Raster width in map units
+        /// </summary>
+        protected double RasterWidth { get; set; }
+
+        /// <summary>
+        /// raster height in map units
+        /// </summary>
+        protected double RasterHeight { get; set; }
+
+        /// <summary>
+        /// List of raster overviews resolutions
+        /// </summary>
+        protected List<double> RasterResolutions { get; set; }
 
         /// <summary>
         /// GDAL data set

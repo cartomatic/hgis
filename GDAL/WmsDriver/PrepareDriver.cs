@@ -43,11 +43,25 @@ namespace HGIS.GDAL
                 double maxx_pix = this.GdalDataset.RasterXSize;
                 double maxy_pix = 0;
 
-                this.MinX = adfGeoTransform[0] + adfGeoTransform[1] * minx_pix + adfGeoTransform[2] * miny_pix;
-                this.MinY = adfGeoTransform[3] + adfGeoTransform[4] * minx_pix + adfGeoTransform[5] * miny_pix;
+                this.RasterMinX = adfGeoTransform[0] + adfGeoTransform[1] * minx_pix + adfGeoTransform[2] * miny_pix;
+                this.RasterMinY = adfGeoTransform[3] + adfGeoTransform[4] * minx_pix + adfGeoTransform[5] * miny_pix;
 
-                this.MaxX = adfGeoTransform[0] + adfGeoTransform[1] * maxx_pix + adfGeoTransform[2] * maxy_pix;
-                this.MaxY = adfGeoTransform[3] + adfGeoTransform[4] * maxx_pix + adfGeoTransform[5] * maxy_pix;
+                this.RasterMaxX = adfGeoTransform[0] + adfGeoTransform[1] * maxx_pix + adfGeoTransform[2] * maxy_pix;
+                this.RasterMaxY = adfGeoTransform[3] + adfGeoTransform[4] * maxx_pix + adfGeoTransform[5] * maxy_pix;
+
+                this.RasterWidth = Math.Abs(this.RasterMaxX - this.RasterMinX);
+                this.RasterHeight = Math.Abs(this.RasterMaxY - this.RasterMinY);
+
+                //collect the roaster overview resolutions
+                //assume the horisontal and vertical resolutions are the same (which of course may not be true in all cases, but will be ok with this ode usage) 
+                Band band = GdalDataset.GetRasterBand(1);
+                RasterResolutions = new List<double>();
+                for (int i = 0; i < band.GetOverviewCount(); i++)
+                {
+                    var ov = band.GetOverview(i);
+
+                    RasterResolutions.Add(this.RasterWidth / ov.XSize);
+                }
 
                 //driver seems to be ok so far
                 this.DriverReady = true;
