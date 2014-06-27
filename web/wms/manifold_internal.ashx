@@ -21,7 +21,7 @@ namespace HGIS
         /// <summary>
         /// WMS utils
         /// </summary>
-        private static WmsUtils wms = new WmsUtils();
+        private static WmsUtils wms = new WmsUtils(manifold: true);
         
         public void ProcessRequest(HttpContext context)
         {

@@ -25,10 +25,11 @@ namespace HGIS
             Cartomatic.MapUtils.Tiling.TileScheme output = null;
 
             //tile scheme depends on the requested data - so far it depends on the EPSG
+            //epsg value is read off the wms service path url/type/epsg/source
             var epsg = GetEpsg(context);
             try
             {
-                output = TileSchemes.Find(ts => ts.Epsg == epsg);
+                output = TileSchemes.Find(ts => ts.Epsg == "EPSG:" + epsg);
             }
             catch { } //silently fail
 

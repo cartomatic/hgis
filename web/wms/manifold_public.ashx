@@ -20,7 +20,7 @@ namespace HGIS
         /// <summary>
         /// WMS utils
         /// </summary>
-        private static WmsUtils wms = new WmsUtils();
+        private static WmsUtils wms = new WmsUtils(manifold: true);
         
         /// <summary>
         /// Token master
@@ -31,7 +31,7 @@ namespace HGIS
         public async void ProcessRequest(HttpContext context)
         {
             //check the auth token
-            bool tokenValid = await tm.CheckIfTokenValidAsync(context.Request, "t");
+            bool tokenValid = await tm.CheckIfTokenValidAsync(context.Request);
 
             if (tokenValid)
             {

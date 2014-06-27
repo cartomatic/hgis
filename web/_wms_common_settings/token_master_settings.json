@@ -2,6 +2,7 @@
 	Host: 'localhost',
 	Port: '10000',
 	SecondsTicketValid: 3600,
+	TokenParam: null,
 	Email: {
 		
 	}

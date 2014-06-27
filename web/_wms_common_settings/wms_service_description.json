@@ -1,43 +1,110 @@
+/*
+	This object should be a dict<string,WmsServiceDescription>
+*/
 {
-	Title: 'wms.hgis.cartomatic.pl',
-	Abstract: 'Usługa przeglądania historycznych map Polski.',
-	Keywords: [
-		'Mapy topograficzne',
-		'Mapy historyczne',
-		'HGIS',
-		'GIS Historyczny',
-		'500k', '1:500 000',
-		'300k', '1:300 000',
-		'100k', '1:100 000',
-		'25k', '1:25 000',
-		'WIG',
-		'Wojskowy Instytut Geograficzny',
-		'Mapa Polski i Krajów Ościennych',
-		'Mapa operacyjna',
-		'Mapa taktyczna',
-		'Polska mapa taktyczna',
-		'Mapa szczegółowa',
-		'Karte des Deutschen Reiches',
-		'Karte des westlichen Rußlands',
-		'Übersichtskarte von Mitteleuropa',
-		'Grossblatt',
-		'Topografische Karten',
-		'Meßtischblätter'
-	],
-	ContactPerson: '',
-	ContactOrganization: 'cartomatic.pl',
-	ContactPosition: '',
-	AddressType: 'postal',
-	Address: 'Puławska 30/5',
-	City: 'Warsaw',
-	StateOrProvince: 'Mazowieckie',
-	PostCode: '02-512 Warszawa',
-	Country: 'Poland',
-	ContactVoiceTelephone: '',
-	ContactElectronicMailAddress: '',
-	AccessConstraints: 'none',
-	Fees: 'none',
-	LayerLimit: 1,
-	MaxHeight: 256,
-	MaxWidth: 256
+	main : {
+		Title: 'wms.hgis.cartomatic.pl',
+		Abstract: null,
+		Keywords: [
+			'Mapy topograficzne',
+			'Mapy historyczne',
+			'HGIS',
+			'GIS Historyczny'
+		],
+		ContactPerson: '',
+		ContactOrganization: 'cartomatic.pl',
+		ContactPosition: '',
+		AddressType: 'postal',
+		Address: 'Puławska 30/5',
+		City: 'Warsaw',
+		StateOrProvince: 'Mazowieckie',
+		PostCode: '02-512 Warszawa',
+		Country: 'Poland',
+		ContactVoiceTelephone: '',
+		ContactElectronicMailAddress: '',
+		AccessConstraints: 'none',
+		Fees: 'none',
+		LayerLimit: 1,
+		MaxHeight: 256,
+		MaxWidth: 256
+	},
+	
+	/*
+	 * per source modification of the abstract and keywords
+	 */
+	kdr: {
+		Abstract: 'Usługa przeglądania historycznych map Polski - Karte des Deutschen Reiches.',
+		Keywords: [
+			'100k', '1:100 000',
+			'Karte des Deutschen Reiches'
+		]
+	},
+	kdwr: {
+		Abstract: 'Usługa przeglądania historycznych map Polski - Karte des westlichen Rußlands.',
+		Keywords: [
+			'100k', '1:100 000',
+			'Karte des westlichen Rußlands'
+		]
+	},
+	kdr_gb: {
+		Abstract: 'Usługa przeglądania historycznych map Polski - Grossblatt: Karte des Deutschen Reiches, Karte des westlichen Rußlands.',
+		Keywords: [
+			'100k', '1:100 000',
+			'Karte des Deutschen Reiches',
+			'Karte des westlichen Rußlands',
+			'Grossblatt'
+		]
+	},
+	m25k: {
+		Abstract: 'Usługa przeglądania historycznych map Polski - Meßtischblätter.',
+		Keywords: [
+			'25k', '1:25 000',
+			'Topografische Karten',
+			'Meßtischblätter'
+		]
+	},
+	ukvme: {
+		Abstract: 'Usługa przeglądania historycznych map Polski - Übersichtskarte von Mitteleuropa.',
+		Keywords: [
+			'300k', '1:300 000',
+			'Übersichtskarte von Mitteleuropa'
+		]
+	},
+	wig25k: {
+		Abstract: 'Usługa przeglądania historycznych map Polski - WIG Mapa szczegółowa.',
+		Keywords: [
+			'25k', '1:25 000',
+			'WIG',
+			'Wojskowy Instytut Geograficzny',
+			'Mapa szczegółowa',
+		]
+	},
+	wig100k: {
+		Abstract: 'Usługa przeglądania historycznych map Polski - WIG Polska mapa taktyczna.',
+		Keywords: [
+			'100k', '1:100 000',
+			'WIG',
+			'Wojskowy Instytut Geograficzny',
+			'Mapa taktyczna',
+			'Polska mapa taktyczna'
+		]
+	},
+	wig300k: {
+		Abstract: 'Usługa przeglądania historycznych map Polski - WIG Mapa operacyjna.',
+		Keywords: [
+			'300k', '1:300 000',
+			'WIG',
+			'Wojskowy Instytut Geograficzny',
+			'Mapa operacyjna'
+		]
+	},
+	wig500k: {
+		Abstract: 'Usługa przeglądania historycznych map Polski - WIG Mapa Polski i Krajów Ościennych.',
+		Keywords: [
+			'500k', '1:500 000',
+			'WIG',
+			'Wojskowy Instytut Geograficzny',
+			'Mapa Polski i Krajów Ościennych'
+		]
+	}
 }

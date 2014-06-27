@@ -11,7 +11,7 @@ namespace HGIS
     public partial class WmsUtils
     {
         /// <summary>
-        /// Setings object - used for easy deserialisation of common (shared) wms settings
+        /// Settings object - used for easy deserialisation of common (shared) wms settings
         /// </summary>
         private class WmsSettings
         {
@@ -23,7 +23,7 @@ namespace HGIS
             public string PublicAccessUrl { get; set; }
 
             /// <summary>
-            /// url of the backend service
+            /// url of the backend service - backend service will usually be used to handle the lower importance public users
             /// </summary>
             public string BackendServiceUrl { get; set; }
 
@@ -33,9 +33,21 @@ namespace HGIS
             public string WmsDataFolder { get; set; }
 
             /// <summary>
-            /// Name of the map component used to render the data
+            /// Name of the manifold map component used to render the data
             /// </summary>
             public string MapComponent { get; set; }
+
+            /// <summary>
+            /// string pattern used to work out the actual file name used as the data source
+            /// the usual replacable parts would be epsg, mapname and such. see the appropriate file name composition code for details
+            /// applies to both manifold and gdal drivers
+            /// </summary>
+            public string FileNamePattern { get; set; }
+
+            /// <summary>
+            /// Location of the used gdal sdk
+            /// </summary>
+            public string GdalSdk { get; set; }
 
             /// <summary>
             /// Watermark file path
@@ -43,21 +55,29 @@ namespace HGIS
             public string Watermark { get; set; }
         }
 
-        /// <summary>
-        /// Wms ServiceDescription
-        /// </summary>
-        private WmsSettings Settings { get; set; }
-
 
         /// <summary>
         /// Whether or not the WMS service has already been prepared
         /// </summary>
         private bool ServicePrepared { get; set; }
+        
+        
+        /// <summary>
+        /// Wms service settings
+        /// </summary>
+        private WmsSettings Settings { get; set; }
 
         /// <summary>
-        /// WMS service description
+        /// WMS service descriptions in a form of a dictionary so multiple service descriptions may be read at once.
+        /// different wms drivers may use this object differently
         /// </summary>
-        private Cartomatic.Wms.WmsDriver.WmsServiceDescription ServiceDescription { get; set; }
+        private Dictionary<string, Cartomatic.Wms.WmsDriver.WmsServiceDescription> BaseServiceDescriptions { get; set; }
+
+        /// <summary>
+        /// WMS service descriptions used during the runtime - each data source has a couple of possible service urls differentiated by the
+        /// output coordinate system - therefore each such endpoint needs a customised PublicAccessUrl
+        /// </summary>
+        private Dictionary<string, Cartomatic.Wms.WmsDriver.WmsServiceDescription> RuntimeServiceDescriptions { get; set; }
 
         /// <summary>
         /// Tile cache ServiceDescription
@@ -76,11 +96,10 @@ namespace HGIS
         private System.IO.MemoryStream Watermark { get; set; }
 
         /// <summary>
-        /// Allowed data sources; basically a list of map file names (epsg codes) that provide the data
-        /// So far assuming 2180, will be accessed the most often
+        /// Allowed coordinate systems - if user requests something else will likely be 404-oed
+        /// So far assuming 2180, will be accessed the most often. well this may not be true ;) 
         /// </summary>
-        private static string[] AllowedSources = new string[] { "2180", "3857", "4326" };
-
+        private static string[] AllowedCs = new string[] { "2180", "3857", "4326" };
 
     }
 }

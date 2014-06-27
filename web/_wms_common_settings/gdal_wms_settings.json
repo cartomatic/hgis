@@ -1,0 +1,35 @@
+{
+	/*
+	 * the url of the public facing service; it is needed to generate a valid Capabilities document when calling the backend service
+	 * also, the public service should not specify the handler as its path is rewritten on the way (the app should specify the default handler).
+	 * this must be a BASE url such as http://wms.hgis.cartomatic.pl/
+	 */
+	PublicAccessUrl: 'http://localhost/hgis_wms/',
+	
+	/*
+	 * the url of the backend service
+	 */
+	BackendServiceUrl: 'http://localhost/hgis_wms_internal/gdal_internal.ashx/',
+	
+	/*
+	 * data folder for the manifold wms driver
+	 */
+	WmsDataFolder: 'F:\\hgisdata\\rasters',
+	
+	/*
+	 * Name of the map component used to render the data - applies to manifold
+	 */
+	MapComponent: 'wms.hgis.cartomatic.pl',
+	
+	/*
+	 * string pattern used to work out the actual file name used as the data source - applies to both manifold and gdal drivers
+	 */
+	FileNamePattern: '{source}.ecw',
+	
+	GdalSdk: 'D:\\GDAL\\1.11\\x64',
+	
+	/*
+	 * path to the bitmap to be used as a watermark; must be a file that can be opened by the Bitmap object
+	 */
+	Watermark: '../../resx/watermark/watermark.png'
+}

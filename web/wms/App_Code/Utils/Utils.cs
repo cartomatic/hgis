@@ -31,22 +31,43 @@ namespace HGIS
         }
 
         /// <summary>
-        /// extracts the epsg off the request
+        /// Gets the epsg of the served content, for example 2180, 3857, etc.
+        /// used for working out the path of the datasource file
+        /// rewritten into 'epsg' param from url/type/epsg/source
+        /// 
+        /// Note: extracts the epsg off the path - since the wms endpoint does not do the reprojections, it will fail if the epsg specified through the crs param is different
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
         private string GetEpsg(HttpContext context)
         {
-            //start with the >= 1.3 CRS param
-            var epsg = context.Request.Params["CRS"];
-            if (string.IsNullOrEmpty(epsg))
-            {
-                //do a < 1.3 fallback
-                epsg = context.Request.Params["SRS"];
-            }
-
-            return epsg;
+            return context.Request.Params["epsg"];
         }
+
+        /// <summary>
+        /// Gets the source of the served content, for example wig100k, kdr, etc.
+        /// used for working out the path of the datasource file
+        /// rewritten into 'source' param from url/type/epsg/source
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        private string GetSource(HttpContext context)
+        {
+            return context.Request.Params["source"]; ;
+        }
+
+        /// <summary>
+        /// Gets the type of the served content, for example topo, city, etc.
+        /// used for working out the path of the datasource file
+        /// rewritten into 'type' param from url/type/epsg/source
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        private string GetType(HttpContext context)
+        {
+            return context.Request.Params["type"]; ;
+        }
+
 
         /// <summary>
         /// Returns the configured backend service base url
@@ -65,7 +86,95 @@ namespace HGIS
         /// <returns></returns>
         public string GetCompleteBackendServiceUrl(HttpContext context)
         {
+            //Note: backend service does not use rewrite, so params rewritten from the public service path can be just glued in
             return Settings.BackendServiceUrl + "?" + string.Join("&", context.Request.QueryString);
+        }
+
+        /// <summary>
+        /// Gets the wms service description appropriate for the current request
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        private Cartomatic.Wms.WmsDriver.WmsServiceDescription GetWmsServiceDescription(HttpContext context)
+        {
+            //get the path elements
+            var epsg = GetEpsg(context);
+            var source = GetSource(context);
+            var type = GetType(context);
+
+            return GetWmsServiceDescription(type, epsg, source);
+        }
+
+        /// <summary>
+        /// Gets the wms service description appropriate for the requested type, epsg, source 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="epsg"></param>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        private Cartomatic.Wms.WmsDriver.WmsServiceDescription GetWmsServiceDescription(string type, string epsg, string source)
+        {
+            var key = type + "_" + epsg + "_" + source;
+
+            Cartomatic.Wms.WmsDriver.WmsServiceDescription sd = null;
+            if (!RuntimeServiceDescriptions.ContainsKey(key))
+            {
+                //extracty service descriptions
+                var sd_main = BaseServiceDescriptions["main"];
+                var sd_source = BaseServiceDescriptions[source];
+
+                //combine them
+                sd = sd_main.Clone();
+                sd.Merge(sd_source);
+
+                //adjust the base service url so it is paramless and valid for both - public facing and internal services
+                sd.PublicAccessURL = GetPublicServiceUrl(type, epsg, source);
+
+                //and save for further referencce
+                RuntimeServiceDescriptions[key] = sd;
+            }
+            else
+            {
+                sd = RuntimeServiceDescriptions[key];
+            }
+
+            return sd;
+        }
+
+        /// <summary>
+        /// Gets a public service address
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public string GetPublicServiceUrl(HttpContext context)
+        {
+            //get the path elements
+            var epsg = GetEpsg(context);
+            var source = GetSource(context);
+            var type = GetType(context);
+
+            return GetPublicServiceUrl(type, epsg, source);
+        }
+
+        /// <summary>
+        /// Gets a public service address
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="epsg"></param>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public string GetPublicServiceUrl(string type, string epsg, string source)
+        {
+            //Note:
+            //in order to unify the wms access paths between different potential endpoints (manifold, gdal, etc)
+            //the request to the public facing wms is always in a form of
+            //base_url/type/epsg/source, for example base_url/topo/2180/wig100k
+            //and gets rewritten to
+            //base_url/?type=type&epsg=epsg&source=source, for example base_url/?type=topo&epsg=2180&source=wig100k
+            //
+            //This is so some clients (hello geoportal 2... ;) that seem to not like the params in the GetCapabilities can consume the service properly
+
+            return Settings.PublicAccessUrl + type + "/" + epsg + "/" + source;
         }
 
     }
