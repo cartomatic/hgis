@@ -18,12 +18,14 @@ namespace HGIS.GDAL
 {
     /// <summary>
     /// WMS driver based on GDAL api.
-    /// This class is meant to provide a WMS interface for GDAL raster formats, and specifically for jp2 and ecw 
+    /// This class is meant to provide a WMS interface for GDAL raster formats - specifically for jp2 and ecw 
     /// 
-    /// Note: comparing to jp2 ecw is lightning fast, though its licensing is pretty restrictive, so ecw should NOT be used as soon as this software is used commercially
+    /// Note:
+    /// comparing to jp2 ecw is lightning fast, though its licensing is pretty restrictive, so ecw should NOT be used as soon as this software is used commercially
     /// 
-    /// Note: this class is not meant to provide fully featured wms operations stack, but rather aims at being quick in raster data extraction and processing.
-    /// so for example reprojections are not handled at all - use the data that does not require cs adjustments!
+    /// Note:
+    /// this class is not meant to provide fully featured wms operations stack, but rather aims at being quick in raster data extraction and processing.
+    /// for example reprojections are not handled at all - use the data that does not require cs adjustments!
     /// </summary>
     public partial class WmsDriver : Cartomatic.Wms.WmsDriver.Base, IDisposable
     {
@@ -32,12 +34,14 @@ namespace HGIS.GDAL
         /// </summary>
         /// <param name="gdalPath">path to the gdal stuff</param>
         /// <param name="dataSource">data source file path</param>
+        /// <param name="layerName">Optional layer name to be used in the LAYERS param of the GetMap request instead of the file name</param>
         /// <param name="srid">srid of the data source</param>
         /// <param name="serviceDescription">service description object</param>
         public WmsDriver(
             string gdalPath,
             string dataSource,
-            int srid,
+            string layerName,
+            string srid,
             Cartomatic.Wms.WmsDriver.WmsServiceDescription serviceDescription
         )
         {
@@ -45,8 +49,13 @@ namespace HGIS.GDAL
             this.ServiceDescription = serviceDescription;
 
             GdalPath = gdalPath;
-            this.SRID = srid;
+
+            //well if this throws errors, then the param is not valid ayway ;) kinda forcing to check this prior to instantiating this object
+            //the base wms driver tests the epsg in order to properly understand the bbox and it expets int hence parsing
+            this.SRID = Int32.Parse(srid); 
+            
             this.DataSource = dataSource;
+            this.DataSourceName = layerName;
 
             ApplyWmsSettings();
         }
@@ -75,7 +84,10 @@ namespace HGIS.GDAL
         /// </summary>
         public void Dispose()
         {
-            GdalDataset.Dispose();
+            if (GdalDataset != null)
+            {
+                GdalDataset.Dispose();
+            }
             GdalDataset = null;
         }
     }

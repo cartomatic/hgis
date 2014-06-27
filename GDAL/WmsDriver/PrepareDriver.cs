@@ -27,8 +27,12 @@ namespace HGIS.GDAL
                 //make sure gdal is properly set up
                 ConfigureGdal();
 
-                //extract the data source name
-                this.DataSourceName = System.IO.Path.GetFileNameWithoutExtension(this.DataSource);
+                //extract the data source name if not already set
+                //the driver constructor has a 'layerName' param that can be used to explicitly specify how a layer should be named
+                if (string.IsNullOrEmpty(this.DataSourceName))
+                {
+                    this.DataSourceName = System.IO.Path.GetFileNameWithoutExtension(this.DataSource);
+                }
 
                 //open gdal dataset
                 this.GdalDataset = Gdal.Open(DataSource, Access.GA_ReadOnly);
