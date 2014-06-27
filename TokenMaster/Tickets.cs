@@ -40,15 +40,14 @@ namespace HGIS
         /// <summary>
         /// Checks whether the token is valid
         /// </summary>
-        /// <param name="token"></param>
         /// <returns></returns>
-        public bool CheckIfTokenValid(HttpRequest request, string ticketParam)
+        public bool CheckIfTokenValid(HttpRequest request)
         {
             bool ticketValid = false;
 
             try
             {
-                var token = request.QueryString[ticketParam];
+                var token = request.QueryString[this.settings.GetTokenParam()];
                 if (!string.IsNullOrEmpty(token))
                 {
                     string dbticket = db.StringGet(token);
@@ -70,15 +69,14 @@ namespace HGIS
         /// <summary>
         /// Asynchronously checks whether the token is valid
         /// </summary>
-        /// <param name="ticket"></param>
         /// <returns></returns>
-        public async Task<bool> CheckIfTokenValidAsync(HttpRequest request, string ticketParam)
+        public async Task<bool> CheckIfTokenValidAsync(HttpRequest request)
         {
             bool ticketValid = false;
 
             try
             {
-                var token =  request.QueryString[ticketParam];
+                var token = request.QueryString[this.settings.GetTokenParam()];
 
                 if (!string.IsNullOrEmpty(token))
                 {
@@ -96,6 +94,16 @@ namespace HGIS
             }
 
             return ticketValid;
+        }
+
+
+        /// <summary>
+        /// gets the configured token param
+        /// </summary>
+        /// <returns></returns>
+        public string GetTokenParam()
+        {
+            return this.settings.GetTokenParam();
         }
 
     }

@@ -53,6 +53,10 @@ namespace HGIS
                 return handp;
             }
 
+            /// <summary>
+            /// Gets the seconds ticket will be valid
+            /// </summary>
+            /// <returns></returns>
             public int GetSecondsTicketValid()
             {
                 if (!this.SecondsTicketValid.HasValue)
@@ -62,6 +66,10 @@ namespace HGIS
                 return (int)this.SecondsTicketValid;
             }
 
+            /// <summary>
+            /// Gets the log folder
+            /// </summary>
+            /// <returns></returns>
             public string GetLogFolder()
             {
                 if (string.IsNullOrEmpty(this.LogFolder))
@@ -69,6 +77,20 @@ namespace HGIS
                     this.LogFolder = defaultLogFolder;
                 }
                 return this.LogFolder;
+            }
+
+
+            /// <summary>
+            /// Gets the token param used to extract the token off the request url
+            /// </summary>
+            /// <returns></returns>
+            public string GetTokenParam()
+            {
+                if (string.IsNullOrEmpty(this.TokenParam))
+                {
+                    this.TokenParam = defaultTokenParam;
+                }
+                return this.TokenParam;
             }
 
             /// <summary>
@@ -80,6 +102,11 @@ namespace HGIS
             /// the default folder used for logging
             /// </summary>
             private static string defaultLogFolder = "token_master";
+
+            /// <summary>
+            /// Default name of the param used to extract the token off the request url
+            /// </summary>
+            private static string defaultTokenParam = "t";
 
             /// <summary>
             /// Db host
@@ -100,6 +127,11 @@ namespace HGIS
             /// Log folder used by the exeption logger to dump the log file; defaults to ticket_master if not set
             /// </summary>
             public string LogFolder { get; set; }
+
+            /// <summary>
+            /// Name of the param that will be used to extract the token off the request url
+            /// </summary>
+            public string TokenParam { get; set; }
 
             /// <summary>
             /// Email account to report the problems to
