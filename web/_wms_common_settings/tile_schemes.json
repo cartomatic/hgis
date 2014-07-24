@@ -16,5 +16,20 @@
 			MaxY: 819200
 		},
 		MaxRes: 1600
+	},
+	{
+		Name: 'gmaps',
+		Epsg: 'EPSG:3857',
+		NumZoomLevels: 18,
+		TileSize: 256,
+		TilesetBaseWidth: 1,
+		TilesetBaseHeight: 1,
+		TilesetBounds: {
+			MinX: -20037508.34,
+			MinY: -20037508.34,
+			MaxX: 20037508.34,
+			MaxY: 20037508.34
+		},
+		MaxRes: 156543.0339
 	}
 ]
