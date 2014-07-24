@@ -119,13 +119,13 @@ namespace HGIS
             Cartomatic.Wms.WmsDriver.WmsServiceDescription sd = null;
             if (!RuntimeServiceDescriptions.ContainsKey(key))
             {
-                //extracty service descriptions
+                //extract service descriptions
                 var sd_main = BaseServiceDescriptions["main"];
                 var sd_source = BaseServiceDescriptions[source];
 
                 //combine them
                 sd = sd_main.Clone();
-                sd.Merge(sd_source);
+                sd.Merge(sd_source, new string[] { "Abstract" }); //merge the abstracts so it actually is made of the main and source abstract strings!
 
                 //adjust the base service url so it is paramless and valid for both - public facing and internal services
                 sd.PublicAccessURL = GetPublicServiceUrl(type, epsg, source);

@@ -2,9 +2,12 @@
 	This object should be a dict<string,WmsServiceDescription>
 */
 {
+	/*
+	 * main is the main shared wms description and MUST be called main
+	 */
 	main : {
 		Title: 'wms.hgis.cartomatic.pl',
-		Abstract: null,
+		Abstract: 'Usługa przeglądania historycznych map Polski i krajów ościennych - ',
 		Keywords: [
 			'Mapy topograficzne',
 			'Mapy historyczne',
@@ -30,24 +33,24 @@
 	},
 	
 	/*
-	 * per source modification of the abstract and keywords
+	 * per source modification of the abstract and keywords; key is the actual spurce / layer name
 	 */
 	kdr: {
-		Abstract: 'Usługa przeglądania historycznych map Polski - Karte des Deutschen Reiches.',
+		Abstract: 'Karte des Deutschen Reiches.',
 		Keywords: [
 			'100k', '1:100 000',
 			'Karte des Deutschen Reiches'
 		]
 	},
 	kdwr: {
-		Abstract: 'Usługa przeglądania historycznych map Polski - Karte des westlichen Rußlands.',
+		Abstract: 'Karte des westlichen Rußlands.',
 		Keywords: [
 			'100k', '1:100 000',
 			'Karte des westlichen Rußlands'
 		]
 	},
 	kdr_gb: {
-		Abstract: 'Usługa przeglądania historycznych map Polski - Grossblatt: Karte des Deutschen Reiches, Karte des westlichen Rußlands.',
+		Abstract: 'Grossblatt: Karte des Deutschen Reiches, Karte des westlichen Rußlands.',
 		Keywords: [
 			'100k', '1:100 000',
 			'Karte des Deutschen Reiches',
@@ -56,7 +59,7 @@
 		]
 	},
 	m25k: {
-		Abstract: 'Usługa przeglądania historycznych map Polski - Meßtischblätter.',
+		Abstract: 'Meßtischblätter.',
 		Keywords: [
 			'25k', '1:25 000',
 			'Topografische Karten',
@@ -64,14 +67,14 @@
 		]
 	},
 	ukvme: {
-		Abstract: 'Usługa przeglądania historycznych map Polski - Übersichtskarte von Mitteleuropa.',
+		Abstract: 'Übersichtskarte von Mitteleuropa.',
 		Keywords: [
 			'300k', '1:300 000',
 			'Übersichtskarte von Mitteleuropa'
 		]
 	},
 	wig25k: {
-		Abstract: 'Usługa przeglądania historycznych map Polski - WIG Mapa szczegółowa.',
+		Abstract: 'WIG Mapa szczegółowa.',
 		Keywords: [
 			'25k', '1:25 000',
 			'WIG',
@@ -80,7 +83,7 @@
 		]
 	},
 	wig100k: {
-		Abstract: 'Usługa przeglądania historycznych map Polski - WIG Polska mapa taktyczna.',
+		Abstract: 'WIG Polska mapa taktyczna.',
 		Keywords: [
 			'100k', '1:100 000',
 			'WIG',
@@ -90,7 +93,7 @@
 		]
 	},
 	wig300k: {
-		Abstract: 'Usługa przeglądania historycznych map Polski - WIG Mapa operacyjna.',
+		Abstract: 'WIG Mapa operacyjna.',
 		Keywords: [
 			'300k', '1:300 000',
 			'WIG',
@@ -99,7 +102,7 @@
 		]
 	},
 	wig500k: {
-		Abstract: 'Usługa przeglądania historycznych map Polski - WIG Mapa Polski i Krajów Ościennych.',
+		Abstract: 'WIG Mapa Polski i Krajów Ościennych.',
 		Keywords: [
 			'500k', '1:500 000',
 			'WIG',

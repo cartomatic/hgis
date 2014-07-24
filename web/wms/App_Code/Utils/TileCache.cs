@@ -26,6 +26,10 @@ namespace HGIS
 
             //tile scheme depends on the requested data - so far it depends on the EPSG
             //epsg value is read off the wms service path url/type/epsg/source
+            //
+            //Note:
+            //In the future it may sensible to allow specifying appropriate tile chache scheme
+            //through a param
             var epsg = GetEpsg(context);
             try
             {

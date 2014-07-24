@@ -50,11 +50,11 @@ echo creating links for kdwr
 mklink /H %target%2180\kdwr.%ext% %source%kdwr\mosaick\kdwr_2180_transparent.%ext%
 mklink /H %target%3857\kdwr.%ext% %source%kdwr\mosaick\kdwr_3857_transparent.%ext%
 mklink /H %target%4326\kdwr.%ext% %source%kdwr\mosaick\kdwr_4326_transparent.%ext%
-rem kdr_gbl
-echo creating links for kdr_gbl
-mklink /H %target%2180\kdr_gbl.%ext% %source%kdr_gbl\mosaick\kdr_gbl_2180_transparent.%ext%
-mklink /H %target%3857\kdr_gbl.%ext% %source%kdr_gbl\mosaick\kdr_gbl_3857_transparent.%ext%
-mklink /H %target%4326\kdr_gbl.%ext% %source%kdr_gbl\mosaick\kdr_gbl_4326_transparent.%ext%
+rem kdr_gb
+echo creating links for kdr_gb
+mklink /H %target%2180\kdr_gb.%ext% %source%kdr_gb\mosaick\kdr_gb_2180_transparent.%ext%
+mklink /H %target%3857\kdr_gb.%ext% %source%kdr_gb\mosaick\kdr_gb_3857_transparent.%ext%
+mklink /H %target%4326\kdr_gb.%ext% %source%kdr_gb\mosaick\kdr_gb_4326_transparent.%ext%
 rem kdr
 echo creating links for kdr
 mklink /H %target%2180\kdr.%ext% %source%kdr\mosaick\kdr_2180_transparent.%ext%
