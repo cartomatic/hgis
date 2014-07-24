@@ -63,9 +63,28 @@ namespace HGIS
         {
             byte[] output = null;
 
-            //first paint the watermark
-            using (var g = Graphics.FromImage(b))
+            //cannot create graphics for indexed colors, so need to do some cheeting
+            Bitmap tempb = null;
+            if (contentType == "image/gif")
             {
+                //must change to toher format
+                tempb = new Bitmap(b.Width, b.Height);
+            }
+
+            //first paint the watermark
+            using (var g = Graphics.FromImage(tempb ?? b))
+            {
+                //if a temp bitmap has been used paint the actual one on it
+                if (tempb != null)
+                {
+                    g.DrawImage(
+                        b,
+                        new Rectangle(0, 0, b.Width, b.Height), //source
+                        new Rectangle(0, 0, b.Width, b.Height), //destination
+                        GraphicsUnit.Pixel
+                    );
+                }
+
                 var w = new Bitmap(Watermark);
                 g.DrawImage(
                     w,
@@ -79,8 +98,18 @@ namespace HGIS
             //when ready convert the image to byte arr
             using (var ms = new MemoryStream())
             {
-                b.Save(ms, Cartomatic.Wms.WmsDriver.Base.GetEncoderInfo(contentType), null);
-                output = ms.ToArray();
+                if (tempb != null)
+                {
+                    tempb.Save(ms, Cartomatic.Wms.WmsDriver.Base.GetEncoderInfo(contentType), null);
+                    output = ms.ToArray();
+                    tempb.Dispose();
+                }
+                else
+                {
+                    b.Save(ms, Cartomatic.Wms.WmsDriver.Base.GetEncoderInfo(contentType), null);
+                    output = ms.ToArray();
+                    b.Dispose();
+                }
             }
 
             return output;
