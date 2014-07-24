@@ -20,13 +20,18 @@ namespace HGIS
         /// <summary>
         /// WMS utils
         /// </summary>
-        private static WmsUtils wms = new WmsUtils(gdal: true);
+        private static WmsUtils wms = new WmsUtils(WmsUtils.WmsDriverType.Gdal);
 
         /// <summary>
         /// Token master
         /// </summary>
         private static TokenMaster tm = TokenMaster.FromFile(ConfigurationManager.AppSettings["token_master_settings"]);
 
+        
+        /// <summary>
+        /// Processes the request
+        /// </summary>
+        /// <param name="context"></param>
         public async void ProcessRequest(HttpContext context)
         {
             //check the auth token
@@ -37,7 +42,8 @@ namespace HGIS
                 //Token valid so talking directly to the tilecache
 
                 //get the wms driver
-                HGIS.GDAL.WmsDriver wmsdrv = wms.GetGdalWmsdriver(context);
+                //cast it as the base driver does not implement IDisposable, while gdal drv does.
+                var wmsdrv = wms.GetWmsDriver(context) as HGIS.GDAL.WmsDriver;
 
                 if (wmsdrv == null)
                 {

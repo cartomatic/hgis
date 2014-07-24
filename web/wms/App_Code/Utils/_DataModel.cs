@@ -55,6 +55,32 @@ namespace HGIS
             public string Watermark { get; set; }
         }
 
+        /// <summary>
+        /// Types of the drivers that can be used with the utils
+        /// </summary>
+        public enum WmsDriverType
+        {
+            /// <summary>
+            /// Undefined
+            /// </summary>
+            Undefined,
+            
+            /// <summary>
+            /// Manifold WMS Driver
+            /// </summary>
+            Manifold,
+
+            /// <summary>
+            /// Gdal WMS Driver
+            /// </summary>
+            Gdal
+        }
+
+        /// <summary>
+        /// Type of the driver to be used configured for the utils
+        /// </summary>
+        private WmsDriverType DriverType { get; set; }
+
 
         /// <summary>
         /// Whether or not the WMS service has already been prepared
@@ -96,8 +122,8 @@ namespace HGIS
         private System.IO.MemoryStream Watermark { get; set; }
 
         /// <summary>
-        /// Allowed coordinate systems - if user requests something else will likely be 404-oed
-        /// So far assuming 2180, will be accessed the most often. well this may not be true ;) 
+        /// Allowed coordinate systems - if user requests something else he will be 404-oed
+        /// At the time being this setting is not configurable
         /// </summary>
         private static string[] AllowedCs = new string[] { "2180", "3857", "4326" };
 

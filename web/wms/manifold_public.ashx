@@ -20,7 +20,7 @@ namespace HGIS
         /// <summary>
         /// WMS utils
         /// </summary>
-        private static WmsUtils wms = new WmsUtils(manifold: true);
+        private static WmsUtils wms = new WmsUtils(WmsUtils.WmsDriverType.Manifold);
         
         /// <summary>
         /// Token master
@@ -40,7 +40,7 @@ namespace HGIS
                 //get the wms driver
                 //and make sure it was possible to create it (wms driver will not be created if source does not meet the 'allowed sources' criteria
                 //in such case just fail
-                var wmsdrv = wms.GetManifoldWmsdriver(context);
+                var wmsdrv = wms.GetWmsDriver(context);
                 if (wmsdrv == null)
                 {
                     wms.Fail(context);

@@ -17,13 +17,12 @@ namespace HGIS
         /// <summary>
         /// Creates a new instance of the utils 
         /// </summary>
-        /// <param name="gdal">Whether the utils should prepare gdal driver related settings</param>
-        /// <param name="manifold">Whether the utils should prepare manifold related settings</param>
-        public WmsUtils(bool gdal = false, bool manifold = false)
+        /// <param name="d">Type of the WMS driver to be used</param>
+        public WmsUtils(WmsDriverType d = WmsDriverType.Undefined)
         {
-            if ((!gdal && !manifold) || (gdal && manifold)) throw new Exception("WMS Driver type must be properly specified mate!");
-
-            PrepareService(gdal, manifold);
+            if (d == WmsDriverType.Undefined) throw new Exception("WMS Driver type must be properly specified mate!");
+            this.DriverType = d;
+            PrepareService();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace HGIS
         /// <summary>
         /// Prepares the service
         /// </summary>
-        private void PrepareService(bool gdal, bool manifold)
+        private void PrepareService()
         {
             //make sure the work is to be done
             if (ServicePrepared) return;
@@ -29,13 +29,13 @@ namespace HGIS
 
             //WMS driver related settings
             string settings_webconfig_key = "";
-            if (manifold)
+            if (DriverType == WmsDriverType.Manifold)
             {
                 settings_webconfig_key = "manifold_wms_settings";
             }
 
             //GDAL WMS driver related stuff goes here!
-            if (gdal)
+            if (DriverType == WmsDriverType.Gdal)
             {
                 settings_webconfig_key = "gdal_wms_settings";
             }

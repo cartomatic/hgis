@@ -21,12 +21,13 @@ namespace HGIS
         /// <summary>
         /// WMS utils
         /// </summary>
-        private static WmsUtils wms = new WmsUtils(gdal: true);
+        private static WmsUtils wms = new WmsUtils(WmsUtils.WmsDriverType.Gdal);
         
         public void ProcessRequest(HttpContext context)
         {
             //get the wms driver
-            HGIS.GDAL.WmsDriver wmsdrv = wms.GetGdalWmsdriver(context);
+            //cast it as the base driver does not implement IDisposable, while gdal drv does.
+            var wmsdrv = wms.GetWmsDriver(context) as HGIS.GDAL.WmsDriver;
 
             if (wmsdrv == null)
             {
