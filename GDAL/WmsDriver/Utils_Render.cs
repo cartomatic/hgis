@@ -34,8 +34,9 @@ namespace HGIS.GDAL
 
 
             //prepare the output bitmap
-            var outB = new Bitmap(width, height, PixelFormat.Format32bppRgb);
-            outB.MakeTransparent();
+            var outB = new Bitmap(width, height, PixelFormat.Format32bppArgb);
+            //Make sure to make the bitmap transparent initially! -> Format32bppArgb
+
 
             //do not render the map if the bbox is outside of the map's bbox
             //if any of the below tests yield true, bbox does not intersect with the raster bounds
@@ -96,14 +97,52 @@ namespace HGIS.GDAL
                 var gdalB = new Bitmap(
                     gdal_pix_width,
                     gdal_pix_heigh,
-                    PixelFormat.Format32bppRgb
+                    PixelFormat.Format32bppArgb
                 );
+                //Make sure to make the bitmap transparent initially! -> Format32bppArgb
+
+
+                ////example of extracting data for each channel and painting it pixel by pixel 
+                ////this is not the most efficient - see below
+                ////-----------
+                //var sw = System.Diagnostics.Stopwatch.StartNew();
+                //Band redBand = GdalDataset.GetRasterBand(1).GetOverview(overviewIdx);
+                //Band greenBand = GdalDataset.GetRasterBand(2).GetOverview(overviewIdx);
+                //Band blueBand = GdalDataset.GetRasterBand(3).GetOverview(overviewIdx);
+                //Band alphaBand = GdalDataset.GetRasterBand(4).GetOverview(overviewIdx);
+
+                //int[] R = new int[gdalB.Width * gdalB.Height];
+                //int[] G = new int[gdalB.Width * gdalB.Height];
+                //int[] B = new int[gdalB.Width * gdalB.Height];
+                //int[] A = new int[gdalB.Width * gdalB.Height];
+
+                //redBand.ReadRaster(gdal_pix_left, gdal_pix_top, gdalB.Width, gdalB.Height, R, gdalB.Width, gdalB.Height, 4, 0);
+                //greenBand.ReadRaster(gdal_pix_left, gdal_pix_top, gdalB.Width, gdalB.Height, G, gdalB.Width, gdalB.Height, 4, 0);
+                //blueBand.ReadRaster(gdal_pix_left, gdal_pix_top, gdalB.Width, gdalB.Height, B, gdalB.Width, gdalB.Height, 4, 0);
+                //alphaBand.ReadRaster(gdal_pix_left, gdal_pix_top, gdalB.Width, gdalB.Height, A, gdalB.Width, gdalB.Height, 4, 0);
+
+                //for (int i = 0; i < gdalB.Width; i++)
+                //{
+                //    for (int j = 0; j < gdalB.Height; j++)
+                //    {
+                //        Color newColor = Color.FromArgb(
+                //            A[i + j * gdalB.Width],
+                //            R[i + j * gdalB.Width],
+                //            G[i + j * gdalB.Width],
+                //            B[i + j * gdalB.Width]
+                //        );
+                //        gdalB.SetPixel(i, j, newColor);
+                //    }
+                //}
+                //sw.Stop();
+                ////---------------
+
 
                 //lock the actual part of the bitmap that should be painted!!!!
                 BitmapData bitmapData = gdalB.LockBits(
                     new Rectangle(0, 0, gdalB.Width, gdalB.Height),
                     ImageLockMode.ReadWrite,
-                    PixelFormat.Format32bppRgb
+                    PixelFormat.Format32bppArgb //Make sure to make the bitmap transparent initially! -> Format32bppArgb; otherwise bitmap will not be transparent even though apha channel is extracted!
                 );
 
                 try
@@ -116,9 +155,10 @@ namespace HGIS.GDAL
 
                     //TODO
                     //properly handle grayscale / palletted images
-                    
-                    
-                    
+
+
+                    ////example of readin raster off the dataset
+                    ////---------
                     //int[] bandmap = null;
                     //if (GdalDataset.RasterCount == 4)
                     //{
@@ -151,14 +191,13 @@ namespace HGIS.GDAL
                     //    stride,
                     //    1
                     //);
+                    ///---------
 
 
-
+                    //get the bands for an overview
                     Band redBand = GdalDataset.GetRasterBand(1).GetOverview(overviewIdx);
                     Band greenBand = GdalDataset.GetRasterBand(2).GetOverview(overviewIdx);
                     Band blueBand = GdalDataset.GetRasterBand(3).GetOverview(overviewIdx);
-
-
 
                     //read blue
                     blueBand.ReadRaster(
