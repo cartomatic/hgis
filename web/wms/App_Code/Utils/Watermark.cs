@@ -67,7 +67,7 @@ namespace HGIS
             Bitmap tempb = null;
             if (contentType == "image/gif")
             {
-                //must change to toher format
+                //must change to other format
                 tempb = new Bitmap(b.Width, b.Height);
             }
 
@@ -85,14 +85,23 @@ namespace HGIS
                     );
                 }
 
-                var w = new Bitmap(Watermark);
-                g.DrawImage(
-                    w,
-                    new Rectangle(0, 0, w.Width, w.Height), //source
-                    new Rectangle(0, 0, b.Width, b.Height), //destination
-                    GraphicsUnit.Pixel
-                );
-                w.Dispose();
+                //in some cases this throws an exception
+                //just log it so it can be reviewd later
+                try
+                {
+                    var w = new Bitmap(Watermark);
+                    g.DrawImage(
+                        w,
+                        new Rectangle(0, 0, w.Width, w.Height), //source
+                        new Rectangle(0, 0, b.Width, b.Height), //destination
+                        GraphicsUnit.Pixel
+                    );
+                    w.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    Cartomatic.Utils.Exceptions.ExceptionLogger.logException(ex, "wms_watermark");
+                }
             }
 
             //when ready convert the image to byte arr
