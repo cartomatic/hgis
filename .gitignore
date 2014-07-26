@@ -9,6 +9,9 @@ _solutions/packages/
 #ignore resx/watermark
 resx/watermark/
 
+#ignore js builds
+web/www_map/apps/_build/
+
 #aptana
 *.project
 
@@ -123,3 +126,4 @@ Thumbs.db
 
 # Folder config file
 Desktop.ini
+
