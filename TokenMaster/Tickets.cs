@@ -17,6 +17,9 @@ namespace HGIS
         /// <param name="token"></param>
         public void CreateToken(string token, string tokenValue)
         {
+            //make sure the db object is available
+            if (db == null) return;
+
             //just save the token
             db.StringSet(token, tokenValue, expiry: TimeSpan.FromSeconds(this.settings.GetSecondsTicketValid()));
         }
@@ -44,6 +47,9 @@ namespace HGIS
         public bool CheckIfTokenValid(HttpRequest request)
         {
             bool ticketValid = false;
+
+            //make sure the db object is available
+            if (db == null) return false;
 
             try
             {
@@ -73,6 +79,9 @@ namespace HGIS
         public async Task<bool> CheckIfTokenValidAsync(HttpRequest request)
         {
             bool ticketValid = false;
+
+            //make sure the db object is available
+            if (db == null) return false;
 
             try
             {
