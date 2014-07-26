@@ -1,0 +1,15 @@
+.ol-mouse-position{
+	background:#95b9e6;
+	background:rgba(0,60,136,.3);
+	border-radius:4px;
+	width: 125px;
+	height: 23px;
+	top:8px;
+	right:8px;
+	padding:2px;
+	position:absolute;
+	color:#eee;
+	font-size:13px;
+	text-align:center;
+	margin:1px;
+}

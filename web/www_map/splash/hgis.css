@@ -1,0 +1,46 @@
+﻿HTML, BODY { height: 100%; }
+#splash-screen-container
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100000;
+}
+#splash-screen-mask
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    background-color: #ccc;
+   
+    -moz-opacity: 0.5;
+    opacity: .50;
+    filter: alpha(opacity=50);
+}
+
+#load-info-container
+{   
+    position: absolute;
+    width: 76px;
+    height: 76px;
+    top: 50%;
+    left: 50%;
+    margin-top: -38px;
+    margin-left: -38px;
+    background: url('logo.png') no-repeat center center; 
+}
+
+#loader-image
+{
+	position: absolute;
+	background: url('loader.gif') no-repeat center center; 
+	width: 35px;
+	height: 35px;
+	left: 20px;
+	top: 20px;
+}

@@ -7,7 +7,7 @@
 	/*
 	 * whether or not the generated pngs should be size optimised prior to saving the cache
 	 */
-	OptimisePng: true,
+	OptimisePng: false,
 	
 	/*
 	 * output formats the cache is built for
