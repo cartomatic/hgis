@@ -25,11 +25,11 @@
 		TilesetBaseWidth: 1,
 		TilesetBaseHeight: 1,
 		TilesetBounds: {
-			MinX: -20037508.34,
-			MinY: -20037508.34,
-			MaxX: 20037508.34,
-			MaxY: 20037508.34
+			MinX: -20037508.342789244,
+			MinY: -20037508.342789244,
+			MaxX: 20037508.342789244,
+			MaxY: 20037508.342789244
 		},
-		MaxRes: 156543.0339
+		MaxRes: 156543.03392804097
 	}
 ]
