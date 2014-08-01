@@ -23,7 +23,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "hgis_wms", "http://localhos
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "false"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
-		ProjectReferences = "{bf233752-d713-4251-947b-68ef0c7c2478}|Cartomatic.Wms.WmsDriver.dll;{C8B58B6E-B944-4881-BAC1-412785DB8286}|Cartomatic.Ogc.Schemas.dll;{718A23F3-4082-444B-9D26-D4225E67A790}|Cartomatic.Utils.dll;{134b753a-f1dd-43c1-abd9-35552253878d}|Cartomatic.MapUtils.TileCache.dll;{145DD93C-F0B0-4386-A647-4EEDCB243A73}|Cartomatic.MapUtils.Tiling.dll;{f0621cad-38b4-4b11-9911-2dff9e093c82}|Cartomatic.Manifold.WmsDriver.dll;{88d776df-fb00-4492-ab4d-a050a7ca4d7e}|HGIS.TokenMaster.dll;{29bef49a-f4d7-44a2-ae7d-de90619fb491}|HGIS.Gdal.WmsDriver.dll;"
+		ProjectReferences = "{bf233752-d713-4251-947b-68ef0c7c2478}|Cartomatic.Wms.WmsDriver.dll;{C8B58B6E-B944-4881-BAC1-412785DB8286}|Cartomatic.Ogc.Schemas.dll;{718A23F3-4082-444B-9D26-D4225E67A790}|Cartomatic.Utils.dll;{134b753a-f1dd-43c1-abd9-35552253878d}|Cartomatic.MapUtils.TileCache.dll;{145DD93C-F0B0-4386-A647-4EEDCB243A73}|Cartomatic.MapUtils.Tiling.dll;{f0621cad-38b4-4b11-9911-2dff9e093c82}|Cartomatic.Manifold.WmsDriver.dll;{88d776df-fb00-4492-ab4d-a050a7ca4d7e}|HGIS.TokenMaster.dll;{29bef49a-f4d7-44a2-ae7d-de90619fb491}|HGIS.Gdal.WmsDriver.dll;{cf5be157-7eb6-4db8-b575-2f8d9e17625f}|HGIS.StatsMaster.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/hgis_wms"
 		Debug.AspNetCompiler.PhysicalPath = "..\web\wms\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\hgis_wms\"
@@ -67,6 +67,30 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "hgis_map", "http://localhos
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		SlnRelativePath = "..\web\www_map\"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HGIS.StatsMaster", "..\StatsMaster\HGIS.StatsMaster.csproj", "{CF5BE157-7EB6-4DB8-B575-2F8D9E17625F}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "hgis_stats", "http://localhost/hgis_stats", "{CE943370-B0E7-4745-9563-EA6D1103969D}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "false"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		ProjectReferences = "{cf5be157-7eb6-4db8-b575-2f8d9e17625f}|HGIS.StatsMaster.dll;{134B753A-F1DD-43C1-ABD9-35552253878D}|Cartomatic.MapUtils.TileCache.dll;{145DD93C-F0B0-4386-A647-4EEDCB243A73}|Cartomatic.MapUtils.Tiling.dll;{718A23F3-4082-444B-9D26-D4225E67A790}|Cartomatic.Utils.dll;{BF233752-D713-4251-947B-68EF0C7C2478}|Cartomatic.Wms.WmsDriver.dll;{C8B58B6E-B944-4881-BAC1-412785DB8286}|Cartomatic.Ogc.Schemas.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/hgis_stats"
+		Debug.AspNetCompiler.PhysicalPath = "..\web\wms_stats\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\hgis_stats\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/hgis_stats"
+		Release.AspNetCompiler.PhysicalPath = "..\web\wms_stats\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\hgis_stats\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "..\web\wms_stats\"
 	EndProjectSection
 EndProject
 Global
@@ -115,6 +139,14 @@ Global
 		{068C43BC-192E-44AE-A3B2-983165D5F3EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{068C43BC-192E-44AE-A3B2-983165D5F3EB}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{068C43BC-192E-44AE-A3B2-983165D5F3EB}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{CF5BE157-7EB6-4DB8-B575-2F8D9E17625F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF5BE157-7EB6-4DB8-B575-2F8D9E17625F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF5BE157-7EB6-4DB8-B575-2F8D9E17625F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF5BE157-7EB6-4DB8-B575-2F8D9E17625F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE943370-B0E7-4745-9563-EA6D1103969D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE943370-B0E7-4745-9563-EA6D1103969D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE943370-B0E7-4745-9563-EA6D1103969D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE943370-B0E7-4745-9563-EA6D1103969D}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,5 +162,7 @@ Global
 		{88D776DF-FB00-4492-AB4D-A050A7CA4D7E} = {2E5DB7FA-928A-43F6-8B14-EE85C0056C0E}
 		{29BEF49A-F4D7-44A2-AE7D-DE90619FB491} = {2E5DB7FA-928A-43F6-8B14-EE85C0056C0E}
 		{068C43BC-192E-44AE-A3B2-983165D5F3EB} = {EE936F71-D07A-42E1-8FE6-6A71DDB24849}
+		{CF5BE157-7EB6-4DB8-B575-2F8D9E17625F} = {2E5DB7FA-928A-43F6-8B14-EE85C0056C0E}
+		{CE943370-B0E7-4745-9563-EA6D1103969D} = {EE936F71-D07A-42E1-8FE6-6A71DDB24849}
 	EndGlobalSection
 EndGlobal

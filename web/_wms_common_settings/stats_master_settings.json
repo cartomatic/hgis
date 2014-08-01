@@ -1,0 +1,12 @@
+{
+	Host: 'localhost',
+	Port: '10005',
+	CityDbPath: '../../data/MaxMind/GeoLite2-City-11072014.mmdb',
+	LogYearlyStats: true,
+	LogMonthlyStats: true,
+	LogWeeklyStats: true,
+	LogDailyStats: true,
+	Email: {
+		
+	}
+}

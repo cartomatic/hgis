@@ -1,0 +1,87 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>hgis.cartomatic.pl</title>
+    <link rel="stylesheet" href="qgis.css" type="text/css">
+	<link rel="stylesheet" href="ol3/css/ol.css" type="text/css">
+    <script src="ol3/build/ol.js"></script>
+    <script type="text/javascript">
+        var map;
+        var loadEnd;
+        function init() {
+            
+			//spherial mercator
+			var prj = ol.proj.get('EPSG:3857');
+			var prjext = prj.getExtent();
+			var size = ol.extent.getWidth(prjext) / 256;
+			var resolutions = [];
+			for (var z = 0; z < 18; ++z) {
+				// generate resolutions array for this cached WMS
+				resolutions.push(size / Math.pow(2, z));
+			}
+
+			var layer = new ol.layer.Tile({
+				extent: prjext,
+				source: new ol.source.TileWMS({
+					url: 'http://wms.hgis.cartomatic.pl/topo/3857/wig300k',
+					params: {
+						'LAYERS': 'wig300k',
+						'FORMAT': 'image/jpeg'
+					},
+					projection: prj,
+					tileGrid: new ol.tilegrid.TileGrid({
+						origin: ol.extent.getTopLeft(prjext),
+						resolutions: resolutions
+					}),
+					attributions: [
+						new ol.Attribution({
+							html: 'hgis.cartomatic.pl'
+						})
+					]
+				}),
+				visible: true //initially make all the layers invisible
+			});
+
+			//start the map with the osm base layer
+			map = new ol.Map({
+				layers: [layer],
+				target: 'map',
+				controls: ol.control.defaults({
+					attributionOptions: {
+						collapsible: false
+					}
+				}).extend([
+					new ol.control.ScaleLine(),
+					new ol.control.MousePosition({
+						projection: ol.proj.get('EPSG:4326'),
+						coordinateFormat: function (coords) {
+							var output = '';
+							if (coords) {
+								output = coords[0].toFixed(5) + ' : ' + coords[1].toFixed(5);
+							}
+							return output;
+						}
+					})
+				]),
+				view: new ol.View({
+					center: [0, 0],
+					zoom: 2
+				})
+			});
+
+			 layer.on('precompose', function (event) {
+				loadEnd = false;
+			});
+
+			layer.on('postcompose', function (event) {
+				loadEnd = true;
+			});
+
+		
+			
+        }
+    </script>
+  </head>
+  <body onload="init()">
+    <div id="map"></div>
+  </body>
+</html>
