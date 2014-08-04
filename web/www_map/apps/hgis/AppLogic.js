@@ -22,8 +22,14 @@ Ext.define('hgis.AppLogic', {
 
 	    this.createMap();
 		
-	    this.createLayerManager('wig25k');
+	    this.createLayerManager();
+
+	    this.activateLayer('wig25k');
+
+	    this.initPermalink();
+
 	},
+
 
 
 	/**
@@ -88,7 +94,7 @@ Ext.define('hgis.AppLogic', {
     /**
      * creates a simple layer manager
      */
-	createLayerManager: function(activeLayer){
+	createLayerManager: function(){
 
 	    //create a container for the legend entries
 	    var legend = Ext.create('Ext.form.Panel', {
@@ -141,7 +147,7 @@ Ext.define('hgis.AppLogic', {
 	    }
 
 	    //radio group
-	    var rg = Ext.create('Ext.form.RadioGroup', {
+	    this.rg = Ext.create('Ext.form.RadioGroup', {
 	        columns: 1,
 	        vertical: false,
 	        items: legendEntries
@@ -149,19 +155,24 @@ Ext.define('hgis.AppLogic', {
 
 
         //wire up some evt listeners
-	    rg.on('change', this.onLayerChange, this);
+	    this.rg.on('change', this.onLayerChange, this);
 
 
         //add the legend to the layout
-	    legend.add(rg);
+	    legend.add(this.rg);
 
 	    this.westPanel.add(legend);
 
-	    //finally activate a needed layer if any
-	    if (activeLayer) {
-	        var radios = rg.items.items;
+	},
+
+    /**
+     * Activates a layer by name if it finds it
+     */
+	activateLayer: function(l){
+	    if (l) {
+	        var radios = this.rg.items.items;
 	        for (var r = 0; r < radios.length; r++) {
-	            if (radios[r].lname == activeLayer) {
+	            if (radios[r].lname == l) {
 	                radios[r].setValue(true);
 	                break;
 	            }
@@ -169,13 +180,109 @@ Ext.define('hgis.AppLogic', {
 	    }
 	},
 
+	getActiveLayerName: function(){
+	    var n = '';
+	    if (this.activeLayer) {
+	        n = this.activeLayer.getProperties().ldef.lname;
+	    }
+	    return n;
+	},
 
+    /**
+     * inits map changes watcher to generate permalink on change
+     */
+    plinkActive: false,
+	initPermalink: function () {
+
+        //apply permalink if any
+	    this.applyPermalink();
+	    this.map.on('moveend', this.doPermalink, this);
+	    this.plinkActive = true;
+	},
+
+    /**
+     * creates a permalink
+     */
+	getPermalink: function(){
+	    //permalink is created off the zoom, center and layer info as well as the both sliders (swipe and opacity) settings
+	    var c = this.map.getView().getCenter();
+	    var z = this.map.getView().getZoom();   
+
+	    return [c[0], c[1], z, this.getActiveLayerName(), this.swipe.getValue(), this.opacity.getValue()].join(',');
+	},
+
+    /**
+     * modifies the url of the client to include permalink
+     */
+	doPermalink: function () {
+	    if (this.plinkActive) {
+	        var plink = this.getPermalink();
+	        window.location.hash = plink;
+	        if (parent) {
+	            parent.postMessage(plink, '*');
+	        }
+	    }
+	},
+
+    /**
+     * reads the info supplied in the permalink
+     */
+	applyPermalink: function(){
+	    //first get the content of permalink off the url
+
+	    //grab the current hash
+	    var hash = window.location.hash.replace('#', '');;
+
+	    //and split it into parts
+	    var pldata = hash.split(',');
+
+	    //position
+	    if (pldata.length > 1) {
+	        var lon = parseFloat(pldata[0]);
+	        var lat = parseFloat(pldata[1]);
+	        if (!isNaN(lon) && !isNaN(lat)) {
+	            this.map.getView().setCenter([lon, lat]);
+	        }
+	    }
+
+        //zoom
+	    if (pldata.length > 2) {
+	        var z = parseFloat(pldata[2])
+	        if(!isNaN(z)){
+	            this.map.getView().setZoom(z);
+	        }
+	    }
+
+        //active layer
+	    if (pldata.length > 3) {
+	        this.activateLayer(pldata[3])
+	    }
+
+        //swipe
+	    if (pldata.length > 4) {
+	        var s = parseFloat(pldata[4]);
+	        if (!isNaN(s)) {
+	            this.swipe.setValue(s)
+	        }
+	    }
+
+        //opacity
+	    if (pldata.length > 5) {
+	        var o = parseFloat(pldata[5]);
+	        if (!isNaN(o)) {
+	            this.opacity.setValue(o)
+	        }
+	    }
+	},
+
+  
     /**
      * opacity slider change callback
      */
 	onOpacityChange: function(){
 	    if (this.activeLayer) {
 	        this.activeLayer.setOpacity(this.opacity.getValue() / 100);
+	        this.doPermalink();
 	    }
 	},
 
@@ -199,6 +306,8 @@ Ext.define('hgis.AppLogic', {
 	        this.activeLayer.setVisible(true);
 	        this.activeLayer.setOpacity(this.opacity.getValue() / 100);
 	    }
+
+	    this.doPermalink();
 
 	},
 
@@ -345,6 +454,7 @@ Ext.define('hgis.AppLogic', {
             'change',
             function () {
                 this.map.render();
+                this.doPermalink();
             },
             this
         );
