@@ -1,0 +1,38 @@
+<html>
+<head><title></title></head>
+<body>
+
+<iframe src="http://hgis.maphive.co" id = 'hgisiframe' style="width:800px; height:400px;"></iframe>
+
+<script>
+
+
+	var hgisiframe = document.getElementById('hgisiframe');
+	
+	//check out the hash and reset the iframe url
+	var hash = window.location.hash.replace('#','');
+	if(hash!=''){
+		hgisiframe.src = 'http://hgis.maphive.co' + window.location.hash;
+	}
+	
+	var onMessage = function(e){
+		//assume the message is sent only from the hgis iframe
+		window.location.hash = e.data;
+	}
+	
+	if(window.addEventListener){
+		window.addEventListener(
+			'message',
+			onMessage,
+			false
+		);
+	}
+	else {
+		//this is ie <= 9
+		window.attachEvent('onmessage', onMessage);
+	}
+	
+</script>
+
+</body>
+</html>
