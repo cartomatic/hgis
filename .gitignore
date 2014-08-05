@@ -10,7 +10,7 @@ _solutions/packages/
 resx/watermark/
 
 #ignore js builds
-web/www_map/apps/_build/
+web/www_apps/apps/_build/
 
 #aptana
 *.project

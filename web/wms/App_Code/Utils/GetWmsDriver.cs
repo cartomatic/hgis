@@ -6,8 +6,6 @@ using System.Configuration;
 using System.Drawing;
 using System.IO;
 
-using System.Configuration;
-
 namespace HGIS
 {
     public partial class WmsUtils

@@ -47,28 +47,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HGIS.TokenMaster", "..\Toke
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HGIS.GDAL.WmsDriver", "..\Gdal\WmsDriver\HGIS.GDAL.WmsDriver.csproj", "{29BEF49A-F4D7-44A2-AE7D-DE90619FB491}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "hgis_map", "http://localhost/hgis_map", "{068C43BC-192E-44AE-A3B2-983165D5F3EB}"
-	ProjectSection(WebsiteProperties) = preProject
-		UseIISExpress = "false"
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{718a23f3-4082-444b-9d26-d4225e67a790}|Cartomatic.Utils.dll;{88d776df-fb00-4492-ab4d-a050a7ca4d7e}|HGIS.TokenMaster.dll;"
-		Debug.AspNetCompiler.VirtualPath = "/hgis_map"
-		Debug.AspNetCompiler.PhysicalPath = "..\web\www_map\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\hgis_map\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/hgis_map"
-		Release.AspNetCompiler.PhysicalPath = "..\web\www_map\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\hgis_map\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "..\web\www_map\"
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HGIS.StatsMaster", "..\StatsMaster\HGIS.StatsMaster.csproj", "{CF5BE157-7EB6-4DB8-B575-2F8D9E17625F}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "hgis_stats", "http://localhost/hgis_stats", "{CE943370-B0E7-4745-9563-EA6D1103969D}"
@@ -135,10 +113,6 @@ Global
 		{29BEF49A-F4D7-44A2-AE7D-DE90619FB491}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29BEF49A-F4D7-44A2-AE7D-DE90619FB491}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29BEF49A-F4D7-44A2-AE7D-DE90619FB491}.Release|Any CPU.Build.0 = Release|Any CPU
-		{068C43BC-192E-44AE-A3B2-983165D5F3EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{068C43BC-192E-44AE-A3B2-983165D5F3EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{068C43BC-192E-44AE-A3B2-983165D5F3EB}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{068C43BC-192E-44AE-A3B2-983165D5F3EB}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{CF5BE157-7EB6-4DB8-B575-2F8D9E17625F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CF5BE157-7EB6-4DB8-B575-2F8D9E17625F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF5BE157-7EB6-4DB8-B575-2F8D9E17625F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -161,7 +135,6 @@ Global
 		{6BA2C33C-47B9-4326-A626-7535986EBDB9} = {EE936F71-D07A-42E1-8FE6-6A71DDB24849}
 		{88D776DF-FB00-4492-AB4D-A050A7CA4D7E} = {2E5DB7FA-928A-43F6-8B14-EE85C0056C0E}
 		{29BEF49A-F4D7-44A2-AE7D-DE90619FB491} = {2E5DB7FA-928A-43F6-8B14-EE85C0056C0E}
-		{068C43BC-192E-44AE-A3B2-983165D5F3EB} = {EE936F71-D07A-42E1-8FE6-6A71DDB24849}
 		{CF5BE157-7EB6-4DB8-B575-2F8D9E17625F} = {2E5DB7FA-928A-43F6-8B14-EE85C0056C0E}
 		{CE943370-B0E7-4745-9563-EA6D1103969D} = {EE936F71-D07A-42E1-8FE6-6A71DDB24849}
 	EndGlobalSection
