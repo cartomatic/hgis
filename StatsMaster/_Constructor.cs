@@ -138,6 +138,9 @@ namespace HGIS
         /// </summary>
         private void InitIpGeoDb()
         {
+            //init the cache
+            this.geoIpCache = new Dictionary<string, MaxMind.GeoIP2.Responses.CityResponse>();
+
             //get the path to the geoip db
             string dbpath = Cartomatic.Utils.Path.SolvePath(this.settings.CityDbPath);
 
@@ -145,7 +148,6 @@ namespace HGIS
             try
             {
                 this.geoIpReader = new MaxMind.GeoIP2.DatabaseReader(dbpath, MaxMind.Db.FileAccessMode.MemoryMapped);
-                this.geoIpCache = new Dictionary<string, MaxMind.GeoIP2.Responses.CityResponse>();
             }
             catch (Exception ex)
             {
