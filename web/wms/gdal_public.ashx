@@ -27,6 +27,10 @@ namespace HGIS
         /// </summary>
         private static TokenMaster tm = TokenMaster.FromFile(ConfigurationManager.AppSettings["token_master_settings"]);
 
+        /// <summary>
+        /// Stats master
+        /// </summary>
+        private static StatsMaster sm = StatsMaster.FromFile(ConfigurationManager.AppSettings["stats_master_settings"]);
         
         /// <summary>
         /// Processes the request
@@ -67,10 +71,22 @@ namespace HGIS
                 if (tcout.HasFile)
                 {
                     context.Response.WriteFile(tcout.FilePath, false);
+
+                    //log the stats - skip the non image responses though
+                    if (tcout.ResponseContentType.IndexOf("image", StringComparison.InvariantCultureIgnoreCase) > -1)
+                    {
+                        sm.SaveStats(context.Request, tcout.FilePath);
+                    }
                 }
                 else if (tcout.HasData)
                 {
                     context.Response.BinaryWrite(tcout.ResponseBinary);
+
+                    //log the stats - skip the non image responses though
+                    if (tcout.ResponseContentType.IndexOf("image", StringComparison.InvariantCultureIgnoreCase) > -1)
+                    {
+                        sm.SaveStats(context.Request, tcout.ResponseBinary.Length);
+                    }
                 }
                 else //otherwise write returned text
                 {
@@ -99,9 +115,18 @@ namespace HGIS
                 //get the content type
                 context.Response.ContentType = response.ContentType;
 
-                //read/write the response 
-                context.Response.BinaryWrite(Cartomatic.Utils.Stream.ReadStream(response.GetResponseStream()));
+                //read the data
+                var data = Cartomatic.Utils.Stream.ReadStream(response.GetResponseStream());
 
+                //write the response 
+                context.Response.BinaryWrite(data);
+
+                //log the stats - skip the non image responses though
+                if (response.ContentType.IndexOf("image", StringComparison.InvariantCultureIgnoreCase) > -1)
+                {
+                    sm.SaveStats(context.Request, data.Length);
+                }
+                
                 //close the response
                 response.Close();
             }
