@@ -74,6 +74,7 @@
     <Compile Include="ExceptionLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveStats.cs" />
+    <Compile Include="GetStats.cs" />
     <Compile Include="_DataModel_Stats.cs" />
     <Compile Include="_DataModel.cs" />
     <Compile Include="_Constructor.cs" />

@@ -12,13 +12,31 @@ public partial class _Default : System.Web.UI.Page
     //where to link the jslibs from
     string jslibs = ConfigurationManager.AppSettings["jslibs"];
 
+    HGIS.TokenMaster tm = HGIS.TokenMaster.FromFile(ConfigurationManager.AppSettings["token_master_settings"]);
+
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        InitHgis();
+        //get the app 
+        var app = Request.QueryString["app"];
+        if (string.IsNullOrEmpty(app)) app = "map";
+
+        switch (app)
+        {
+            case "map":
+                InitHgis();
+                break;
+
+            case "stats":
+                InitStats();
+                break;
+
+            default:
+                Fail();
+                break;
+        }
     }
 
-    
     /// <summary>
     /// Inits GeoReg3 app
     /// </summary>
@@ -26,7 +44,7 @@ public partial class _Default : System.Web.UI.Page
     {
 
         //Inject the scripts
-        IncludeLocalhost();
+        IncludeJsLibsLocation();
 
         //Favicon
         IncludeFavicon();
@@ -48,11 +66,54 @@ public partial class _Default : System.Web.UI.Page
         //custom css
         IncludeCustomCss();
 
+        //finally inject the app scripts
+        IncludeAppScripts("hgis");
+    }
 
+    private void InitStats()
+    {
+        //Inject the scripts
+        IncludeJsLibsLocation();
+
+        //Favicon
+        IncludeFavicon();
+
+        //Splashscreen
+        IncludeSplashScreen();
+
+
+        //OpenLayers
+        IncludeOpenLayers();
+
+        //ExtJs
+        IncludeExtJs();
+
+        //token
+        IncludeToken();
+
+        //custom css
+        IncludeCustomCss();
+
+
+        //TODO
+        //Include stats cfg - daily, monthly, etc
+
+
+        //finally inject the app scripts
+        IncludeAppScripts("stats");
+    }
+
+
+    /// <summary>
+    /// Injects scripts for the specified app
+    /// </summary>
+    /// <param name="app"></param>
+    private void IncludeAppScripts(string app)
+    {
         //Always include the LoaderSettings script before the actual app script is included
         //This makes it possible to set all the references and dynamic variables properly even for compiled scripts
         //that are likely to have a bit different loading order than when using a dynamic loader
-        var loader_path = "apps/hgis/LoaderSettings.js";
+        var loader_path = "apps/" + app + "/LoaderSettings.js";
         if (System.IO.File.Exists(Server.MapPath(loader_path)))
         {
             //include the app script
@@ -65,7 +126,7 @@ public partial class _Default : System.Web.UI.Page
 
         //check if a compiled js should be used - it is always used whenever the built js script is present
         bool use_compiled_js = false;
-        if (System.IO.File.Exists(Server.MapPath("apps/_build/hgis-all.js")))
+        if (System.IO.File.Exists(Server.MapPath("apps/_build/" + app + "-all.js")))
         {
             use_compiled_js = true;
         }
@@ -78,7 +139,7 @@ public partial class _Default : System.Web.UI.Page
             use_compiled_js = !devjs;
         }
 
-        string script_path = "apps/hgis/app.js";
+        string script_path = "apps/" + app + "/app.js";
 
         if (use_compiled_js)
         {
@@ -86,11 +147,11 @@ public partial class _Default : System.Web.UI.Page
             Boolean.TryParse(Request.QueryString["debugjs"], out debugjs);
             if (debugjs)
             {
-                script_path = "apps/_build/hgis-all-debug.js";
+                script_path = "apps/_build/" + app + "-all-debug.js";
             }
             else
             {
-                script_path = "apps/_build/hgis-all.js";
+                script_path = "apps/_build/" + app + "-all.js";
             }
         }
 
@@ -99,7 +160,9 @@ public partial class _Default : System.Web.UI.Page
         js.Attributes["type"] = "text/javascript";
         js.Attributes["src"] = script_path;
         Page.Header.Controls.Add(js);
+
     }
+
 
     /// <summary>
     /// Includes custom css
@@ -126,8 +189,6 @@ public partial class _Default : System.Web.UI.Page
     /// </summary>
     private void IncludeToken()
     {
-        HGIS.TokenMaster tm = HGIS.TokenMaster.FromFile(ConfigurationManager.AppSettings["token_master_settings"]);
-
         System.Web.UI.HtmlControls.HtmlGenericControl localhostScript = new System.Web.UI.HtmlControls.HtmlGenericControl("script");
         localhostScript.Attributes["type"] = "text/javascript";
         localhostScript.InnerHtml =
@@ -135,6 +196,7 @@ public partial class _Default : System.Web.UI.Page
         Page.Header.Controls.Add(localhostScript);
     }
     
+
     //Generic script injection logic
     //------------------------------
 
@@ -148,25 +210,25 @@ public partial class _Default : System.Web.UI.Page
         System.Web.UI.HtmlControls.HtmlLink ssCss = new System.Web.UI.HtmlControls.HtmlLink();
         ssCss.Attributes["rel"] = "stylesheet";
         ssCss.Attributes["type"] = "text/css";
-        ssCss.Href = "splash/hgis.css";
+        ssCss.Href = "resx/splash/hgis.css";
         Page.Header.Controls.Add(ssCss);
 
         System.Web.UI.HtmlControls.HtmlGenericControl ssJs = new System.Web.UI.HtmlControls.HtmlGenericControl("script");
         ssJs.Attributes["type"] = "text/javascript";
-        ssJs.Attributes["src"] = "splash/hgis.js";
+        ssJs.Attributes["src"] = "resx/splash/hgis.js";
         Page.Header.Controls.Add(ssJs);
     }
 
     /// <summary>
     /// Injects a variable holding a jslibs location - used for dynamic script linking
     /// </summary>
-    private void IncludeLocalhost()
+    private void IncludeJsLibsLocation()
     {
-        System.Web.UI.HtmlControls.HtmlGenericControl localhostScript = new System.Web.UI.HtmlControls.HtmlGenericControl("script");
-        localhostScript.Attributes["type"] = "text/javascript";
-        localhostScript.InnerHtml =
+        System.Web.UI.HtmlControls.HtmlGenericControl jsLibsScript = new System.Web.UI.HtmlControls.HtmlGenericControl("script");
+        jsLibsScript.Attributes["type"] = "text/javascript";
+        jsLibsScript.InnerHtml =
             "var __jslibs__ = '" + jslibs + "';";
-        Page.Header.Controls.Add(localhostScript);
+        Page.Header.Controls.Add(jsLibsScript);
     }
 
     /// <summary>

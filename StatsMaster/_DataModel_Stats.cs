@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace HGIS
 {
@@ -15,6 +16,13 @@ namespace HGIS
         public class StatsBase
         {
             public StatsBase() { }
+
+            /// <summary>
+            /// Object Id
+            /// </summary>
+            [BsonRepresentation(BsonType.String)] 
+            public ObjectId Id { get; set; }
+
 
             /// <summary>
             /// Name of a collection an object is saved to
@@ -39,7 +47,12 @@ namespace HGIS
             /// <summary>
             /// Properties that should be ignored when querrying an object
             /// </summary>
-            protected static string[] PropsIgnoredOnQuery = new string[] { "Hits", "Bytes", "Lon", "Lat" };
+            protected static string[] PropsIgnoredOnQuery = new string[] {"Id", "Hits", "Bytes", "Lon", "Lat" };
+
+            /// <summary>
+            /// Properties that should get ignored on read query
+            /// </summary>
+            protected static string[] PropsIgnoredOnReadQuery = new string[] { "Referrer", "Ip", "CountryIso", "Country", "City" };
 
             /// <summary>
             /// Bytes in a GigaByte; A Gigabyte is 1,073,741,824 (2^30) bytes. 1,024 Megabytes, or 1,048,576 Kilobytes.
@@ -101,7 +114,7 @@ namespace HGIS
             }
 
             /// <summary>
-            /// Returns a query builde used to grab an object during the update procedure
+            /// Returns a query builder used to grab an object during the update procedure
             /// </summary>
             /// <returns></returns>
             public IMongoQuery GetQueryBuilder()
@@ -126,6 +139,64 @@ namespace HGIS
                 //output combined querries
                 return MongoDB.Driver.Builders.Query.And(querries);
             }
+
+            /// <summary>
+            /// Returns a query builder used to read the data
+            /// </summary>
+            /// <returns></returns>
+            public IMongoQuery GetReadQueryBuilder()
+            {
+                //List of querries needed to locate a document
+                var querries = new List<IMongoQuery>();
+
+                //object's own props
+                var props = this.GetType().GetProperties();
+
+                //build querries
+                foreach (var p in props)
+                {
+                    if (!PropsIgnoredOnQuery.Contains(p.Name) && !PropsIgnoredOnReadQuery.Contains(p.Name))
+                    {
+                        querries.Add(
+                            MongoDB.Driver.Builders.Query.EQ(p.Name, p.GetValue(this) as dynamic)
+                        );
+                    }
+                }
+
+                //output combined querries
+                if (querries.Count > 0)
+                {
+                    return MongoDB.Driver.Builders.Query.And(querries);
+                }
+                else
+                {
+                    return MongoDB.Driver.Builders.Query.Null;
+                }
+            }
+
+
+            /// <summary>
+            /// Outputs the object as the specified type; clones the properties internaly
+            /// </summary>
+            /// <typeparam name="T"></typeparam>
+            /// <returns></returns>
+            public T OutputAs<T>() where T : StatsBase
+            {
+                //create output object
+                T output = Activator.CreateInstance<T>();
+
+                //get the properties of the output type
+                var props = output.GetType().GetProperties();
+
+                var myType = this.GetType();
+
+                foreach (var p in props)
+                {
+                    p.SetValue(output, myType.GetProperty(p.Name).GetValue(this));
+                }
+
+                return output;
+            }
         }
 
 
@@ -143,6 +214,11 @@ namespace HGIS
             /// Referrer
             /// </summary>
             public string Referrer { get; set; }
+
+            public ReferrerStatsTotal ToTotal()
+            {
+                return OutputAs<ReferrerStatsTotal>();
+            }
         }
 
         /// <summary>
@@ -235,6 +311,26 @@ namespace HGIS
             /// Latitude
             /// </summary>
             public double? Lat { get; set; }
+
+            /// <summary>
+            /// Request IP Country ISO code
+            /// </summary>
+            public string CountryIso { get; set; }
+
+            /// <summary>
+            /// Request IP country
+            /// </summary>
+            public string Country { get; set; }
+
+            /// <summary>
+            /// Request IP city
+            /// </summary>
+            public string City { get; set; }
+
+            public IpStatsTotal ToTotal()
+            {
+                return OutputAs<IpStatsTotal>();
+            }
         }
 
         /// <summary>
@@ -397,29 +493,6 @@ namespace HGIS
                 this.City = geoIp.City.Name;
                 this.Lon = geoIp.Location.Longitude;
                 this.Lat = geoIp.Location.Latitude;
-            }
-            
-            /// <summary>
-            /// Outputs the object as the specified type; clones the properties internaly
-            /// </summary>
-            /// <typeparam name="T"></typeparam>
-            /// <returns></returns>
-            public T OutputAs<T>() where T : StatsBase
-            {
-                //create output object
-                T output = Activator.CreateInstance<T>();
-
-                //get the properties of the output type
-                var props = output.GetType().GetProperties();
-
-                var myType = this.GetType();
-
-                foreach (var p in props)
-                {
-                    p.SetValue(output, myType.GetProperty(p.Name).GetValue(this));
-                }
-
-                return output;
             }
         }
     }

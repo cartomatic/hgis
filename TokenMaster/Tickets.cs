@@ -76,7 +76,7 @@ namespace HGIS
         /// Asynchronously checks whether the token is valid
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> CheckIfTokenValidAsync(HttpRequest request)
+        public async Task<bool> CheckIfTokenValidAsync(HttpRequest request, string token = null)
         {
             bool ticketValid = false;
 
@@ -85,7 +85,11 @@ namespace HGIS
 
             try
             {
-                var token = request.QueryString[this.settings.GetTokenParam()];
+                //if token was not provided, extract it off the request query string
+                if (string.IsNullOrEmpty(token))
+                {
+                    token = request.QueryString[this.settings.GetTokenParam()];
+                }
 
                 if (!string.IsNullOrEmpty(token))
                 {
@@ -104,7 +108,7 @@ namespace HGIS
 
             return ticketValid;
         }
-
+        
 
         /// <summary>
         /// gets the configured token param
