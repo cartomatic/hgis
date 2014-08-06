@@ -108,6 +108,7 @@ Ext.define('hgis.AppLogic', {
         });
         
 
+        
         //west panel - simple layer manager
         this.westPanel = Ext.create('Ext.panel.Panel', {
             glyph: 'xf03a@FontAwesome',
@@ -118,7 +119,22 @@ Ext.define('hgis.AppLogic', {
             split: true,
             collapsible: true,
             titleCollapse: true,
-            margin: '5 0 5 5' //t r b l // 5px margins
+            margin: '5 0 5 5', //t r b l // 5px margins
+            dockedItems: [
+	            /*{
+	                xtype: 'toolbar',
+                    dock: 'bottom',
+                    items: [
+                        {
+                            glyph: 'xf019@FontAwesome',
+                            text: 'Export PNG',
+                            listeners: {
+                                click: Ext.bind(this.exportMap, this)
+                            }
+                        }
+                    ]
+	            }*/
+            ]
         });
         
         //Application viewport
@@ -131,6 +147,18 @@ Ext.define('hgis.AppLogic', {
         });
     },
 
+    exportMap: function(){
+        this.map.once('postcompose', function(event) {
+            var canvas = event.context.canvas;
+            
+            //having problems with CORS on the server...
+            
+            //var dataUrl = canvas.toDataURL('image/png');
+            //console.warn(dataUrl);
+            //document.getElementById('link_downloader').href = dataUrl;
+        });
+        this.map.renderSync();
+    },
 
     /**
      * creates a simple layer manager
