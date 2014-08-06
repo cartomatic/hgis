@@ -147,7 +147,7 @@ namespace HGIS
             //and try to init the reader
             try
             {
-                this.geoIpReader = new MaxMind.GeoIP2.DatabaseReader(dbpath, MaxMind.Db.FileAccessMode.MemoryMapped);
+                this.geoIpReader = new MaxMind.GeoIP2.DatabaseReader(dbpath, MaxMind.Db.FileAccessMode.Memory);
             }
             catch (Exception ex)
             {
