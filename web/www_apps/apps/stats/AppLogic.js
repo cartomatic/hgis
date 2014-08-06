@@ -124,6 +124,9 @@ Ext.define('stats.AppLogic', {
             ]
         });
         
+        //update map size on viewport resize
+        this.viewport.on('resize', function(){this.map.updateSize();},this);
+        
         this.mode = 'map';
         this.range = 'total';
         
@@ -215,15 +218,77 @@ Ext.define('stats.AppLogic', {
                 source: new ol.source.Vector({
                     projection: ol.proj.get('EPSG:3857')
                 })
-                /*style: new ol.style.Style({
-				    fill: new ol.style.Fill({
-				      color: '#9db9e8'
-			         }),
-                     stroke: new ol.style.Stroke({
-			          color: '#f00',
-			          width: 1
-			        })  
-			  })*/
+                
+                //Note: so far no dynamic styles - for each feature a separate style needs to be created
+                //so styles get assigned to a feature rather than layer at this stage
+//                style: function(feature, resolution) {
+//				    var text = resolution < 5000 ? feature.get('name') : '';
+//				    if (!styleCache[text]) {
+//				      styleCache[text] = [new ol.style.Style({
+//				        fill: new ol.style.Fill({
+//				          color: 'rgba(255, 255, 255, 0.6)'
+//				        }),
+//				        stroke: new ol.style.Stroke({
+//				          color: '#319FD3',
+//				          width: 1
+//				        }),
+//				        text: new ol.style.Text({
+//				          font: '12px Calibri,sans-serif',
+//				          text: text,
+//				          fill: new ol.style.Fill({
+//				            color: '#000'
+//				          }),
+//				          stroke: new ol.style.Stroke({
+//				            color: '#fff',
+//				            width: 3
+//				          })
+//				        })
+//				      })];
+//				    }
+//				    return styleCache[text];
+//				  }
+
+                
+                //style the circles depending on the incoming data
+//                style: (
+//                    function(){
+//                        
+//                        var getTxt = function(f){
+//                            
+//                        }
+//                        
+//                        var getSize = function(f){
+//                            
+//                        }
+//                        
+//                        return function(feature, resolution){
+//                            
+//                        }
+//                    }()
+//                )
+//                
+//                
+//                /*new ol.style.Style({
+//                    image: new ol.style.Circle({
+//			          radius: 10,
+//			          stroke: new ol.style.Stroke({
+//			            color: '#fff'
+//			          }),
+//			          fill: new ol.style.Fill({
+//			            color: '#3399CC'
+//			          })
+//			        }),
+//                    text: new ol.style.Text({
+//                        text: 'dupa',
+//                        stroke: new ol.style.Stroke({
+//                        color: '#fff'
+//                      }),
+//                      fill: new ol.style.Fill({
+//                        color: '#3399CC'
+//                      })
+//                    })
+//                })*/
+//               
             });
             
             this.map.addLayer(this.vLayer);
@@ -233,18 +298,89 @@ Ext.define('stats.AppLogic', {
             tsrc = ol.proj.get('EPSG:4326'),
             tdest = ol.proj.get('EPSG:3857');
         
+        //wipe out the layer
         src.clear();
         
-        var d = 0, dlen = data.length, features = [];
+        //
+        
+        
+        var d = 0,
+            dlen = data.length,
+            features = [],
+            maxSize = dlen > 0 ? data[0].Bytes : 0
+            maxCircleSize = 70; //radius of 70px
+        
+        var getTopText = function(o){
+            var txt = o.Ip;
+            
+            if(o.City){
+                txt = o.City + '(' + txt + ')';
+            }
+             
+            return txt;
+        }
+        
+        var getBottomText = function(o){
+            return 'Hits:' + o.Hits + '; Gb:' + (o.Bytes / 1073741824).toFixed(5);
+        }
+        
+        var getRadius = function(o){
+            return (o.Bytes / maxSize) * maxCircleSize;
+        }
+        
         for(d; d < dlen; d++){
             if(!data[d].Lon) continue; //ignore recs withou geo
-            features.push(
-                new ol.Feature({
-                    geometry: new ol.geom.Point([data[d].Lon, data[d].Lat]).transform(tsrc, tdest)
+            
+            var f = new ol.Feature({
+                geometry: new ol.geom.Point([data[d].Lon, data[d].Lat]).transform(tsrc, tdest)
+                //assigning style here so far does not work!
+                //not exported api property or something, so setting the style through setStyle
+                //on a feature object
+            });
+            f.setStyle([
+                new ol.style.Style({
+					image: new ol.style.Circle({
+						radius: getRadius(data[d]),
+						stroke: new ol.style.Stroke({
+	                        color: '#fff'
+						}),
+						fill: new ol.style.Fill({
+						    color: 'rgba(51,152,153,0.5)'
+					    })
+					}),
+					text: new ol.style.Text({
+					   text: getTopText(data[d]),
+                       font: 'bold 14px Arial',
+                       offsetY: -7,
+					   stroke: new ol.style.Stroke({
+					       color: '#fff'
+					   }),
+					   fill: new ol.style.Fill({
+					       color: 'rgb(153,51,102)'
+					   })
+					})
+				}),
+                new ol.style.Style({
+                    text: new ol.style.Text({
+                       text: getBottomText(data[d]),
+                       font: 'bold 12px Arial',
+                       textAlign: 'center',
+                       textBaseline: 'middle',
+                       offsetY: 6,
+                       stroke: new ol.style.Stroke({
+                           color: '#fff'
+                       }),
+                       fill: new ol.style.Fill({
+                           color: '#000'
+                       })
+                    })
                 })
-            );
+            ]);
+            features.push(f);
         }
         src.addFeatures(features);
+        
+        //zoom to layer data extent
         this.map.getView().fitExtent(
             ol.extent.buffer(src.getExtent(), 500),
             this.map.getSize()
