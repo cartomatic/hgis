@@ -93,5 +93,61 @@ public class stats : System.Web.Services.WebService {
 
         return output;
     }
+
+
+    [WebMethod]
+    public string DoIpStatsCleanup()
+    {
+        string output = "DONE!";
+
+        //make sure the service was called localy!
+        if (HttpContext.Current.Request.IsLocal)
+        {
+            try
+            {
+                var statsM = HGIS.StatsMaster.FromFile(ConfigurationManager.AppSettings["stats_master_settings"]);
+
+                statsM.DoIpDataCleanup();   
+            }
+            catch (Exception ex)
+            {
+                output = ex.Message;
+            }
+        }
+        else
+        {
+            output = "This utility can only be used locally mate.";
+        }
+
+        return output;
+    }
+
+    [WebMethod]
+    public string DoLocalhostReferrerStatsCleanup()
+    {
+        string output = "DONE!";
+
+        //make sure the service was called localy!
+        if (HttpContext.Current.Request.IsLocal)
+        {
+            try
+            {
+                var statsM = HGIS.StatsMaster.FromFile(ConfigurationManager.AppSettings["stats_master_settings"]);
+                
+                //statsM.DoLocalhostReferrerDataCleanup();
+
+            }
+            catch (Exception ex)
+            {
+                output = ex.Message;
+            }
+        }
+        else
+        {
+            output = "This utility can only be used locally mate.";
+        }
+
+        return output;
+    }
     
 }

@@ -331,6 +331,17 @@ namespace HGIS
             {
                 return OutputAs<IpStatsTotal>();
             }
+
+            public void UpdateGeoIp(MaxMind.GeoIP2.Responses.CityResponse geoIp)
+            {
+                if (geoIp == null) return;
+
+                this.CountryIso = geoIp.Country.IsoCode;
+                this.Country = geoIp.Country.Name;
+                this.City = geoIp.City.Name;
+                this.Lon = geoIp.Location.Longitude;
+                this.Lat = geoIp.Location.Latitude;
+            }
         }
 
         /// <summary>

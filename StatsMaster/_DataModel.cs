@@ -103,6 +103,11 @@ namespace HGIS
             public bool LogDailyStats { get; set; }
 
             /// <summary>
+            /// Whether or not a localhost referrer requests should be filtered out
+            /// </summary>
+            public bool FilterLocalhostRequests { get; set; }
+
+            /// <summary>
             /// Path to the MaxMind's lite city db
             /// </summary>
             public string CityDbPath { get; set; }
