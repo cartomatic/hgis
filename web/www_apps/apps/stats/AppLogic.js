@@ -30,7 +30,7 @@ Ext.define('stats.AppLogic', {
             extend: 'Ext.data.Model', 
             fields: [
                 {name: 'Referrer', type: 'string', defaultValue: null, useNull: true},
-                {name: 'GBytes', mapping: function(data) {return (data.Bytes / 1073741824).toFixed(8);}, type: 'number'},
+                {name: 'GBytes', mapping: function(data) {return (data.Bytes / 1073741824).toFixed(8)*1;}, type: 'number'},
                 {name: 'Hits', type: 'int', defaultValue: 0, useNull: false}
             ]   
         });
@@ -41,7 +41,7 @@ Ext.define('stats.AppLogic', {
                 {name: 'Ip', type: 'string', defaultValue: null, useNull: true},
                 {name: 'Country', type: 'string', defaultValue: null, useNull: true},
                 {name: 'City', type: 'string', defaultValue: null, useNull: true},
-                {name: 'GBytes', convert: function(v, r) {if(r.data.Bytes)return (r.data.Bytes / 1073741824).toFixed(8);}, type: 'number'},
+                {name: 'GBytes', convert: function(v, r) {if(r.data.Bytes)return (r.data.Bytes / 1073741824).toFixed(8)*1;}, type: 'number'},
                 {name: 'Hits', type: 'int', defaultValue: 0, useNull: false},
                 {name: 'feature', type: 'auto', defaultValue: null, useNull: true}
             ]
@@ -100,6 +100,10 @@ Ext.define('stats.AppLogic', {
         this.mapPanel.on('resize', function(){if(this.map)this.map.updateSize();},this);
         
         //grid panel
+        /*this.mapGridGroupper = Ext.create('Ext.grid.feature.GroupingSummary', {
+            
+        });*/
+        
         this.mapGridPanel = Ext.create('Ext.grid.Panel', {
             title: 'Data',
             glyph: 'xf0ce@FontAwesome',
@@ -119,8 +123,60 @@ Ext.define('stats.AppLogic', {
             store: Ext.create('Ext.data.Store', {
                 model: this.ipModel,
                 data: []
+                //,groupField: 'City'
             })
+            /*,bufferedRenderer: false,
+            features: [this.mapGridGroupper]
+            ,dockedItems: [
+	            {
+	                xtype: 'toolbar',
+                    dock: 'bottom',
+                    items: [
+	                    {
+	                        xtype: 'tbtext',
+                            text: 'Group by:'
+	                    },
+                        {xtype: 'tbspacer'},
+	                    {
+	                        xtype: 'segmentedbutton',
+	                        defaults: {
+				                listeners: {
+				                    click: Ext.bind(
+	                                    function(btn, e, eOpts){
+	                                        if(btn.pressed){
+	                                            //set groupping
+                                                this.mapGridGroupper.enable();
+	                                            this.mapGridPanel.getStore().group(btn.getItemId());
+                                                this.mapGridGroupper.collapseAll();
+	                                        }
+	                                        else {
+	                                            //remove groupping
+                                                this.mapGridGroupper.disable();
+                                                this.mapGridPanel.getStore().clearGrouping();
+	                                        }
+	                                    },
+	                                    this
+	                                )
+				                }
+				            },
+                            allowDepress: true,
+				            items: [
+	                            {
+	                                text: 'Country',
+	                                itemId: 'Country'
+	                            },
+		                        {
+		                            text: 'City',
+		                            itemId: 'City'
+		                        }
+	                        ]
+	                    }
+                    ]
+	            }
+            ]*/
         });
+        //this.mapGridGroupper.disable();
+        
         //wire up some grid listeners
         this.mapGridPanel.on(
             'itemmouseenter',
@@ -377,10 +433,10 @@ Ext.define('stats.AppLogic', {
                     image: new ol.style.Circle({
                         radius: getRadius(data[d]),
                         stroke: new ol.style.Stroke({
-                            color: '#fff'
+                            color: 'rgba(153,51,102,0.5)'
                         }),
                         fill: new ol.style.Fill({
-                            color: 'rgba(51,152,153,0.5)'
+                            color: 'rgba(204,102,153,0.25)'
                         })
                     })
                 })
