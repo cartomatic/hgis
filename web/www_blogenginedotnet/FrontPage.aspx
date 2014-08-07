@@ -6,11 +6,13 @@
 <script type="text/javascript">
 	var ifr = document.getElementById('hgisiframe');
 	var lastHash = window.location.hash;
+	
+	ifr.src = 'http://hgis.maphive.co' + window.location.hash;
+	
 	var applyPermaLink = function(){
 		var plink = window.location.hash.replace('#','');
 		ifr.contentWindow.postMessage({evt: 'applypermalink', permalink: plink}, '*');
 	}
-	applyPermaLink();
 
 	var onMessage = function(e){
 		//assume the message is sent only from the hgis iframe
