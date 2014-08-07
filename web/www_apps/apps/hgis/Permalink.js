@@ -292,7 +292,17 @@ Ext.define('hgis.Permalink', {
             var lon = parseFloat(pldata[0]);
             var lat = parseFloat(pldata[1]);
             if (!isNaN(lon) && !isNaN(lat)) {
-                vw.setCenter([lon, lat]);
+                //test if the coords are within +/- 180 && +/-90 and assume its epsg4326 in such case
+                if(Math.abs(lon) <= 180 && Math.abs(lat) <= 90){
+                    vw.setCenter(
+                        new ol.geom.Point([lon,lat])
+                        .transform(ol.proj.get('EPSG:4326'), ol.proj.get('EPSG:3857'))
+                        .getCoordinates()
+                    )
+                }
+                else {
+                    vw.setCenter([lon, lat]);
+                }
             }
         }
 
