@@ -20,7 +20,6 @@ namespace HGIS
             /// <summary>
             /// Object Id
             /// </summary>
-            [BsonRepresentation(BsonType.String)] 
             public ObjectId Id { get; set; }
 
 
@@ -47,12 +46,12 @@ namespace HGIS
             /// <summary>
             /// Properties that should be ignored when querrying an object
             /// </summary>
-            protected static string[] PropsIgnoredOnQuery = new string[] {"Id", "Hits", "Bytes", "Lon", "Lat" };
+            protected static string[] PropsIgnoredOnQuery = new string[] { "Id", "Hits", "Bytes", "Lon", "Lat", "CountryIso", "Country", "City" };
 
             /// <summary>
             /// Properties that should get ignored on read query
             /// </summary>
-            protected static string[] PropsIgnoredOnReadQuery = new string[] { "Referrer", "Ip", "CountryIso", "Country", "City" };
+            protected static string[] PropsIgnoredOnReadQuery = new string[] { "Referrer", "Ip" };
 
             /// <summary>
             /// Bytes in a GigaByte; A Gigabyte is 1,073,741,824 (2^30) bytes. 1,024 Megabytes, or 1,048,576 Kilobytes.
@@ -141,7 +140,7 @@ namespace HGIS
             }
 
             /// <summary>
-            /// Returns a query builder used to read the data
+            /// Returns a query builder used to read the data - when reading some more properties get ignored than when saving
             /// </summary>
             /// <returns></returns>
             public IMongoQuery GetReadQueryBuilder()
@@ -174,6 +173,26 @@ namespace HGIS
                 }
             }
 
+            /// <summary>
+            /// Returns index keys that should be used to ensure unique indexes on the collections
+            /// </summary>
+            /// <returns></returns>
+            public IMongoIndexKeys GetIndexedKeys()
+            {
+                var keysBuilder = new MongoDB.Driver.Builders.IndexKeysBuilder();
+
+                //object's own props
+                var props = this.GetType().GetProperties();
+
+                foreach (var p in props)
+                {
+                    if (!PropsIgnoredOnQuery.Contains(p.Name))
+                    {
+                        keysBuilder.Ascending(p.Name);
+                    }
+                }
+                return keysBuilder;
+            }
 
             /// <summary>
             /// Outputs the object as the specified type; clones the properties internaly

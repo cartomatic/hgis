@@ -94,6 +94,32 @@ public class stats : System.Web.Services.WebService {
         return output;
     }
 
+    [WebMethod]
+    public string DoStringIdCleanup()
+    {
+        string output = "DONE!";
+
+        //make sure the service was called localy!
+        if (HttpContext.Current.Request.IsLocal)
+        {
+            try
+            {
+                var statsM = HGIS.StatsMaster.FromFile(ConfigurationManager.AppSettings["stats_master_settings"]);
+
+                statsM.DoStringIdCleanup();
+            }
+            catch (Exception ex)
+            {
+                output = ex.Message;
+            }
+        }
+        else
+        {
+            output = "This utility can only be used locally mate.";
+        }
+
+        return output;
+    }
 
     [WebMethod]
     public string DoIpStatsCleanup()

@@ -86,9 +86,10 @@ namespace HGIS
                 //init the objects so can grab some internal data
                 StatsBase rfr = new ReferrerStatsTotal();
                 StatsBase ip = new IpStatsTotal();
-
                 this.mongocollections.Add(rfr.GetCollectionName(), mongodb.GetCollection<ReferrerStatsTotal>(rfr.GetCollectionName()));
                 this.mongocollections.Add(ip.GetCollectionName(), mongodb.GetCollection<IpStatsTotal>(ip.GetCollectionName()));
+                EnsureIndex(rfr);
+                EnsureIndex(ip);
 
                 //depending on the configured settings also prepare other collections
                 if (this.settings.LogYearlyStats)
@@ -98,6 +99,8 @@ namespace HGIS
                     ip = new IpStatsYearly();
                     this.mongocollections.Add(rfr.GetCollectionName(), mongodb.GetCollection<ReferrerStatsYearly>(rfr.GetCollectionName()));
                     this.mongocollections.Add(ip.GetCollectionName(), mongodb.GetCollection<IpStatsYearly>(ip.GetCollectionName()));
+                    EnsureIndex(rfr);
+                    EnsureIndex(ip);
                 }
 
                 if (this.settings.LogMonthlyStats)
@@ -107,6 +110,8 @@ namespace HGIS
                     ip = new IpStatsMonthly();
                     this.mongocollections.Add(rfr.GetCollectionName(), mongodb.GetCollection<ReferrerStatsMonthly>(rfr.GetCollectionName()));
                     this.mongocollections.Add(ip.GetCollectionName(), mongodb.GetCollection<IpStatsMonthly>(ip.GetCollectionName()));
+                    EnsureIndex(rfr);
+                    EnsureIndex(ip);
                 }
 
                 if (this.settings.LogWeeklyStats)
@@ -116,6 +121,8 @@ namespace HGIS
                     ip = new IpStatsWeekly();
                     this.mongocollections.Add(rfr.GetCollectionName(), mongodb.GetCollection<ReferrerStatsWeekly>(rfr.GetCollectionName()));
                     this.mongocollections.Add(ip.GetCollectionName(), mongodb.GetCollection<IpStatsWeekly>(ip.GetCollectionName()));
+                    EnsureIndex(rfr);
+                    EnsureIndex(ip);
                 }
 
                 if (this.settings.LogDailyStats)
@@ -125,7 +132,11 @@ namespace HGIS
                     ip = new IpStatsDaily();
                     this.mongocollections.Add(rfr.GetCollectionName(), mongodb.GetCollection<ReferrerStatsDaily>(rfr.GetCollectionName()));
                     this.mongocollections.Add(ip.GetCollectionName(), mongodb.GetCollection<IpStatsDaily>(ip.GetCollectionName()));
+                    EnsureIndex(rfr);
+                    EnsureIndex(ip);
                 }
+
+
             }
             catch (Exception ex)
             {
