@@ -95,7 +95,7 @@ public class stats : System.Web.Services.WebService {
     }
 
     [WebMethod]
-    public string DoStringIdCleanup()
+    public string DoIdCleanup()
     {
         string output = "DONE!";
 
@@ -106,7 +106,10 @@ public class stats : System.Web.Services.WebService {
             {
                 var statsM = HGIS.StatsMaster.FromFile(ConfigurationManager.AppSettings["stats_master_settings"]);
 
+                statsM.DoExtraIdPropertyCleanup();
                 statsM.DoStringIdCleanup();
+
+
             }
             catch (Exception ex)
             {

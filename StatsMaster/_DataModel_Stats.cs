@@ -20,8 +20,8 @@ namespace HGIS
             /// <summary>
             /// Object Id
             /// </summary>
+            [MongoDB.Bson.Serialization.Attributes.BsonId]
             public ObjectId Id { get; set; }
-
 
             /// <summary>
             /// Name of a collection an object is saved to

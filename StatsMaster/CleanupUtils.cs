@@ -55,12 +55,13 @@ namespace HGIS
                 //get the cursor to grab all the recs
                 var cursor = col.FindAllAs(s.GetType());
 
-                //and iterate through them to do the fixing
-                foreach (IpStatsTotal rec in cursor)
+                try
                 {
-                    //get the ip record
-                    try
+
+                    //and iterate through them to do the fixing
+                    foreach (IpStatsTotal rec in cursor)
                     {
+
                         if (geoIpCache.ContainsKey(rec.Ip))
                         {
                             rec.UpdateGeoIp(geoIpCache[rec.Ip]);
@@ -78,11 +79,11 @@ namespace HGIS
                         //finally save the updated record
                         col.Save(rec);
                     }
-                    catch (Exception ex)
-                    {
-                        //silently fail but log the exception
-                        LogException(ex);
-                    }
+                }
+                catch (Exception ex)
+                {
+                    //silently fail but log the exception
+                    LogException(ex);
                 }
             }
         }
@@ -130,6 +131,39 @@ namespace HGIS
                 {
                     col.Remove(Query.EQ("_id", id));
                 }
+            }
+        }
+
+        /// <summary>
+        /// Cleans up xtra properties that go added due to wrong id serialisation flag
+        /// </summary>
+        public void DoExtraIdPropertyCleanup()
+        {
+            //init the stats objects
+            var stats = new List<StatsBase>()
+            {
+                new IpStatsTotal(),
+                new IpStatsYearly(),
+                new IpStatsMonthly(),
+                new IpStatsWeekly(),
+                new IpStatsDaily(),
+                new ReferrerStatsTotal(),
+                new ReferrerStatsYearly(),
+                new ReferrerStatsMonthly(),
+                new ReferrerStatsWeekly(),
+                new ReferrerStatsDaily()
+            };
+
+            foreach (var s in stats)
+            {
+                //get the collection
+                var col = this.mongocollections[s.GetCollectionName()];
+
+                col.Update(
+                    Query.Exists("Id"),
+                    Update.Unset("Id"),
+                    MongoDB.Driver.UpdateFlags.Multi
+                );
             }
         }
 
