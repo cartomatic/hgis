@@ -21,7 +21,7 @@ namespace HGIS
             /// Object Id
             /// </summary>
             [MongoDB.Bson.Serialization.Attributes.BsonId]
-            public ObjectId Id { get; set; }
+            public ObjectId _id { get; set; }
 
             /// <summary>
             /// Name of a collection an object is saved to
@@ -46,7 +46,7 @@ namespace HGIS
             /// <summary>
             /// Properties that should be ignored when querrying an object
             /// </summary>
-            protected static string[] PropsIgnoredOnQuery = new string[] { "Id", "Hits", "Bytes", "Lon", "Lat", "CountryIso", "Country", "City" };
+            protected static string[] PropsIgnoredOnQuery = new string[] { "_id", "Hits", "Bytes", "Lon", "Lat", "CountryIso", "Country", "City" };
 
             /// <summary>
             /// Properties that should get ignored on read query

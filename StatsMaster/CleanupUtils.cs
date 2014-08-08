@@ -121,9 +121,9 @@ namespace HGIS
 
                 foreach (StatsBase rec in cursor)
                 {
-                    if (!removeIds.Contains(rec.Id.ToString()))
+                    if (!removeIds.Contains(rec._id.ToString()))
                     {
-                        removeIds.Add(rec.Id.ToString());
+                        removeIds.Add(rec._id.ToString());
                     }
                 }
 
