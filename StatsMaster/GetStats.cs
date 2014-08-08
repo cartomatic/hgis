@@ -23,7 +23,7 @@ namespace HGIS
             }
 
             //use a 'complete' object so year gets assigned
-            T s = new RequestStatsComplete(null, null, 0).OutputAs<T>();
+            T s = new RequestStatsComplete(null, null).OutputAs<T>();
 
             if (string.IsNullOrEmpty(s.GetCollectionName()))
             {

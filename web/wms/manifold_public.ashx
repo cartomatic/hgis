@@ -70,7 +70,7 @@ namespace HGIS
                     //log the stats - skip the non image responses though
                     if (tcout.ResponseContentType.IndexOf("image", StringComparison.InvariantCultureIgnoreCase) > -1)
                     {
-                        sm.SaveStats(context.Request, tcout.FilePath);
+                        sm.SaveStats(context.Request, true, tcout.FilePath);
                     }
                 }
                 else if (tcout.HasData)
@@ -80,7 +80,7 @@ namespace HGIS
                     //log the stats - skip the non image responses though
                     if (tcout.ResponseContentType.IndexOf("image", StringComparison.InvariantCultureIgnoreCase) > -1)
                     {
-                        sm.SaveStats(context.Request, tcout.ResponseBinary.Length);
+                        sm.SaveStats(context.Request, false, tcout.ResponseBinary.Length);
                     }
                 }
                 else //otherwise write returned text
@@ -114,13 +114,7 @@ namespace HGIS
 
                 //write the response 
                 context.Response.BinaryWrite(data);
-
-                //log the stats - skip the non image responses though
-                if (response.ContentType.IndexOf("image", StringComparison.InvariantCultureIgnoreCase) > -1)
-                {
-                    sm.SaveStats(context.Request, data.Length);
-                }
-                
+               
                 //close the response
                 response.Close();
             }

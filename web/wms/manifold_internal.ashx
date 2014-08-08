@@ -22,6 +22,11 @@ namespace HGIS
         /// WMS utils
         /// </summary>
         private static WmsUtils wms = new WmsUtils(WmsUtils.WmsDriverType.Manifold);
+
+        /// <summary>
+        /// Stats master
+        /// </summary>
+        private static StatsMaster sm = StatsMaster.FromFile(ConfigurationManager.AppSettings["stats_master_settings"]);
         
         public void ProcessRequest(HttpContext context)
         {
@@ -50,11 +55,23 @@ namespace HGIS
             {
                 //let the watermark stamper decide how to return the data
                 wms.ApplyWatermark(tcout.FilePath, tcout.ResponseContentType, context);
+
+                //log the stats - skip the non image responses though
+                if (tcout.ResponseContentType.IndexOf("image", StringComparison.InvariantCultureIgnoreCase) > -1)
+                {
+                    sm.SaveStats(context.Request, true, tcout.FilePath);
+                }
             }
             else if (tcout.HasData)
             {
                 //let the watermark stamper decide how to return the data
                 wms.ApplyWatermark(tcout.ResponseBinary, tcout.ResponseContentType, context);
+                
+                //log the stats - skip the non image responses though
+                if (tcout.ResponseContentType.IndexOf("image", StringComparison.InvariantCultureIgnoreCase) > -1)
+                {
+                    sm.SaveStats(context.Request, false, tcout.ResponseBinary.Length);
+                }
             }
             else //otherwise write returned text
             {

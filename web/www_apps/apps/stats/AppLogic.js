@@ -26,12 +26,25 @@ Ext.define('stats.AppLogic', {
     },
 
     createDataModels: function(){
+        
+        var cacheUse = function(v, r) {
+            if(r && r.data.HitsCache){
+                return (r.data.HitsCache / r.data.Hits)*100;
+            }
+            else {
+                return 0;
+            }
+        }
+        
+        var getGBytes = function(v, r) {if(r.data.Bytes)return (r.data.Bytes / 1073741824);}
+        
         this.referrerModel = Ext.define('hgis.ReferrerStats', {
             extend: 'Ext.data.Model', 
             fields: [
                 {name: 'Referrer', type: 'string', defaultValue: null, useNull: true},
-                {name: 'GBytes', mapping: function(data) {return (data.Bytes / 1073741824).toFixed(8)*1;}, type: 'number'},
-                {name: 'Hits', type: 'int', defaultValue: 0, useNull: false}
+                {name: 'GBytes', type: 'number', convert: getGBytes},
+                {name: 'Hits', type: 'int', defaultValue: 0, useNull: false},
+                {name: 'HitsCache', type: 'number', convert: cacheUse, defaultValue: 0, useNull: false}
             ]   
         });
         
@@ -41,8 +54,9 @@ Ext.define('stats.AppLogic', {
                 {name: 'Ip', type: 'string', defaultValue: null, useNull: true},
                 {name: 'Country', type: 'string', defaultValue: null, useNull: true},
                 {name: 'City', type: 'string', defaultValue: null, useNull: true},
-                {name: 'GBytes', convert: function(v, r) {if(r.data.Bytes)return (r.data.Bytes / 1073741824).toFixed(8)*1;}, type: 'number'},
+                {name: 'GBytes', type: 'number', convert: getGBytes},
                 {name: 'Hits', type: 'int', defaultValue: 0, useNull: false},
+                {name: 'HitsCache', type: 'number', convert: cacheUse, defaultValue: 0, useNull: false},
                 {name: 'feature', type: 'auto', defaultValue: null, useNull: true}
             ]
         });
@@ -53,7 +67,7 @@ Ext.define('stats.AppLogic', {
      */
     buildLayout: function(){
         
-        //toolbar
+        //stats range switcher
         this.switcher  = Ext.create('Ext.button.Segmented', {
             defaults: {
                 listeners: {
@@ -104,6 +118,42 @@ Ext.define('stats.AppLogic', {
             
         });*/
         
+        //referrer renderer
+        var cacheUseRenderer = function(value, metaData, record, colIndex, store, view){
+           return record.get('HitsCache').toFixed(2) + ' %';
+        }
+        
+        var gbytesRenderer = function(value, metaData, record, colIndex, store, view){
+            if (value) return Ext.util.Format.number(value, '0,000.########').replace(',', ' ');
+        }
+        
+        var hitsRenderer = function(value, metaData, record, colIndex, store, view){
+            if (value) return Ext.util.Format.number(value, '0,000').replace(',', ' ');
+        }
+        
+        this.mapGridPanelSummaryToolbar = Ext.create('Ext.toolbar.Toolbar', {
+            dock: 'bottom',
+            layout: {
+                type: 'hbox',
+                align: 'stretch'
+            },
+            items: [
+                {xtype: 'tbtext', itemId: 'Ip', flex: 1},
+                {xtype: 'tbseparator'},
+                {xtype: 'tbtext', itemId: 'Country', flex: 1},
+                {xtype: 'tbseparator'},
+                {xtype: 'tbtext', itemId: 'City', flex: 1},
+                {xtype: 'tbseparator'},
+                {xtype: 'tbtext', itemId: 'GBytes', flex: 1},
+                {xtype: 'tbseparator'},
+                {xtype: 'tbtext', itemId: 'Hits', flex: 1},
+                {xtype: 'tbseparator'},
+                {xtype: 'tbtext', itemId: 'HitsCache', flex: 1}
+            ]
+        });
+        
+        Ext.util.Format.thousandSeaparator = ' ';
+        
         this.mapGridPanel = Ext.create('Ext.grid.Panel', {
             title: 'Data',
             glyph: 'xf0ce@FontAwesome',
@@ -113,12 +163,16 @@ Ext.define('stats.AppLogic', {
             split: true,
             collapsible: true,
             titleCollapse: true,
+            dockedItems: [
+                this.mapGridPanelSummaryToolbar
+            ],
             columns: [
                 {header: 'Ip', flex: 1, dataIndex: 'Ip'},
                 {header: 'Country', flex: 1, dataIndex: 'Country'},
                 {header: 'City', flex: 1, dataIndex: 'City'},
-                {header: 'GBytes', flex: 1, dataIndex: 'GBytes'},
-                {header: 'Hits', flex: 1, dataIndex: 'Hits'}
+                {header: 'GBytes', flex: 1, dataIndex: 'GBytes', renderer: gbytesRenderer},
+                {header: 'Hits', flex: 1, dataIndex: 'Hits', renderer: hitsRenderer},
+                {header: 'CacheHits', flex: 1, renderer: cacheUseRenderer}
             ],
             store: Ext.create('Ext.data.Store', {
                 model: this.ipModel,
@@ -177,7 +231,7 @@ Ext.define('stats.AppLogic', {
         });
         //this.mapGridGroupper.disable();
         
-        //wire up some grid listeners
+        //wire up some map grid listeners
         this.mapGridPanel.on(
             'itemmouseenter',
             function(grid, record, item, index, e, eOpts){
@@ -204,6 +258,7 @@ Ext.define('stats.AppLogic', {
             this
         );
         
+        //map tab
         this.mapTab = Ext.create('Ext.panel.Panel', {
             title: 'By Location',
             glyph: 'xf041@FontAwesome',
@@ -215,21 +270,53 @@ Ext.define('stats.AppLogic', {
             ]
         });
         
-
+        
+        //referrer renderer
+        var referrerRenderer = function(value, metaData, record, colIndex, store, view){
+	        var url = record.get('Referrer');
+	        if(url.startsWith('http://localhost')|| url.startsWith('http://127.0.0.1') || url.startsWith('unknown')){
+	            return url;
+	        }
+	        else {
+	            return '<a href="' + url + '"target="_blank">' + url + '</a>';
+	        }
+        }
+        
+        this.gridPanelSummaryToolbar = Ext.create('Ext.toolbar.Toolbar', {
+            dock: 'bottom',
+            layout: {
+		        type: 'hbox',
+		        align: 'stretch'
+		    },
+            items: [
+                {xtype: 'tbtext', itemId: 'Referrer', flex: 1},
+                {xtype: 'tbseparator'},
+                {xtype: 'tbtext', itemId: 'GBytes', flex: 1},
+                {xtype: 'tbseparator'},
+                {xtype: 'tbtext', itemId: 'Hits', flex: 1},
+                {xtype: 'tbseparator'},
+                {xtype: 'tbtext', itemId: 'HitsCache', flex: 1}
+            ]
+        });
+        
         //grid panel
         this.gridPanel = Ext.create('Ext.grid.Panel', {
             title: 'By Referrer',
             glyph: 'xf0c1@FontAwesome',
             itemId: 'grid',
             columns: [
-                {header: 'Referrer', flex: 1, renderer: this.referrerRenderer},
-                {header: 'GBytes', flex: 1, dataIndex: 'GBytes'},
-                {header: 'Hits', flex: 1, dataIndex: 'Hits'}
+                {header: 'Referrer', flex: 1, renderer: referrerRenderer},
+                {header: 'GBytes', flex: 1, dataIndex: 'GBytes', renderer: gbytesRenderer},
+                {header: 'Hits', flex: 1, dataIndex: 'Hits', renderer: hitsRenderer},
+                {header: 'CacheHits', flex: 1, renderer: cacheUseRenderer}
             ],
             store: Ext.create('Ext.data.Store', {
                 model: this.referrerModel,
                 data: []
-            })
+            }),
+            dockedItems: [
+                this.gridPanelSummaryToolbar
+            ]
         });
         
         //Application viewport
@@ -246,7 +333,15 @@ Ext.define('stats.AppLogic', {
                             dock: 'top',
                             height: 44,
                             items: [
-                                this.switcher
+                                this.switcher,
+                                {
+                                    xtype: 'button',
+                                    text: 'Refresh',
+                                    glyph: 'xf021@FontAwesome',
+                                    listeners: {
+                                        click: Ext.bind(this.getData, this)
+                                    }
+                                }
                             ]
                         }
                     ],
@@ -261,23 +356,14 @@ Ext.define('stats.AppLogic', {
             ]
         });
         
-        
+        //initial stats mode
         this.mode = 'map';
         this.range = 'total';
         
+        //get data
         this.getData();
     },
-
-    referrerRenderer: function(value, metaData, record, colIndex, store, view){
-        var url = record.get('Referrer');
-        if(url.startsWith('http://localhost')|| url.startsWith('http://127.0.0.1') || url.startsWith('unknown')){
-            return url;
-        }
-        else {
-            return '<a href="' + url + '"target="_blank">' + url + '</a>';
-        }
-    },
-    
+   
     onTabChange: function(tabpanel, newC,oldC, eOpts){
         this.mode = newC.getItemId();
         this.getData();
@@ -352,8 +438,18 @@ Ext.define('stats.AppLogic', {
     },
     
     loadGridData: function(data){
-        this.gridPanel.getStore().loadRawData(data);
+        var store = this.gridPanel.getStore();
+        store.loadRawData(data);
+        
+        //update summary
+        var s = this.gridPanelSummaryToolbar;
+        s.getComponent('Referrer').setText(store.getCount());
+        s.getComponent('GBytes').setText(Ext.util.Format.number(store.sum('GBytes'), '0,000.####').replace(',', ' '));
+        s.getComponent('Hits').setText(Ext.util.Format.number(store.sum('Hits'), '0,000').replace(',', ' '));
+        s.getComponent('HitsCache').setText(store.average('HitsCache').toFixed(2) + '%');
     },
+    
+    
     
     loadMapData: function(data){
         
@@ -483,10 +579,27 @@ Ext.define('stats.AppLogic', {
         );
         
         //also load grid
-        this.mapGridPanel.getStore().loadRecords(recs);
+        var store = this.mapGridPanel.getStore();
+        store.loadRecords(recs);
+        
+        //update summary
+        var s = this.mapGridPanelSummaryToolbar;
+        
+        var cities = [], countries = [];
+        store.each(
+            function(r){
+                Ext.Array.include(countries, r.data.Country);
+                Ext.Array.include(cities, r.data.City);
+            }
+        );
+        s.getComponent('Ip').setText(store.getCount());
+        s.getComponent('Country').setText(countries.length);
+        s.getComponent('City').setText(cities.length);
+        s.getComponent('GBytes').setText(Ext.util.Format.number(store.sum('GBytes'), '0,000.####').replace(',', ' '));
+        s.getComponent('Hits').setText(Ext.util.Format.number(store.sum('Hits'), '0,000').replace(',', ' '));
+        s.getComponent('HitsCache').setText(store.average('HitsCache').toFixed(2) + '%');
+        
     },
-    
-    
     
     
     findAndHighlightFeature: function(e){

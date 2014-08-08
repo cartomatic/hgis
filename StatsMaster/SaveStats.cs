@@ -15,13 +15,14 @@ namespace HGIS
     public partial class StatsMaster
     {
 
-        private delegate void DelegateSaveStats(string referrer, string hostAddress, long bytes);
+        private delegate void DelegateSaveStats(string referrer, string hostAddress, bool cache, long bytes);
 
-        public void SaveStats(HttpRequest request, string fPath)
+        public void SaveStats(HttpRequest request, bool cache, string fPath)
         {
             //file should exist, as taken from tilecache
             SaveStats(
                 request,
+                cache,
                 new System.IO.FileInfo(fPath).Length
             );
         }
@@ -30,7 +31,7 @@ namespace HGIS
         /// <summary>
         /// Saves the stats based on the request
         /// </summary>
-        public void SaveStats(HttpRequest request, long dataSize)
+        public void SaveStats(HttpRequest request, bool cache, long dataSize)
         {
             //only save stats for the actual raster data sent out, ignore the caps / get info requests
 
@@ -52,6 +53,7 @@ namespace HGIS
             save.BeginInvoke(
                 referrer,
                 ip,
+                cache,
                 dataSize,
                 null,
                 null
@@ -61,7 +63,7 @@ namespace HGIS
         /// <summary>
         /// saves the stats
         /// </summary>
-        private void SaveStatsInternal(string referrer, string hostAddress, long bytes)
+        private void SaveStatsInternal(string referrer, string hostAddress, bool cache, long bytes)
         {
             //make sure mongo client is available, otherwise will not be able to do the saving
             if (this.mongo == null) return;
@@ -70,7 +72,7 @@ namespace HGIS
             if (string.IsNullOrEmpty(referrer)) referrer = "unknown";
 
             //prepare the request stats object
-            var rs = new RequestStatsComplete(referrer, hostAddress, bytes);
+            var rs = new RequestStatsComplete(referrer, hostAddress, cache, bytes);
 
             //get the ip related geo data
             try

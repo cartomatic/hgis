@@ -19,8 +19,10 @@ namespace HGIS
 
             /// <summary>
             /// Object Id
-            /// </summary>
-            [MongoDB.Bson.Serialization.Attributes.BsonId]
+            /// </summary>   
+            [BsonId] //bson id
+            [BsonIgnoreIfDefault] //so serialiser ignores it when value is null / default and makes mongo create a new id on insert
+            [BsonIgnoreIfNull]
             public ObjectId _id { get; set; }
 
             /// <summary>
@@ -34,6 +36,11 @@ namespace HGIS
             public long Hits { get; set; }
 
             /// <summary>
+            /// Amount of cache hits
+            /// </summary>
+            public long HitsCache { get; set; }
+
+            /// <summary>
             /// Amount of bytes sent out for the particular referrer
             /// </summary>
             public long Bytes { get; set; }
@@ -41,12 +48,12 @@ namespace HGIS
             /// <summary>
             /// Properties that should get increased on each update; other properties will only be set on insert
             /// </summary>
-            protected static string[] PropsIncreasedOnUpdate = new string[] { "Hits", "Bytes" };
+            protected static string[] PropsIncreasedOnUpdate = new string[] { "Hits", "Bytes", "HitsCache" };
 
             /// <summary>
             /// Properties that should be ignored when querrying an object
             /// </summary>
-            protected static string[] PropsIgnoredOnQuery = new string[] { "_id", "Hits", "Bytes", "Lon", "Lat", "CountryIso", "Country", "City" };
+            protected static string[] PropsIgnoredOnQuery = new string[] { "_id", "Hits", "HitsCache", "Bytes", "Lon", "Lat", "CountryIso", "Country", "City" };
 
             /// <summary>
             /// Properties that should get ignored on read query
@@ -99,7 +106,10 @@ namespace HGIS
                         }
                         else
                         {
-                            SetOnInsertBuilder.SetOnInsert(p.Name, pValue);
+                            if (p.Name != "_id") //do not set id on insert, let db generate it!
+                            {
+                                SetOnInsertBuilder.SetOnInsert(p.Name, pValue);
+                            }
                         }
                     }
                     else
@@ -433,7 +443,7 @@ namespace HGIS
         /// </summary>
         public class RequestStatsComplete: StatsBase
         {
-            public RequestStatsComplete(string referrer, string ip, long byteSize)
+            public RequestStatsComplete(string referrer, string ip, bool cache = false, long byteSize = 0)
             {
                 this.Referrer = referrer;
 
@@ -441,6 +451,12 @@ namespace HGIS
 
                 this.Bytes = byteSize;
                 this.Hits = 1;
+
+                //cache hits
+                if (cache)
+                {
+                    this.HitsCache = 1;
+                }
 
                 //date stuff
                 var now = DateTime.Now;
