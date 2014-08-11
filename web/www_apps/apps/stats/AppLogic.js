@@ -274,7 +274,13 @@ Ext.define('stats.AppLogic', {
         //referrer renderer
         var referrerRenderer = function(value, metaData, record, colIndex, store, view){
 	        var url = record.get('Referrer');
-	        if(url.startsWith('http://localhost')|| url.startsWith('http://127.0.0.1') || url.startsWith('unknown')){
+            
+	        if(
+                Ext.String.startsWith(url, 'http://localhost') ||
+                Ext.String.startsWith(url, 'http://127.0.0.1') ||
+                Ext.String.startsWith(url, 'unknown')
+            )
+            {
 	            return url;
 	        }
 	        else {
