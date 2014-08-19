@@ -137,20 +137,41 @@ namespace HGIS
             }
 
             //finally save whatever should be saved
-            try
+
+            //Note:
+            //it looks like sometimes 2 or more inserts with the same unique key may
+            //be issued simultanously.
+            //Because of that, before logging out the exception, try to perform the operation again
+            //
+            //a;so now try block is created for each op, 
+
+
+            foreach (var s in stats)
             {
-                foreach (var s in stats)
+                var action = (Action)(() =>
                 {
                     this.mongocollections[s.GetCollectionName()].Update(
                         s.GetQueryBuilder(),
                         s.GetUpdateBuilder(),
                         MongoDB.Driver.UpdateFlags.Upsert
                     );
+                });
+
+                try
+                {
+                    action();
                 }
-            }
-            catch (Exception ex)
-            {
-                HandleMongoDbException(ex);
+                catch
+                {
+                    try
+                    {
+                        action();
+                    }
+                    catch (Exception ex)
+                    {
+                        HandleMongoDbException(ex);
+                    }
+                }
             }
         }
     }
