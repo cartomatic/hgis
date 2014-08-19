@@ -143,8 +143,8 @@ namespace HGIS
             //be issued simultanously.
             //Because of that, before logging out the exception, try to perform the operation again
             //
-            //a;so now try block is created for each op, 
-
+            //also now a try/catch block is created for each op, 
+            //so one failure does not prevent the other saves.
 
             foreach (var s in stats)
             {
