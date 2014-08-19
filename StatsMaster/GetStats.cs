@@ -35,7 +35,8 @@ namespace HGIS
             //this will pull all the shite off the specified collection 
             var cursor = this.mongocollections[s.GetCollectionName()].FindAs<T>(s.GetReadQueryBuilder());
             cursor.SetSortOrder(MongoDB.Driver.Builders.SortBy.Descending("Bytes"));
-            cursor.SetLimit(100);
+            //cursor.SetLimit(100);
+
             
             return cursor.ToList<T>();
         }
