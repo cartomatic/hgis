@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="782cc8ba-4621-4b15-a22a-6a13537662f1" name="TileCache" linkedPackageId="8eefe677-ec0a-4806-abee-39e37b546b96" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+  <ownedCommentsInternal>
+    <comment Id="1c333f8b-9543-4c56-994f-1cdbf1eed3e8">
+      <elementDefinition Id="de117c9f-d914-4d8f-9e02-e5dc12993f29" />
+      <body>Async</body>
+    </comment>
+    <comment Id="696a4499-923d-4918-846f-664deb428149">
+      <elementDefinition Id="b80df8c7-9d5e-4598-b1c9-ff34f589fd2f" />
+      <body>Cache is dumped only for requests that have been recignised as cacheable</body>
+    </comment>
+    <comment Id="8ae7cc2b-a5e6-4a23-a1ba-e13fea22bf01">
+      <elementDefinition Id="5714db13-16d6-478c-a030-20aa72b80c34" />
+      <body>This passes the request to the WmsDriver (whatever is configured - Manifold, GDAL, SharpMap; the default setup uses GDAL)
+</body>
+    </comment>
+  </ownedCommentsInternal>
+  <packagedElements>
+    <activityRootModelHasActivity>
+      <activity Id="aa222ce6-9074-4687-830b-f029dce6b5dc" name="TileCache" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
+        <elementDefinition Id="05e6233d-d510-46e0-ae2a-92dfc2eda283" />
+        <nodes>
+          <initialNode Id="561d697b-2a0d-4a2e-8485-b4fabd28a0d3" name="Initial1" isLeaf="false">
+            <elementDefinition Id="44879dd8-b336-44bf-94ff-09060c489a1c" />
+            <flowNodeTargets>
+              <controlFlow Id="e1305bcf-0c31-49cc-94a6-f47b9fe2bb4b" isLeaf="false">
+                <opaqueActionMoniker Id="6f4ff28c-c205-4619-ac6c-b67018898a7d" LastKnownName="Verify if the request can be cached" />
+                <elementDefinition Id="d4b66013-6366-40ae-ae5a-a0a021661595" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <activityFinalNode Id="a2359fcb-0f19-469d-9e51-cb47cb07b916" name="ActivityFinal1" isLeaf="false">
+            <elementDefinition Id="08fa8018-859d-41ec-9f7e-9bc8de3a4134" />
+          </activityFinalNode>
+          <opaqueAction Id="7d613e73-c0ab-4492-9def-71544df96876" name="Work out cache  file path" isLeaf="false">
+            <elementDefinition Id="d7cf1b62-b42c-4dbe-933c-fc205bb8ccd9" />
+            <flowNodeTargets>
+              <controlFlow Id="0c4fcd76-2902-4e04-9a5e-d33051d6083c" isLeaf="false">
+                <opaqueActionMoniker Id="4463aec5-ac42-498e-902d-2e6f63afea7a" LastKnownName="Check if cache exists" />
+                <elementDefinition Id="810c5700-9f57-4e07-8072-1e5292a7641d" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="6f4ff28c-c205-4619-ac6c-b67018898a7d" name="Verify if the request can be cached" isLeaf="false">
+            <elementDefinition Id="0c2651e8-6f48-463e-8815-eb5b0d40bd32" />
+            <flowNodeTargets>
+              <controlFlow Id="0a12b4ec-d4f6-4c17-9af3-96471b5ad3bd" isLeaf="false">
+                <decisionNodeMoniker Id="a70ff578-6a9c-4475-bffa-7e9f82f87ad3" LastKnownName="Decision1" />
+                <elementDefinition Id="e7af4ab2-3391-43aa-9c67-49fb37755813" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="c7887da9-1343-4aa6-9570-9799050a9ec4" name="Pass request through " isLeaf="false">
+            <elementDefinition Id="ac002ad6-2f9d-4244-8029-70f3dd486f87" />
+            <flowNodeTargets>
+              <controlFlow Id="290bee13-b5df-48ba-a5cf-f9aa78936441" isLeaf="false">
+                <opaqueActionMoniker Id="f071ed3c-8f4d-4119-87d9-26cb976cae55" LastKnownName="Prepare output data" />
+                <elementDefinition Id="f5f7ad76-034b-4d62-bb5c-f9c5c6ac7bda" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="f071ed3c-8f4d-4119-87d9-26cb976cae55" name="Prepare output data" isLeaf="false">
+            <elementDefinition Id="074c8c30-f616-406d-abb8-09d326ad4d12" />
+            <flowNodeTargets>
+              <controlFlow Id="e5de1059-0c5e-46e4-917c-6c9321a35ce3" isLeaf="false">
+                <forkNodeMoniker Id="92db016a-c465-4ad0-90d2-a7598017a3a6" LastKnownName="Fork1" />
+                <elementDefinition Id="d1183be7-c2d6-4f8e-aa5c-108703db7ea3" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode Id="a70ff578-6a9c-4475-bffa-7e9f82f87ad3" name="Decision1" isLeaf="false">
+            <elementDefinition Id="13c4069b-6b63-46a1-ac20-78a902a5e1af" />
+            <flowNodeTargets>
+              <controlFlow Id="32d73a60-c729-4922-bb45-4090b258f1f5" guard="Request not cacheable - not image request, or tilescheme does not fit" isLeaf="false">
+                <opaqueActionMoniker Id="c7887da9-1343-4aa6-9570-9799050a9ec4" LastKnownName="Pass request through " />
+                <elementDefinition Id="fb2af270-809f-45fa-b874-9f4787183a81" />
+              </controlFlow>
+              <controlFlow Id="47113ef6-c3db-40f9-9599-a659d844edce" guard="Request cacheable" isLeaf="false">
+                <opaqueActionMoniker Id="7d613e73-c0ab-4492-9def-71544df96876" LastKnownName="Work out cache  file path" />
+                <elementDefinition Id="587c04b9-53aa-4ae5-b96f-2e26656a226d" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <decisionNode Id="e6efbd4f-1821-4b37-87cb-26cfc53d0b0b" name="Decision2" isLeaf="false">
+            <elementDefinition Id="2ed4b1e1-c54c-4ab7-a060-26fcb8772a40" />
+            <flowNodeTargets>
+              <controlFlow Id="3c57e941-6d36-4c9c-a4f4-e9c3fc777d55" guard="Cache ok, so can prepare output straight away" isLeaf="false">
+                <opaqueActionMoniker Id="f071ed3c-8f4d-4119-87d9-26cb976cae55" LastKnownName="Prepare output data" />
+                <elementDefinition Id="a24831e7-8067-4691-92ca-d83d2e82e228" />
+              </controlFlow>
+              <controlFlow Id="ede87b5e-08fe-4cd8-8f20-bbcc8817969d" guard="Cache does not exists, generate data" isLeaf="false">
+                <opaqueActionMoniker Id="c7887da9-1343-4aa6-9570-9799050a9ec4" LastKnownName="Pass request through " />
+                <elementDefinition Id="148a61ef-9c7b-4916-aa87-527b0ce229c7" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction Id="4463aec5-ac42-498e-902d-2e6f63afea7a" name="Check if cache exists" isLeaf="false">
+            <elementDefinition Id="c1f5f072-e715-43a1-8d31-94948a6e7aa8" />
+            <flowNodeTargets>
+              <controlFlow Id="c281aa7e-036a-4938-b598-d5f5e72ced82" isLeaf="false">
+                <decisionNodeMoniker Id="e6efbd4f-1821-4b37-87cb-26cfc53d0b0b" LastKnownName="Decision2" />
+                <elementDefinition Id="15aeca0b-0b22-4fed-aec2-c98617dbfffb" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <forkNode Id="92db016a-c465-4ad0-90d2-a7598017a3a6" name="Fork1" isLeaf="false">
+            <elementDefinition Id="df3c2ddf-a104-4ef5-a884-a8f503bca664" />
+            <flowNodeTargets>
+              <controlFlow Id="d91041ec-3933-483a-b677-9b5b9e0f5ff9" guard="Dump stats, do not wait" isLeaf="false">
+                <opaqueActionMoniker Id="cebebd9a-0be1-42bc-b630-8064513f6e48" LastKnownName="Save cache" />
+                <elementDefinition Id="429abdb1-4487-4b3c-b121-7358ee3b7b41" />
+              </controlFlow>
+              <controlFlow Id="860a6b81-9c14-4658-b2f5-dbb54746643b" isLeaf="false">
+                <opaqueActionMoniker Id="6b8a61d6-489a-45fe-87b9-6922b76fb7c9" LastKnownName="Return output" />
+                <elementDefinition Id="573eab59-1ffd-48c7-b810-dbb5481a18e6" />
+              </controlFlow>
+            </flowNodeTargets>
+          </forkNode>
+          <opaqueAction Id="cebebd9a-0be1-42bc-b630-8064513f6e48" name="Save cache" isLeaf="false">
+            <elementDefinition Id="466a74a7-5434-4377-8cd3-cc4a159f6b58" />
+          </opaqueAction>
+          <opaqueAction Id="6b8a61d6-489a-45fe-87b9-6922b76fb7c9" name="Return output" isLeaf="false">
+            <elementDefinition Id="72afacad-ab38-467c-aa65-b37e4c21f6eb" />
+            <flowNodeTargets>
+              <controlFlow Id="81ff143a-a2d3-4516-8197-fcf80a0cb7bc" isLeaf="false">
+                <activityFinalNodeMoniker Id="a2359fcb-0f19-469d-9e51-cb47cb07b916" LastKnownName="ActivityFinal1" />
+                <elementDefinition Id="43ba9b76-9b58-4c29-8159-c41e54686f09" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+        </nodes>
+      </activity>
+    </activityRootModelHasActivity>
+  </packagedElements>
+  <package Id="8eefe677-ec0a-4806-abee-39e37b546b96" name="Wms">
+    <elementDefinition Id="1e158c95-5708-49cd-a35a-37fc6479ad8a" />
+    <profileInstances>
+      <packageHasProfileInstances Id="22a6e9ec-e20f-4ff4-ad8d-e1ab3cb1469e">
+        <profileInstance Id="ca446026-892d-421d-a21e-9794a82501e6" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="c7700e32-cfe6-4790-8b54-550e21f4989d">
+        <profileInstance Id="70398653-ac99-4986-830e-083d3fe022dc" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</activityRootModel>

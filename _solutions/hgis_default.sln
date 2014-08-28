@@ -71,6 +71,10 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "hgis_apps", "http://localho
 		SlnRelativePath = "..\web\www_apps\"
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modelling", "modelling", "{45B7CF81-5048-4493-91C0-048F422257B3}"
+EndProject
+Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "Wms", "..\modelling\Wms\Wms.modelproj", "{194407B8-AF08-4903-AFC3-2FED33F960C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +125,10 @@ Global
 		{A7373663-2F0C-4AD8-9EE6-F9DACA85C7F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7373663-2F0C-4AD8-9EE6-F9DACA85C7F2}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{A7373663-2F0C-4AD8-9EE6-F9DACA85C7F2}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{194407B8-AF08-4903-AFC3-2FED33F960C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{194407B8-AF08-4903-AFC3-2FED33F960C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{194407B8-AF08-4903-AFC3-2FED33F960C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{194407B8-AF08-4903-AFC3-2FED33F960C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -137,5 +145,6 @@ Global
 		{29BEF49A-F4D7-44A2-AE7D-DE90619FB491} = {2E5DB7FA-928A-43F6-8B14-EE85C0056C0E}
 		{CF5BE157-7EB6-4DB8-B575-2F8D9E17625F} = {2E5DB7FA-928A-43F6-8B14-EE85C0056C0E}
 		{A7373663-2F0C-4AD8-9EE6-F9DACA85C7F2} = {EE936F71-D07A-42E1-8FE6-6A71DDB24849}
+		{194407B8-AF08-4903-AFC3-2FED33F960C7} = {45B7CF81-5048-4493-91C0-048F422257B3}
 	EndGlobalSection
 EndGlobal

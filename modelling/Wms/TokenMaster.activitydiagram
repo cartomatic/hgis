@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="155e4b1e-8f7a-45cd-ba74-0565401cbb9e" name="TokenMaster" linkedPackageId="a92a7ff0-88ac-4c2c-966f-89361db25600" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+  <ownedCommentsInternal>
+    <comment Id="aed7bde2-7e28-4dbd-ad58-14c9e01ab295">
+      <elementDefinition Id="2ee9f8ec-e3bd-4b84-86ea-d8df6efdbb21" />
+      <body>Token data is saved in a Redis db</body>
+    </comment>
+    <comment Id="297afd60-7596-41c8-a5b5-f15fa65edbd9">
+      <elementDefinition Id="8eb6cd34-9496-4d8d-bf25-eb26dcdc1d71" />
+      <body>If token does not exist it means that it either has not been generated or has laready expired</body>
+    </comment>
+  </ownedCommentsInternal>
+  <packagedElements>
+    <activityRootModelHasActivity>
+      <activity Id="d327868e-e72e-4477-a7db-16992fb991e7" name="TokenMaster" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
+        <elementDefinition Id="60a009d8-c658-49af-95d6-658578e24675" />
+        <nodes>
+          <initialNode Id="74a69228-68da-4dfc-adb8-974e9b4c0df1" name="Initial1" isLeaf="false">
+            <elementDefinition Id="19bc053e-88ed-4dcf-a525-fa997a89be3b" />
+            <flowNodeTargets>
+              <controlFlow Id="e8d13465-e78b-42a8-99f8-cdb44e90a23c" isLeaf="false">
+                <opaqueActionMoniker Id="3f3fe1cb-833c-4f61-a74e-5484433c69a7" LastKnownName="Get the browser's  fingerprint for a passed token" />
+                <elementDefinition Id="849190db-408b-4985-8e19-fcc625c3631c" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <activityFinalNode Id="899c8c3d-381c-41a0-abaa-616c61a630e7" name="ActivityFinal1" isLeaf="false">
+            <elementDefinition Id="0d0c507b-fe21-4943-b8a1-2453933ada22" />
+          </activityFinalNode>
+          <opaqueAction Id="3f3fe1cb-833c-4f61-a74e-5484433c69a7" name="Get the browser's  fingerprint for a passed token" isLeaf="false">
+            <elementDefinition Id="1fd3770b-91d6-4103-9115-28567813674c" />
+            <flowNodeTargets>
+              <controlFlow Id="81711dd2-be03-4b01-9406-e6102b34b74e" isLeaf="false">
+                <decisionNodeMoniker Id="0bd60bf6-6dc0-43fc-a3eb-9b7e91d47f12" LastKnownName="Decision1" />
+                <elementDefinition Id="312f4b02-27f2-4233-9867-a9db771c31dc" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="5af6431d-a8a9-4d65-8e8c-45ec45cb2940" name="Generate browser fingerprint" isLeaf="false">
+            <elementDefinition Id="1e9200f0-f23a-436a-98e7-96c3587f19c2" />
+            <flowNodeTargets>
+              <controlFlow Id="5c59a0f2-7c36-49f8-b700-64fa6c5e9b19" isLeaf="false">
+                <opaqueActionMoniker Id="848dae54-0547-4d52-b938-3daf2b503c38" LastKnownName="Compare the fingerprint with db value" />
+                <elementDefinition Id="08f33792-8656-4ec8-bf52-6b2bc7b86a1b" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode Id="0bd60bf6-6dc0-43fc-a3eb-9b7e91d47f12" name="Decision1" isLeaf="false">
+            <elementDefinition Id="7178c769-3b65-449f-bb98-44fb5feda8cd" />
+            <flowNodeTargets>
+              <controlFlow Id="66e9e70d-cf3c-4327-98b0-1abd1f83e27c" guard="Token exists" isLeaf="false">
+                <opaqueActionMoniker Id="5af6431d-a8a9-4d65-8e8c-45ec45cb2940" LastKnownName="Generate browser fingerprint" />
+                <elementDefinition Id="a8e56ce6-59ff-4fa5-aa10-255821da8cc7" />
+              </controlFlow>
+              <controlFlow Id="a2325d1f-2b92-4398-b37b-0759da0665e2" guard="Token does not exist, so output is false" isLeaf="false">
+                <activityFinalNodeMoniker Id="899c8c3d-381c-41a0-abaa-616c61a630e7" LastKnownName="ActivityFinal1" />
+                <elementDefinition Id="298d9ecb-a663-437c-80ba-370a40fd1226" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction Id="848dae54-0547-4d52-b938-3daf2b503c38" name="Compare the fingerprint with db value" isLeaf="false">
+            <elementDefinition Id="ec695490-0b02-4000-839f-726dd94e92c5" />
+            <flowNodeTargets>
+              <controlFlow Id="b2f4de58-6f10-4d17-a78c-158601a31590" guard="return fingerprint == dbvalue" isLeaf="false">
+                <activityFinalNodeMoniker Id="899c8c3d-381c-41a0-abaa-616c61a630e7" LastKnownName="ActivityFinal1" />
+                <elementDefinition Id="3624e569-ed59-4a04-9c0c-b0e7c3b2a22e" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+        </nodes>
+      </activity>
+    </activityRootModelHasActivity>
+  </packagedElements>
+  <package Id="a92a7ff0-88ac-4c2c-966f-89361db25600" name="Wms">
+    <elementDefinition Id="1e158c95-5708-49cd-a35a-37fc6479ad8a" />
+    <profileInstances>
+      <packageHasProfileInstances Id="574032ff-d014-4f7d-bf93-0683f14248e2">
+        <profileInstance Id="3fd0d927-bb0c-4b02-8bb3-3bf3c54839a3" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="72567f27-53fc-416b-badc-d5e6f687bb01">
+        <profileInstance Id="71c13944-bbc7-4b39-8dad-54019296b498" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</activityRootModel>

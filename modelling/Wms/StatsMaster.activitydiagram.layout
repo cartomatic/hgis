@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="StatsMaster">
+  <activityRootModelMoniker Id="3edf7591-cf22-4b56-9fe2-35f41bede5d5" />
+  <nestedChildShapes>
+    <initialNodeShape Id="ffa6b47d-756f-4ee1-85b4-dc2dc657f9f5" absoluteBounds="5.75, 0.625, 0.125, 0.125" customColor="89, 89, 89">
+      <initialNodeMoniker Id="3e775bc1-7618-417c-87b9-5e2bd7645ba6" LastKnownName="Initial1" />
+    </initialNodeShape>
+    <activityFinalNodeShape Id="d0687eb2-77fb-4a89-97e1-a6f9feab4873" absoluteBounds="5.75, 5, 0.125, 0.125" customColor="89, 89, 89">
+      <activityFinalNodeMoniker Id="ba7a337b-6198-429d-9dce-11aea329ebda" LastKnownName="ActivityFinal1" />
+    </activityFinalNodeShape>
+    <actionShape Id="dc6b153c-8609-4f3a-89d9-b1a3f7b5aa09" absoluteBounds="5.25, 1.625, 1.125, 0.625" customColor="161, 199, 231">
+      <opaqueActionMoniker Id="6f358968-49cb-4d90-80bd-3319f961889b" LastKnownName="Work out Request GeoLocation based on IP" />
+    </actionShape>
+    <commentShape Id="60c1ef66-1a2e-4f98-a398-3afbffe45e18" absoluteBounds="7.625, 0.5, 1.25, 0.375" customColor="251, 247, 200">
+      <commentMoniker Id="46d9854b-6d41-45c0-b3f3-01a8422b910d" />
+      <relativeChildShapes />
+    </commentShape>
+    <decisionNodeShape Id="dbb27476-2680-443c-95e8-0cdb9797f677" absoluteBounds="5.625, 2.625, 0.375, 0.375" customColor="185, 212, 238">
+      <decisionNodeMoniker Id="e8483380-a9bf-4aad-af5c-3ac6f744cfbc" LastKnownName="Decision1" />
+      <relativeChildShapes />
+    </decisionNodeShape>
+    <actionShape Id="cf1c5d8c-e36c-4b7d-a71c-4bc76d05eb4b" absoluteBounds="5.25, 4.25, 1.125, 0.375" customColor="161, 199, 231">
+      <opaqueActionMoniker Id="38f7c53c-b00a-488f-9216-a0a00fc2606b" LastKnownName="Save Referrer stats" />
+    </actionShape>
+    <actionShape Id="94967edf-2b31-4606-bb5f-7075ca05960f" absoluteBounds="5.25, 3.5, 1.125, 0.375" customColor="161, 199, 231">
+      <opaqueActionMoniker Id="79c5f562-fadc-401d-8782-6ff6a7f679c2" LastKnownName="Save Ip stats" />
+    </actionShape>
+    <actionShape Id="74b1d48b-99b0-4bd3-9c74-fe1ca2d7bc41" absoluteBounds="7.75, 2.375, 1.125, 0.625" customColor="161, 199, 231">
+      <opaqueActionMoniker Id="46058796-c32e-4662-83a7-53635548539d" LastKnownName="Add GeoIp data to the RequestStats object" />
+    </actionShape>
+    <controlFlowConnector edgePoints="[(5.8125 : 0.75); (5.8125 : 1.625)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="47c4b401-438d-483c-ba3d-197e30571839" />
+      <relativeChildShapes />
+      <nodes>
+        <initialNodeShapeMoniker Id="ffa6b47d-756f-4ee1-85b4-dc2dc657f9f5" />
+        <actionShapeMoniker Id="dc6b153c-8609-4f3a-89d9-b1a3f7b5aa09" />
+      </nodes>
+    </controlFlowConnector>
+    <controlFlowConnector edgePoints="[(5.8125 : 2.25); (5.8125 : 2.625)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="7e4ebe45-3ca3-4208-8164-d0f3ebe1d507" />
+      <relativeChildShapes />
+      <nodes>
+        <actionShapeMoniker Id="dc6b153c-8609-4f3a-89d9-b1a3f7b5aa09" />
+        <decisionNodeShapeMoniker Id="dbb27476-2680-443c-95e8-0cdb9797f677" />
+      </nodes>
+    </controlFlowConnector>
+    <controlFlowConnector edgePoints="[(6 : 2.8125); (7.75 : 2.8125)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="c7fd63c5-3532-4751-aacc-7c92adcf26d3" />
+      <relativeChildShapes />
+      <nodes>
+        <decisionNodeShapeMoniker Id="dbb27476-2680-443c-95e8-0cdb9797f677" />
+        <actionShapeMoniker Id="74b1d48b-99b0-4bd3-9c74-fe1ca2d7bc41" />
+      </nodes>
+    </controlFlowConnector>
+    <controlFlowConnector edgePoints="[(5.8125 : 3); (5.8125 : 3.5)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="3f0f5983-e886-4af7-8717-15bdd1f8a70b" />
+      <relativeChildShapes />
+      <nodes>
+        <decisionNodeShapeMoniker Id="dbb27476-2680-443c-95e8-0cdb9797f677" />
+        <actionShapeMoniker Id="94967edf-2b31-4606-bb5f-7075ca05960f" />
+      </nodes>
+    </controlFlowConnector>
+    <controlFlowConnector edgePoints="[(5.8125 : 3.875); (5.8125 : 4.25)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="e65afb89-c504-4b38-a1c9-6d70fb934a71" />
+      <relativeChildShapes />
+      <nodes>
+        <actionShapeMoniker Id="94967edf-2b31-4606-bb5f-7075ca05960f" />
+        <actionShapeMoniker Id="cf1c5d8c-e36c-4b7d-a71c-4bc76d05eb4b" />
+      </nodes>
+    </controlFlowConnector>
+    <controlFlowConnector edgePoints="[(5.8125 : 4.625); (5.8125 : 5)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="523d05c1-91da-40c9-a239-6db8b25d1e26" />
+      <relativeChildShapes />
+      <nodes>
+        <actionShapeMoniker Id="cf1c5d8c-e36c-4b7d-a71c-4bc76d05eb4b" />
+        <activityFinalNodeShapeMoniker Id="d0687eb2-77fb-4a89-97e1-a6f9feab4873" />
+      </nodes>
+    </controlFlowConnector>
+    <controlFlowConnector edgePoints="[(8.21381578947369 : 3); (8.21381578947369 : 3.6875); (6.375 : 3.6875)]" fixedFrom="Caller" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="c248ea45-03d0-447b-9d7b-e890ededc86e" />
+      <relativeChildShapes />
+      <nodes>
+        <actionShapeMoniker Id="74b1d48b-99b0-4bd3-9c74-fe1ca2d7bc41" />
+        <actionShapeMoniker Id="94967edf-2b31-4606-bb5f-7075ca05960f" />
+      </nodes>
+    </controlFlowConnector>
+    <commentShape Id="7daa483e-1323-44f4-9db3-cd5173343629" absoluteBounds="3, 0.5, 2, 0.625" customColor="251, 247, 200">
+      <commentMoniker Id="7eed2fb0-e496-4882-bbad-14e4878f7b69" />
+      <relativeChildShapes />
+    </commentShape>
+  </nestedChildShapes>
+</activityDiagram>

@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="TokenMaster">
+  <activityRootModelMoniker Id="155e4b1e-8f7a-45cd-ba74-0565401cbb9e" />
+  <nestedChildShapes>
+    <initialNodeShape Id="923d9bbf-b8e3-42f2-9426-bc9bc218d98f" absoluteBounds="5.25, 0.5, 0.125, 0.125" customColor="89, 89, 89">
+      <initialNodeMoniker Id="74a69228-68da-4dfc-adb8-974e9b4c0df1" LastKnownName="Initial1" />
+    </initialNodeShape>
+    <activityFinalNodeShape Id="bc55f059-03ac-4b7d-970f-2ff77614dbfd" absoluteBounds="5.25, 4.75, 0.125, 0.125" customColor="89, 89, 89">
+      <activityFinalNodeMoniker Id="899c8c3d-381c-41a0-abaa-616c61a630e7" LastKnownName="ActivityFinal1" />
+    </activityFinalNodeShape>
+    <actionShape Id="4895a8b9-dd10-45a9-a8e0-5863f96de9e9" absoluteBounds="4.625, 1.375, 1.375, 0.625" customColor="161, 199, 231">
+      <opaqueActionMoniker Id="3f3fe1cb-833c-4f61-a74e-5484433c69a7" LastKnownName="Get the browser's  fingerprint for a passed token" />
+    </actionShape>
+    <commentShape Id="ee2da406-26fc-41b6-a64f-4652ab3f5a66" absoluteBounds="6.375, 0.5, 1.25, 0.375" customColor="251, 247, 200">
+      <commentMoniker Id="aed7bde2-7e28-4dbd-ad58-14c9e01ab295" />
+      <relativeChildShapes />
+    </commentShape>
+    <actionShape Id="cd06a30e-f804-4892-9462-fa823ab31a05" absoluteBounds="7.75, 2.75, 1.25, 0.375" customColor="161, 199, 231">
+      <opaqueActionMoniker Id="5af6431d-a8a9-4d65-8e8c-45ec45cb2940" LastKnownName="Generate browser fingerprint" />
+    </actionShape>
+    <decisionNodeShape Id="190bb725-3c75-4dbb-b8a1-52fad2f8af48" absoluteBounds="5.125, 2.75, 0.375, 0.375" customColor="185, 212, 238">
+      <decisionNodeMoniker Id="0bd60bf6-6dc0-43fc-a3eb-9b7e91d47f12" LastKnownName="Decision1" />
+      <relativeChildShapes />
+    </decisionNodeShape>
+    <actionShape Id="21792346-9578-4eaa-ba56-1cef02a9e8fd" absoluteBounds="7.875, 3.875, 1.125, 0.625" customColor="161, 199, 231">
+      <opaqueActionMoniker Id="848dae54-0547-4d52-b938-3daf2b503c38" LastKnownName="Compare the fingerprint with db value" />
+    </actionShape>
+    <controlFlowConnector edgePoints="[(5.3125 : 0.625); (5.3125 : 1.375)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="Black">
+      <controlFlowMoniker Id="e8d13465-e78b-42a8-99f8-cdb44e90a23c" />
+      <relativeChildShapes />
+      <nodes>
+        <initialNodeShapeMoniker Id="923d9bbf-b8e3-42f2-9426-bc9bc218d98f" />
+        <actionShapeMoniker Id="4895a8b9-dd10-45a9-a8e0-5863f96de9e9" />
+      </nodes>
+    </controlFlowConnector>
+    <controlFlowConnector edgePoints="[(5.3125 : 2); (5.3125 : 2.75)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="81711dd2-be03-4b01-9406-e6102b34b74e" />
+      <relativeChildShapes />
+      <nodes>
+        <actionShapeMoniker Id="4895a8b9-dd10-45a9-a8e0-5863f96de9e9" />
+        <decisionNodeShapeMoniker Id="190bb725-3c75-4dbb-b8a1-52fad2f8af48" />
+      </nodes>
+    </controlFlowConnector>
+    <controlFlowConnector edgePoints="[(5.5 : 2.9375); (7.75 : 2.9375)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="66e9e70d-cf3c-4327-98b0-1abd1f83e27c" />
+      <relativeChildShapes />
+      <nodes>
+        <decisionNodeShapeMoniker Id="190bb725-3c75-4dbb-b8a1-52fad2f8af48" />
+        <actionShapeMoniker Id="cd06a30e-f804-4892-9462-fa823ab31a05" />
+      </nodes>
+    </controlFlowConnector>
+    <controlFlowConnector edgePoints="[(5.3125 : 3.125); (5.3125 : 4.75)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="a2325d1f-2b92-4398-b37b-0759da0665e2" />
+      <relativeChildShapes />
+      <nodes>
+        <decisionNodeShapeMoniker Id="190bb725-3c75-4dbb-b8a1-52fad2f8af48" />
+        <activityFinalNodeShapeMoniker Id="bc55f059-03ac-4b7d-970f-2ff77614dbfd" />
+      </nodes>
+    </controlFlowConnector>
+    <controlFlowConnector edgePoints="[(8.4375 : 3.125); (8.4375 : 3.875)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="Black">
+      <controlFlowMoniker Id="5c59a0f2-7c36-49f8-b700-64fa6c5e9b19" />
+      <relativeChildShapes />
+      <nodes>
+        <actionShapeMoniker Id="cd06a30e-f804-4892-9462-fa823ab31a05" />
+        <actionShapeMoniker Id="21792346-9578-4eaa-ba56-1cef02a9e8fd" />
+      </nodes>
+    </controlFlowConnector>
+    <controlFlowConnector edgePoints="[(8.38942307692308 : 4.5); (8.38942307692308 : 4.8125); (5.375 : 4.8125)]" fixedFrom="Caller" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="b2f4de58-6f10-4d17-a78c-158601a31590" />
+      <relativeChildShapes />
+      <nodes>
+        <actionShapeMoniker Id="21792346-9578-4eaa-ba56-1cef02a9e8fd" />
+        <activityFinalNodeShapeMoniker Id="bc55f059-03ac-4b7d-970f-2ff77614dbfd" />
+      </nodes>
+    </controlFlowConnector>
+    <commentShape Id="e1cc95a8-de73-43c9-a726-2eebcc24f381" absoluteBounds="3.75, 3.5, 1.25, 0.875" customColor="251, 247, 200">
+      <commentMoniker Id="297afd60-7596-41c8-a5b5-f15fa65edbd9" />
+      <relativeChildShapes />
+    </commentShape>
+  </nestedChildShapes>
+</activityDiagram>

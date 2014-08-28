@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="3edf7591-cf22-4b56-9fe2-35f41bede5d5" name="StatsMaster" linkedPackageId="f8413f49-a09d-46f8-bcd1-410a1d1ace1d" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+  <ownedCommentsInternal>
+    <comment Id="46d9854b-6d41-45c0-b3f3-01a8422b910d">
+      <elementDefinition Id="3d46501f-0d2b-438e-a6d4-a83e3513b546" />
+      <body>MongoDb is used for stats</body>
+    </comment>
+    <comment Id="7eed2fb0-e496-4882-bbad-14e4878f7b69">
+      <elementDefinition Id="83adc165-9f2c-4739-86a0-39cfd6cf3707" />
+      <body>This action is called via delegate and BeginInvoke so is meant to be async - just call and forget</body>
+    </comment>
+  </ownedCommentsInternal>
+  <packagedElements>
+    <activityRootModelHasActivity>
+      <activity Id="2e716d6d-5198-4b1c-8b1b-3fd4ebe79ae6" name="StatsMaster" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
+        <elementDefinition Id="1f539998-9be7-48ac-8300-37debe77120a" />
+        <nodes>
+          <initialNode Id="3e775bc1-7618-417c-87b9-5e2bd7645ba6" name="Initial1" isLeaf="false">
+            <elementDefinition Id="504f4c9f-45d9-44b7-9540-cf806c0b98fa" />
+            <flowNodeTargets>
+              <controlFlow Id="47c4b401-438d-483c-ba3d-197e30571839" isLeaf="false">
+                <opaqueActionMoniker Id="6f358968-49cb-4d90-80bd-3319f961889b" LastKnownName="Work out Request GeoLocation based on IP" />
+                <elementDefinition Id="e08b6b41-addd-487a-9de1-96a6df1d6471" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <activityFinalNode Id="ba7a337b-6198-429d-9dce-11aea329ebda" name="ActivityFinal1" isLeaf="false">
+            <elementDefinition Id="00f37443-506d-45eb-94e3-ca3a173a2ace" />
+          </activityFinalNode>
+          <opaqueAction Id="6f358968-49cb-4d90-80bd-3319f961889b" name="Work out Request GeoLocation based on IP" isLeaf="false">
+            <elementDefinition Id="0c85de7e-095a-4672-bc3b-d5cb1ffc52ff" />
+            <flowNodeTargets>
+              <controlFlow Id="7e4ebe45-3ca3-4208-8164-d0f3ebe1d507" isLeaf="false">
+                <decisionNodeMoniker Id="e8483380-a9bf-4aad-af5c-3ac6f744cfbc" LastKnownName="Decision1" />
+                <elementDefinition Id="7309696f-a73d-4b83-b9ed-e8e3d1e16a25" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode Id="e8483380-a9bf-4aad-af5c-3ac6f744cfbc" name="Decision1" isLeaf="false">
+            <elementDefinition Id="9f415070-137d-4eb6-915d-803d68b3c23d" />
+            <flowNodeTargets>
+              <controlFlow Id="c7fd63c5-3532-4751-aacc-7c92adcf26d3" guard="Ip GeoLocation ok" isLeaf="false">
+                <opaqueActionMoniker Id="46058796-c32e-4662-83a7-53635548539d" LastKnownName="Add GeoIp data to the RequestStats object" />
+                <elementDefinition Id="ee78bc45-d748-4429-98a8-3cb2689b5fdf" />
+              </controlFlow>
+              <controlFlow Id="3f0f5983-e886-4af7-8717-15bdd1f8a70b" guard="Ip GeoLocation not known" isLeaf="false">
+                <opaqueActionMoniker Id="79c5f562-fadc-401d-8782-6ff6a7f679c2" LastKnownName="Save Ip stats" />
+                <elementDefinition Id="2cb02f8d-9892-4e34-b087-df8d771ad16c" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction Id="38f7c53c-b00a-488f-9216-a0a00fc2606b" name="Save Referrer stats" isLeaf="false">
+            <elementDefinition Id="96e160e0-b2c0-44f0-8841-8663102113e0" />
+            <flowNodeTargets>
+              <controlFlow Id="523d05c1-91da-40c9-a239-6db8b25d1e26" isLeaf="false">
+                <activityFinalNodeMoniker Id="ba7a337b-6198-429d-9dce-11aea329ebda" LastKnownName="ActivityFinal1" />
+                <elementDefinition Id="102f9013-92cc-4a90-bdd9-029bd55ec387" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="79c5f562-fadc-401d-8782-6ff6a7f679c2" name="Save Ip stats" isLeaf="false">
+            <elementDefinition Id="6be4008a-4c9b-4ca2-a2c8-82d868f864cc" />
+            <flowNodeTargets>
+              <controlFlow Id="e65afb89-c504-4b38-a1c9-6d70fb934a71" isLeaf="false">
+                <opaqueActionMoniker Id="38f7c53c-b00a-488f-9216-a0a00fc2606b" LastKnownName="Save Referrer stats" />
+                <elementDefinition Id="2b18f4f9-c77d-4cc4-a729-3b67f1a77c1d" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="46058796-c32e-4662-83a7-53635548539d" name="Add GeoIp data to the RequestStats object" isLeaf="false">
+            <elementDefinition Id="b4fe212a-8d39-4300-a696-ec48bfdf74df" />
+            <flowNodeTargets>
+              <controlFlow Id="c248ea45-03d0-447b-9d7b-e890ededc86e" isLeaf="false">
+                <opaqueActionMoniker Id="79c5f562-fadc-401d-8782-6ff6a7f679c2" LastKnownName="Save Ip stats" />
+                <elementDefinition Id="8a47217a-5e1e-4b06-b224-167ff2e717a5" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+        </nodes>
+      </activity>
+    </activityRootModelHasActivity>
+  </packagedElements>
+  <package Id="f8413f49-a09d-46f8-bcd1-410a1d1ace1d" name="Wms">
+    <elementDefinition Id="1e158c95-5708-49cd-a35a-37fc6479ad8a" />
+    <profileInstances>
+      <packageHasProfileInstances Id="2498b649-dcf4-42f3-a948-83a25e91e94b">
+        <profileInstance Id="4ad1e979-1cc0-4dad-a4a9-918c7411e303" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="b4b467e0-24fe-45d6-b6ac-d6f2680de4a9">
+        <profileInstance Id="a87a4e9c-3103-44a3-9d19-bb47e8a58e92" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</activityRootModel>

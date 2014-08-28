@@ -1,0 +1,934 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner"
+  dslVersion="1.0.0.0"
+  Id="1e158c95-5708-49cd-a35a-37fc6479ad8a"
+  name="Wms" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <ownedCommentsInternal>
+    <comment
+      Id="ce62134d-503b-472b-b7a1-25aa33d32ccb">
+      <body>A service endpoint of all the wms requests</body>
+      <annotatedElements>
+        <opaqueActionMoniker
+          Id="ea835a88-d2ef-4d47-98ea-d9e3197ab85d"
+          LastKnownName="Start Request processing"
+          LastKnownLocation="Wms.uml" />
+      </annotatedElements>
+    </comment>
+    <comment
+      Id="f29377ea-d1e4-42c1-af78-8ad6121b675b">
+      <body>Async</body>
+    </comment>
+    <comment
+      Id="95d7aafb-00cd-4e20-bd25-9649b4c16023">
+      <body>Async</body>
+    </comment>
+    <comment
+      Id="7e4b0757-fe5e-40bb-95dc-0dca4dc1b677">
+      <body>Async</body>
+    </comment>
+    <comment
+      Id="4f704378-acdd-4e17-9cea-77e931b36e95">
+      <body>Async</body>
+    </comment>
+    <comment
+      Id="cea8ef6d-ba68-4c5c-8a2c-fa1c3fc92937">
+      <body>A service endpoint of internal wms requests</body>
+      <annotatedElements>
+        <opaqueActionMoniker
+          Id="8e275dc2-2bb4-40d8-b657-30d100afbdc5"
+          LastKnownName="Start Request processing"
+          LastKnownLocation="Wms.uml" />
+      </annotatedElements>
+    </comment>
+    <comment
+      Id="86433cf4-ed77-401f-9706-da1ab8ed664d">
+      <body>Async</body>
+    </comment>
+    <comment
+      Id="2a12ea54-524d-4b46-85b2-edc648727198">
+      <body>Async</body>
+    </comment>
+    <comment
+      Id="de117c9f-d914-4d8f-9e02-e5dc12993f29">
+      <body>Async</body>
+    </comment>
+    <comment
+      Id="b80df8c7-9d5e-4598-b1c9-ff34f589fd2f">
+      <body>Cache is dumped only for requests that have been recignised as cacheable</body>
+    </comment>
+    <comment
+      Id="5714db13-16d6-478c-a030-20aa72b80c34">
+      <body>This passes the request to the WmsDriver (whatever is configured - Manifold, GDAL, SharpMap; the default setup uses GDAL)
+</body>
+    </comment>
+    <comment
+      Id="2ee9f8ec-e3bd-4b84-86ea-d8df6efdbb21">
+      <body>Token data is saved in a Redis db</body>
+    </comment>
+    <comment
+      Id="3d46501f-0d2b-438e-a6d4-a83e3513b546">
+      <body>MongoDb is used for stats</body>
+    </comment>
+    <comment
+      Id="83adc165-9f2c-4739-86a0-39cfd6cf3707">
+      <body>This action is called via delegate and BeginInvoke so is meant to be async - just call and forget</body>
+    </comment>
+    <comment
+      Id="8eb6cd34-9496-4d8d-bf25-eb26dcdc1d71">
+      <body>If token does not exist it means that it either has not been generated or has laready expired</body>
+    </comment>
+  </ownedCommentsInternal>
+  <profileInstances>
+    <packageHasProfileInstances
+      Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b">
+      <profileInstance
+        Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791"
+        name="StandardProfileL2" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances
+      Id="29349502-908c-4fda-9054-c48619c59ed0">
+      <profileInstance
+        Id="532ea607-fb19-44b8-8502-3351b05452be"
+        name="StandardProfileL3" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <activity
+        Id="1acba6f3-02da-405c-a7c0-14e18caed110"
+        name="PublicWms"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false"
+        isReentrant="false"
+        isReadOnly="false"
+        isSingleExecution="false">
+        <nodes>
+          <initialNode
+            Id="6e7f0c1d-2123-4954-9ee3-5358a1431e38"
+            name="Initial1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="d6ecea40-3da0-47b4-9ac5-7ad9601c053a"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="ea835a88-d2ef-4d47-98ea-d9e3197ab85d"
+                  LastKnownName="Start Request processing"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <activityFinalNode
+            Id="92a8978d-9c12-41da-9c4e-4b6cd868feee"
+            name="ActivityFinal1"
+            isLeaf="false" />
+          <opaqueAction
+            Id="ea835a88-d2ef-4d47-98ea-d9e3197ab85d"
+            name="Start Request processing"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="f657a8e4-2469-4a46-93a2-9743bcadd22c"
+                isLeaf="false">
+                <callBehaviorActionMoniker
+                  Id="98499474-6f0e-499e-8388-4daaf4f214bd"
+                  LastKnownName="Validate token"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="19ed6f7e-510b-4789-8fbe-991dd66815e7"
+            name="Transfer data to Response object"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="41e27fd9-af9b-400b-8f07-c53400e88514"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="d2dbc7ab-e27b-47e2-afe1-a1903790ca99"
+                  LastKnownName="Complete request"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <callBehaviorAction
+            Id="98499474-6f0e-499e-8388-4daaf4f214bd"
+            name="Validate token"
+            isLeaf="false"
+            isSynchronous="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="5034ef91-8abf-4e9f-95c6-e19aef3a6ec2"
+                isLeaf="false">
+                <decisionNodeMoniker
+                  Id="5cf3803f-66e6-41f2-a7de-5b4a5dc92d56"
+                  LastKnownName="IsTokenValid"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+            <behavior>
+              <activityMoniker
+                Id="60a009d8-c658-49af-95d6-658578e24675"
+                LastKnownName="TokenMaster"
+                LastKnownLocation="Wms.uml" />
+            </behavior>
+          </callBehaviorAction>
+          <decisionNode
+            Id="5cf3803f-66e6-41f2-a7de-5b4a5dc92d56"
+            name="IsTokenValid"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="98032b78-1ec1-4cfe-9965-8baaffd18f59"
+                guard="Token ok"
+                isLeaf="false">
+                <callBehaviorActionMoniker
+                  Id="66fe9bb8-3661-42eb-aaa5-4045d80e05d6"
+                  LastKnownName="TileCache Request processor"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow
+                Id="e05121fa-3705-463b-bfdd-51bbdf423c6a"
+                guard="Token not valid"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <inputPinMoniker
+                  Id="1fc8721e-b608-4004-9163-ca83885ab9f6"
+                  LastKnownName="Backend request url"
+                  LastKnownLocation="Wms.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+          </decisionNode>
+          <callBehaviorAction
+            Id="e31f12b0-4424-499b-9378-216846c0640a"
+            name="Dump request stats"
+            isLeaf="false"
+            isSynchronous="false">
+            <behavior>
+              <activityMoniker
+                Id="1f539998-9be7-48ac-8300-37debe77120a"
+                LastKnownName="StatsMaster"
+                LastKnownLocation="Wms.uml" />
+            </behavior>
+          </callBehaviorAction>
+          <callBehaviorAction
+            Id="66fe9bb8-3661-42eb-aaa5-4045d80e05d6"
+            name="TileCache Request processor"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="fd3a0c0b-6af4-4e66-97a2-cd17421ea337"
+                isLeaf="false">
+                <forkNodeMoniker
+                  Id="84c05da1-db27-499a-a2cc-f7e1cc731158"
+                  LastKnownName="Fork1"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+            <behavior>
+              <activityMoniker
+                Id="05e6233d-d510-46e0-ae2a-92dfc2eda283"
+                LastKnownName="TileCache"
+                LastKnownLocation="Wms.uml" />
+            </behavior>
+          </callBehaviorAction>
+          <forkNode
+            Id="84c05da1-db27-499a-a2cc-f7e1cc731158"
+            name="Fork1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="f0c3e51d-ead5-490b-bdbb-db9bbeba9ce3"
+                guard="Report stats, do not wait"
+                isLeaf="false">
+                <callBehaviorActionMoniker
+                  Id="e31f12b0-4424-499b-9378-216846c0640a"
+                  LastKnownName="Dump request stats"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="12348f4d-a4d4-4a44-ad04-044140e2f98f"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="19ed6f7e-510b-4789-8fbe-991dd66815e7"
+                  LastKnownName="Transfer data to Response object"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </forkNode>
+          <callBehaviorAction
+            Id="8acac4f6-7bcb-46ce-aff5-c45225e8b829"
+            name="Pass the request to Internal WMS"
+            isLeaf="false"
+            isSynchronous="false">
+            <pins>
+              <invocationActionHasArguments>
+                <inputPin
+                  Id="1fc8721e-b608-4004-9163-ca83885ab9f6"
+                  name="Backend request url"
+                  isLeaf="false"
+                  ordering="Unordered"
+                  isControlType="false"
+                  isControl="false">
+                  <upperBound>
+                    <literalInteger
+                      Id="373b61c2-b65a-49b9-98e8-fd6f32821ce2"
+                      name="2147483647"
+                      value="2147483647" />
+                  </upperBound>
+                </inputPin>
+              </invocationActionHasArguments>
+              <callActionHasResults>
+                <outputPin
+                  Id="54fa82eb-0d01-456e-add7-722f47cb6329"
+                  name="HttpWebResponse"
+                  isLeaf="false"
+                  ordering="Unordered"
+                  isControlType="false"
+                  isControl="false">
+                  <objectFlowTargets>
+                    <objectFlow
+                      Id="3a61d43f-7558-4e5b-9219-974c9e0ac8f8"
+                      isLeaf="false"
+                      isMulticast="false"
+                      isMultireceive="false">
+                      <opaqueActionMoniker
+                        Id="19ed6f7e-510b-4789-8fbe-991dd66815e7"
+                        LastKnownName="Transfer data to Response object"
+                        LastKnownLocation="Wms.uml" />
+                    </objectFlow>
+                  </objectFlowTargets>
+                  <upperBound>
+                    <literalInteger
+                      Id="d8292d09-1473-43f9-b1d4-94097a3ba5a9"
+                      name="2147483647"
+                      value="2147483647" />
+                  </upperBound>
+                </outputPin>
+              </callActionHasResults>
+            </pins>
+            <behavior>
+              <activityMoniker
+                Id="23391574-cf84-4c7f-a2ce-fb8abc55b92f"
+                LastKnownName="InternalWms"
+                LastKnownLocation="Wms.uml" />
+            </behavior>
+          </callBehaviorAction>
+          <opaqueAction
+            Id="d2dbc7ab-e27b-47e2-afe1-a1903790ca99"
+            name="Complete request"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="0c4ff979-2127-440a-8a7a-1ff7e95491c9"
+                isLeaf="false">
+                <activityFinalNodeMoniker
+                  Id="92a8978d-9c12-41da-9c4e-4b6cd868feee"
+                  LastKnownName="ActivityFinal1"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+        </nodes>
+      </activity>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <activity
+        Id="60a009d8-c658-49af-95d6-658578e24675"
+        name="TokenMaster"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false"
+        isReentrant="false"
+        isReadOnly="false"
+        isSingleExecution="false">
+        <nodes>
+          <initialNode
+            Id="19bc053e-88ed-4dcf-a525-fa997a89be3b"
+            name="Initial1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="849190db-408b-4985-8e19-fcc625c3631c"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="1fd3770b-91d6-4103-9115-28567813674c"
+                  LastKnownName="Get the browser's  fingerprint for a passed token"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <activityFinalNode
+            Id="0d0c507b-fe21-4943-b8a1-2453933ada22"
+            name="ActivityFinal1"
+            isLeaf="false" />
+          <opaqueAction
+            Id="1fd3770b-91d6-4103-9115-28567813674c"
+            name="Get the browser's  fingerprint for a passed token"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="312f4b02-27f2-4233-9867-a9db771c31dc"
+                isLeaf="false">
+                <decisionNodeMoniker
+                  Id="7178c769-3b65-449f-bb98-44fb5feda8cd"
+                  LastKnownName="Decision1"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="1e9200f0-f23a-436a-98e7-96c3587f19c2"
+            name="Generate browser fingerprint"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="08f33792-8656-4ec8-bf52-6b2bc7b86a1b"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="ec695490-0b02-4000-839f-726dd94e92c5"
+                  LastKnownName="Compare the fingerprint with db value"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode
+            Id="7178c769-3b65-449f-bb98-44fb5feda8cd"
+            name="Decision1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="a8e56ce6-59ff-4fa5-aa10-255821da8cc7"
+                guard="Token exists"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="1e9200f0-f23a-436a-98e7-96c3587f19c2"
+                  LastKnownName="Generate browser fingerprint"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="298d9ecb-a663-437c-80ba-370a40fd1226"
+                guard="Token does not exist, so output is false"
+                isLeaf="false">
+                <activityFinalNodeMoniker
+                  Id="0d0c507b-fe21-4943-b8a1-2453933ada22"
+                  LastKnownName="ActivityFinal1"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction
+            Id="ec695490-0b02-4000-839f-726dd94e92c5"
+            name="Compare the fingerprint with db value"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="3624e569-ed59-4a04-9c0c-b0e7c3b2a22e"
+                guard="return fingerprint == dbvalue"
+                isLeaf="false">
+                <activityFinalNodeMoniker
+                  Id="0d0c507b-fe21-4943-b8a1-2453933ada22"
+                  LastKnownName="ActivityFinal1"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+        </nodes>
+      </activity>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <activity
+        Id="1f539998-9be7-48ac-8300-37debe77120a"
+        name="StatsMaster"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false"
+        isReentrant="false"
+        isReadOnly="false"
+        isSingleExecution="false">
+        <nodes>
+          <initialNode
+            Id="504f4c9f-45d9-44b7-9540-cf806c0b98fa"
+            name="Initial1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="e08b6b41-addd-487a-9de1-96a6df1d6471"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="0c85de7e-095a-4672-bc3b-d5cb1ffc52ff"
+                  LastKnownName="Work out Request GeoLocation based on IP"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <activityFinalNode
+            Id="00f37443-506d-45eb-94e3-ca3a173a2ace"
+            name="ActivityFinal1"
+            isLeaf="false" />
+          <opaqueAction
+            Id="0c85de7e-095a-4672-bc3b-d5cb1ffc52ff"
+            name="Work out Request GeoLocation based on IP"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="7309696f-a73d-4b83-b9ed-e8e3d1e16a25"
+                isLeaf="false">
+                <decisionNodeMoniker
+                  Id="9f415070-137d-4eb6-915d-803d68b3c23d"
+                  LastKnownName="Decision1"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode
+            Id="9f415070-137d-4eb6-915d-803d68b3c23d"
+            name="Decision1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="ee78bc45-d748-4429-98a8-3cb2689b5fdf"
+                guard="Ip GeoLocation ok"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="b4fe212a-8d39-4300-a696-ec48bfdf74df"
+                  LastKnownName="Add GeoIp data to the RequestStats object"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="2cb02f8d-9892-4e34-b087-df8d771ad16c"
+                guard="Ip GeoLocation not known"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="6be4008a-4c9b-4ca2-a2c8-82d868f864cc"
+                  LastKnownName="Save Ip stats"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction
+            Id="96e160e0-b2c0-44f0-8841-8663102113e0"
+            name="Save Referrer stats"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="102f9013-92cc-4a90-bdd9-029bd55ec387"
+                isLeaf="false">
+                <activityFinalNodeMoniker
+                  Id="00f37443-506d-45eb-94e3-ca3a173a2ace"
+                  LastKnownName="ActivityFinal1"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="6be4008a-4c9b-4ca2-a2c8-82d868f864cc"
+            name="Save Ip stats"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="2b18f4f9-c77d-4cc4-a729-3b67f1a77c1d"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="96e160e0-b2c0-44f0-8841-8663102113e0"
+                  LastKnownName="Save Referrer stats"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="b4fe212a-8d39-4300-a696-ec48bfdf74df"
+            name="Add GeoIp data to the RequestStats object"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="8a47217a-5e1e-4b06-b224-167ff2e717a5"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="6be4008a-4c9b-4ca2-a2c8-82d868f864cc"
+                  LastKnownName="Save Ip stats"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+        </nodes>
+      </activity>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <activity
+        Id="23391574-cf84-4c7f-a2ce-fb8abc55b92f"
+        name="InternalWms"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false"
+        isReentrant="false"
+        isReadOnly="false"
+        isSingleExecution="false">
+        <nodes>
+          <initialNode
+            Id="ebe761f9-ae5d-43f1-8aed-8ba74c148b31"
+            name="Initial1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="881e2938-89f5-46b3-872f-7176f7a09d50"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="8e275dc2-2bb4-40d8-b657-30d100afbdc5"
+                  LastKnownName="Start Request processing"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <activityFinalNode
+            Id="b03234b3-fc72-474c-836a-3d1919ba95e4"
+            name="ActivityFinal1"
+            isLeaf="false" />
+          <opaqueAction
+            Id="8e275dc2-2bb4-40d8-b657-30d100afbdc5"
+            name="Start Request processing"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="16d66b38-9fe1-4cf0-b74e-e61e3b2913e0"
+                isLeaf="false">
+                <callBehaviorActionMoniker
+                  Id="53b51399-4986-4127-95d7-46565369dd1d"
+                  LastKnownName="TileCache Request processor"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="d8dbd99b-7dcb-472e-b6d4-3d8572d343af"
+            name="Transfer data to Response object"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="1a36e274-2be7-407c-9f60-24190ad6c3af"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="7ced518b-fa73-4fb4-b173-374e91abd5d6"
+                  LastKnownName="Complete request"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <callBehaviorAction
+            Id="6c991eca-ec85-4de4-b930-87fa6b5d7128"
+            name="Dump request stats"
+            isLeaf="false"
+            isSynchronous="false">
+            <behavior>
+              <activityMoniker
+                Id="1f539998-9be7-48ac-8300-37debe77120a"
+                LastKnownName="StatsMaster"
+                LastKnownLocation="Wms.uml" />
+            </behavior>
+          </callBehaviorAction>
+          <callBehaviorAction
+            Id="53b51399-4986-4127-95d7-46565369dd1d"
+            name="TileCache Request processor"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="e296cba8-9059-4fc0-b6fd-9aec8cffea47"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="4369d424-8290-4265-b433-ae57b218c5d1"
+                  LastKnownName="Paint Watermark"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+            <behavior>
+              <activityMoniker
+                Id="05e6233d-d510-46e0-ae2a-92dfc2eda283"
+                LastKnownName="TileCache"
+                LastKnownLocation="Wms.uml" />
+            </behavior>
+          </callBehaviorAction>
+          <forkNode
+            Id="d1b3a84f-16b6-4cde-a0c8-18b19abc13d1"
+            name="Fork1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="2a63075f-0b9d-454c-806b-ded119772448"
+                guard="Report stats, do not wait"
+                isLeaf="false">
+                <callBehaviorActionMoniker
+                  Id="6c991eca-ec85-4de4-b930-87fa6b5d7128"
+                  LastKnownName="Dump request stats"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="10d75d20-6924-412e-a85d-6a329588bd41"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="d8dbd99b-7dcb-472e-b6d4-3d8572d343af"
+                  LastKnownName="Transfer data to Response object"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </forkNode>
+          <opaqueAction
+            Id="7ced518b-fa73-4fb4-b173-374e91abd5d6"
+            name="Complete request"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="b9f4a2db-9b0a-4381-92df-85b4a34d0e0b"
+                isLeaf="false">
+                <activityFinalNodeMoniker
+                  Id="b03234b3-fc72-474c-836a-3d1919ba95e4"
+                  LastKnownName="ActivityFinal1"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="4369d424-8290-4265-b433-ae57b218c5d1"
+            name="Paint Watermark"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="ebe984aa-591b-48fa-90a8-7ef673db0278"
+                isLeaf="false">
+                <forkNodeMoniker
+                  Id="d1b3a84f-16b6-4cde-a0c8-18b19abc13d1"
+                  LastKnownName="Fork1"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+        </nodes>
+      </activity>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <activity
+        Id="05e6233d-d510-46e0-ae2a-92dfc2eda283"
+        name="TileCache"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false"
+        isReentrant="false"
+        isReadOnly="false"
+        isSingleExecution="false">
+        <nodes>
+          <initialNode
+            Id="44879dd8-b336-44bf-94ff-09060c489a1c"
+            name="Initial1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="d4b66013-6366-40ae-ae5a-a0a021661595"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="0c2651e8-6f48-463e-8815-eb5b0d40bd32"
+                  LastKnownName="Verify if the request can be cached"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <activityFinalNode
+            Id="08fa8018-859d-41ec-9f7e-9bc8de3a4134"
+            name="ActivityFinal1"
+            isLeaf="false" />
+          <opaqueAction
+            Id="d7cf1b62-b42c-4dbe-933c-fc205bb8ccd9"
+            name="Work out cache  file path"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="810c5700-9f57-4e07-8072-1e5292a7641d"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="c1f5f072-e715-43a1-8d31-94948a6e7aa8"
+                  LastKnownName="Check if cache exists"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="0c2651e8-6f48-463e-8815-eb5b0d40bd32"
+            name="Verify if the request can be cached"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="e7af4ab2-3391-43aa-9c67-49fb37755813"
+                isLeaf="false">
+                <decisionNodeMoniker
+                  Id="13c4069b-6b63-46a1-ac20-78a902a5e1af"
+                  LastKnownName="Decision1"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="ac002ad6-2f9d-4244-8029-70f3dd486f87"
+            name="Pass request through "
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="f5f7ad76-034b-4d62-bb5c-f9c5c6ac7bda"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="074c8c30-f616-406d-abb8-09d326ad4d12"
+                  LastKnownName="Prepare output data"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="074c8c30-f616-406d-abb8-09d326ad4d12"
+            name="Prepare output data"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="d1183be7-c2d6-4f8e-aa5c-108703db7ea3"
+                isLeaf="false">
+                <forkNodeMoniker
+                  Id="df3c2ddf-a104-4ef5-a884-a8f503bca664"
+                  LastKnownName="Fork1"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode
+            Id="13c4069b-6b63-46a1-ac20-78a902a5e1af"
+            name="Decision1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="fb2af270-809f-45fa-b874-9f4787183a81"
+                guard="Request not cacheable - not image request, or tilescheme does not fit"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="ac002ad6-2f9d-4244-8029-70f3dd486f87"
+                  LastKnownName="Pass request through "
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="587c04b9-53aa-4ae5-b96f-2e26656a226d"
+                guard="Request cacheable"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="d7cf1b62-b42c-4dbe-933c-fc205bb8ccd9"
+                  LastKnownName="Work out cache  file path"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <decisionNode
+            Id="2ed4b1e1-c54c-4ab7-a060-26fcb8772a40"
+            name="Decision2"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="a24831e7-8067-4691-92ca-d83d2e82e228"
+                guard="Cache ok, so can prepare output straight away"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="074c8c30-f616-406d-abb8-09d326ad4d12"
+                  LastKnownName="Prepare output data"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="148a61ef-9c7b-4916-aa87-527b0ce229c7"
+                guard="Cache does not exists, generate data"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="ac002ad6-2f9d-4244-8029-70f3dd486f87"
+                  LastKnownName="Pass request through "
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction
+            Id="c1f5f072-e715-43a1-8d31-94948a6e7aa8"
+            name="Check if cache exists"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="15aeca0b-0b22-4fed-aec2-c98617dbfffb"
+                isLeaf="false">
+                <decisionNodeMoniker
+                  Id="2ed4b1e1-c54c-4ab7-a060-26fcb8772a40"
+                  LastKnownName="Decision2"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <forkNode
+            Id="df3c2ddf-a104-4ef5-a884-a8f503bca664"
+            name="Fork1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="429abdb1-4487-4b3c-b121-7358ee3b7b41"
+                guard="Dump stats, do not wait"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="466a74a7-5434-4377-8cd3-cc4a159f6b58"
+                  LastKnownName="Save cache"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="573eab59-1ffd-48c7-b810-dbb5481a18e6"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="72afacad-ab38-467c-aa65-b37e4c21f6eb"
+                  LastKnownName="Return output"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </forkNode>
+          <opaqueAction
+            Id="466a74a7-5434-4377-8cd3-cc4a159f6b58"
+            name="Save cache"
+            isLeaf="false" />
+          <opaqueAction
+            Id="72afacad-ab38-467c-aa65-b37e4c21f6eb"
+            name="Return output"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="43ba9b76-9b58-4c29-8159-c41e54686f09"
+                isLeaf="false">
+                <activityFinalNodeMoniker
+                  Id="08fa8018-859d-41ec-9f7e-9bc8de3a4134"
+                  LastKnownName="ActivityFinal1"
+                  LastKnownLocation="Wms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+        </nodes>
+      </activity>
+    </packageHasNamedElement>
+  </packagedElements>
+  <primitiveType
+    Id="220a3521-e091-4221-bae9-3ef9018e845c"
+    name="Integer"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+    name="Boolean"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+    name="String"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="3ab42e7d-4969-445a-b209-471f5cb8209c"
+    name="UnlimitedNatural"
+    isAbstract="false"
+    isLeaf="false" />
+</modelStoreModel>

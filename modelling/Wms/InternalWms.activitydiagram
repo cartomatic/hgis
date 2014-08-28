@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="df5bde49-c758-4de2-85f0-e6a09ce51eab" name="InternalWms" linkedPackageId="5491e9a3-dd41-4d65-af22-fedddeca2e2e" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+  <ownedCommentsInternal>
+    <comment Id="6f70719c-e1b1-405d-8049-b525bdde727b">
+      <elementDefinition Id="cea8ef6d-ba68-4c5c-8a2c-fa1c3fc92937" />
+      <body>A service endpoint of internal wms requests</body>
+      <annotatedElements>
+        <opaqueActionMoniker Id="df9f9902-727c-4e51-a3ef-ad1a8318c5c0" LastKnownName="Start Request processing" />
+      </annotatedElements>
+    </comment>
+    <comment Id="41e10dae-be71-4b3e-9b55-d7f0baae0fb8">
+      <elementDefinition Id="86433cf4-ed77-401f-9706-da1ab8ed664d" />
+      <body>Async</body>
+    </comment>
+    <comment Id="0d9400e5-0834-4ff0-971e-0873c9663636">
+      <elementDefinition Id="2a12ea54-524d-4b46-85b2-edc648727198" />
+      <body>Async</body>
+    </comment>
+  </ownedCommentsInternal>
+  <packagedElements>
+    <activityRootModelHasActivity>
+      <activity Id="e32d6a11-65c6-42ed-a2b9-62475d8b7df8" name="InternalWms" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
+        <elementDefinition Id="23391574-cf84-4c7f-a2ce-fb8abc55b92f" />
+        <nodes>
+          <initialNode Id="78d5ae69-9616-4855-b805-a04ce700aea0" name="Initial1" isLeaf="false">
+            <elementDefinition Id="ebe761f9-ae5d-43f1-8aed-8ba74c148b31" />
+            <flowNodeTargets>
+              <controlFlow Id="93970aaa-2c2d-4095-afb4-275fa76bcb93" isLeaf="false">
+                <opaqueActionMoniker Id="df9f9902-727c-4e51-a3ef-ad1a8318c5c0" LastKnownName="Start Request processing" />
+                <elementDefinition Id="881e2938-89f5-46b3-872f-7176f7a09d50" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <activityFinalNode Id="7cf7715e-150c-4511-b364-1ef2a9a6294f" name="ActivityFinal1" isLeaf="false">
+            <elementDefinition Id="b03234b3-fc72-474c-836a-3d1919ba95e4" />
+          </activityFinalNode>
+          <opaqueAction Id="df9f9902-727c-4e51-a3ef-ad1a8318c5c0" name="Start Request processing" isLeaf="false">
+            <elementDefinition Id="8e275dc2-2bb4-40d8-b657-30d100afbdc5" />
+            <flowNodeTargets>
+              <controlFlow Id="0f6dac23-381a-42f3-9a13-fe10b534fcbc" isLeaf="false">
+                <callBehaviorActionMoniker Id="59dbd936-1194-4170-9688-dd001d804404" LastKnownName="TileCache Request processor" />
+                <elementDefinition Id="16d66b38-9fe1-4cf0-b74e-e61e3b2913e0" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="5f64ee75-5099-4392-a5d3-5d0d7aeb49a1" name="Transfer data to Response object" isLeaf="false">
+            <elementDefinition Id="d8dbd99b-7dcb-472e-b6d4-3d8572d343af" />
+            <flowNodeTargets>
+              <controlFlow Id="c85219be-8e6d-4fc6-b63d-4cd2ed243439" isLeaf="false">
+                <opaqueActionMoniker Id="bfe099cd-66a9-4406-891f-51e618478670" LastKnownName="Complete request" />
+                <elementDefinition Id="1a36e274-2be7-407c-9f60-24190ad6c3af" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <callBehaviorAction Id="0bc7e2df-cfa1-4397-b058-b9f80aab283c" name="Dump request stats" isLeaf="false" isSynchronous="false">
+            <elementDefinition Id="6c991eca-ec85-4de4-b930-87fa6b5d7128" />
+          </callBehaviorAction>
+          <callBehaviorAction Id="59dbd936-1194-4170-9688-dd001d804404" name="TileCache Request processor" isLeaf="false">
+            <elementDefinition Id="53b51399-4986-4127-95d7-46565369dd1d" />
+            <flowNodeTargets>
+              <controlFlow Id="e40d7633-1a3e-46cf-a916-17a804aa3aad" isLeaf="false">
+                <opaqueActionMoniker Id="a5841f40-786d-4eae-9adf-8a7dea95718f" LastKnownName="Paint Watermark" />
+                <elementDefinition Id="e296cba8-9059-4fc0-b6fd-9aec8cffea47" />
+              </controlFlow>
+            </flowNodeTargets>
+          </callBehaviorAction>
+          <forkNode Id="a4b52010-9c3a-4f18-bd31-a64bf095a032" name="Fork1" isLeaf="false">
+            <elementDefinition Id="d1b3a84f-16b6-4cde-a0c8-18b19abc13d1" />
+            <flowNodeTargets>
+              <controlFlow Id="9f79a519-c513-4ef0-ab45-64ec77743f1f" guard="Report stats, do not wait" isLeaf="false">
+                <callBehaviorActionMoniker Id="0bc7e2df-cfa1-4397-b058-b9f80aab283c" LastKnownName="Dump request stats" />
+                <elementDefinition Id="2a63075f-0b9d-454c-806b-ded119772448" />
+              </controlFlow>
+              <controlFlow Id="bc648736-4cdd-4325-a63e-8c71857d77f2" isLeaf="false">
+                <opaqueActionMoniker Id="5f64ee75-5099-4392-a5d3-5d0d7aeb49a1" LastKnownName="Transfer data to Response object" />
+                <elementDefinition Id="10d75d20-6924-412e-a85d-6a329588bd41" />
+              </controlFlow>
+            </flowNodeTargets>
+          </forkNode>
+          <opaqueAction Id="bfe099cd-66a9-4406-891f-51e618478670" name="Complete request" isLeaf="false">
+            <elementDefinition Id="7ced518b-fa73-4fb4-b173-374e91abd5d6" />
+            <flowNodeTargets>
+              <controlFlow Id="c908d66c-3f13-49c7-9679-d5823bdc7470" isLeaf="false">
+                <activityFinalNodeMoniker Id="7cf7715e-150c-4511-b364-1ef2a9a6294f" LastKnownName="ActivityFinal1" />
+                <elementDefinition Id="b9f4a2db-9b0a-4381-92df-85b4a34d0e0b" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="a5841f40-786d-4eae-9adf-8a7dea95718f" name="Paint Watermark" isLeaf="false">
+            <elementDefinition Id="4369d424-8290-4265-b433-ae57b218c5d1" />
+            <flowNodeTargets>
+              <controlFlow Id="62b72139-b736-4f3b-bf36-207c48af372e" isLeaf="false">
+                <forkNodeMoniker Id="a4b52010-9c3a-4f18-bd31-a64bf095a032" LastKnownName="Fork1" />
+                <elementDefinition Id="ebe984aa-591b-48fa-90a8-7ef673db0278" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+        </nodes>
+      </activity>
+    </activityRootModelHasActivity>
+  </packagedElements>
+  <package Id="5491e9a3-dd41-4d65-af22-fedddeca2e2e" name="Wms">
+    <elementDefinition Id="1e158c95-5708-49cd-a35a-37fc6479ad8a" />
+    <profileInstances>
+      <packageHasProfileInstances Id="54dde410-ffe1-457c-a8ed-a4c49d0a4050">
+        <profileInstance Id="bcbe1993-c8e5-4847-b257-9b58f6a2b753" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="5017dba5-9560-4840-ac8d-e3a424724f8c">
+        <profileInstance Id="68701368-59bb-49ae-bae7-4359fad10f74" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</activityRootModel>
