@@ -331,7 +331,8 @@ Ext.define('hgis.AppLogic', {
             { name: 'Übersichtskarte von Mitteleuropa 1:300 000', lname: 'ukvme' },
             { name: 'Karte des Deutschen Reiches 1:100 000', lname: 'kdr' },
             { name: 'Karte des westlichen Rußlands 1:100 000', lname: 'kdwr' },
-            { name: 'Grossblatt 1:100 000: Karte des Deutschen Reiches, Karte des westlichen Rußlands', lname: 'kdr_gb' }
+            { name: 'Grossblatt 1:100 000: Karte des Deutschen Reiches, Karte des westlichen Rußlands', lname: 'kdr_gb' },
+            { name: 'Administrativ karte von den königreichen galizien und lodomerien', lname: 'kummersberg' }
         ];
 
         //create hgis layers
