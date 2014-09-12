@@ -109,5 +109,16 @@
 			'Wojskowy Instytut Geograficzny',
 			'Mapa Polski i Krajów Ościennych'
 		]
+	},
+	kummersberg: {
+		Abstract: 'Administrativ karte von den königreichen galizien und lodomerien.',
+		Keywords: [
+			'115k', '1:115 000',
+			'Administrativ karte',
+			'Mapa Kummersberga',
+			'königreichen galizien und lodomerien',
+			'galizien',
+			'lodomerien'
+		]
 	}
 }
