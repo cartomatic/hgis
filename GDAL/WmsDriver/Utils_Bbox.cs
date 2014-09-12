@@ -87,6 +87,25 @@ namespace HGIS.GDAL
 
             return bb;
         }
+
+        /// <summary>
+        /// Gets a bounding box of the data exposed by the wms service
+        /// bbox can be then used to decide whether or not cache should be dumped and such
+        /// </summary>
+        /// <returns></returns>
+        public override Cartomatic.Wms.WmsDriver.WmsBoundingBox GetBoundingBox()
+        {
+            //prepares the data set for further usage
+            this.PrepareDriver();
+
+            //the GDAL wms driver on init reads some raster info, so bbox is easily accessible here
+            return new Cartomatic.Wms.WmsDriver.WmsBoundingBox(
+                this.RasterMinX,
+                this.RasterMinY,
+                this.RasterMaxX,
+                this.RasterMaxY
+            );
+        }
     }
 }
 

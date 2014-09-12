@@ -38,6 +38,9 @@ namespace HGIS.GDAL
             //Make sure to make the bitmap transparent initially! -> Format32bppArgb
 
 
+            //TODO sometime in the future...
+            //Add some more sophisticated intersection testing - see hgis/issues/3
+
             //do not render the map if the bbox is outside of the map's bbox
             //if any of the below tests yield true, bbox does not intersect with the raster bounds
             if (

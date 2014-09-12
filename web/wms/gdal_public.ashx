@@ -55,12 +55,17 @@ namespace HGIS
                     return;
                 }
                 
+                //get the bbox off the driver 
+                //GetBoundingBox()
+                
+                
                 //Let the tilecache process the Request and use the wmsdriver if no cache is found
                 var tcout = Cartomatic.MapUtils.TileCache.WmsRequestProcessor.ProcessRequest(
                     wms.GetTileCacheSettings(),
                     wms.GetTileScheme(context),
                     context.Request.Url.AbsoluteUri,
-                    wmsdrv
+                    wmsdrv,
+                    wms.GetWmsBoundingBox(wmsdrv)
                 );
 
                 wmsdrv.Dispose();

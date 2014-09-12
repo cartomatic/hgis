@@ -120,5 +120,25 @@ namespace HGIS
                 GetWmsServiceDescription(type, epsg, source)
             );
         }
+
+        /// <summary>
+        /// Gets a bounding box of the data exposed by the wms service
+        /// bbox can be then used to decide whether or not cache should be dumped and such
+        /// </summary>
+        /// <param name="drv"></param>
+        /// <returns></returns>
+        public Cartomatic.Wms.WmsDriver.WmsBoundingBox GetWmsBoundingBox(Cartomatic.Wms.WmsDriver.Base drv)
+        {
+            Cartomatic.Wms.WmsDriver.WmsBoundingBox output = null;
+            
+            try
+            {
+                output = drv.GetBoundingBox();
+            }
+            catch { } //silently fail
+
+            return output;
+        }
+
     }
 }

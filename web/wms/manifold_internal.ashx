@@ -45,7 +45,8 @@ namespace HGIS
                 wms.GetTileCacheSettings(),
                 wms.GetTileScheme(context),
                 context.Request.Url.AbsoluteUri,
-                wmsdrv
+                wmsdrv,
+                wms.GetWmsBoundingBox(wmsdrv)
             );
 
             //transfer the tile cache response to the response object
