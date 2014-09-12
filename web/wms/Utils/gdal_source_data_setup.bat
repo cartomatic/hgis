@@ -60,5 +60,10 @@ echo creating links for kdr
 mklink /H %target%2180\kdr.%ext% %source%kdr\mosaick\kdr_2180_transparent.%ext%
 mklink /H %target%3857\kdr.%ext% %source%kdr\mosaick\kdr_3857_transparent.%ext%
 mklink /H %target%4326\kdr.%ext% %source%kdr\mosaick\kdr_4326_transparent.%ext%
+rem kummersberg
+echo creating links for kummersberg
+mklink /H %target%2180\kummersberg.%ext% %source%kummersberg_115k\mosaick\kummersberg_2180_transparent.%ext%
+mklink /H %target%3857\kummersberg.%ext% %source%kummersberg_115k\mosaick\kummersberg_3857_transparent.%ext%
+mklink /H %target%4326\kummersberg.%ext% %source%kummersberg_115k\mosaick\kummersberg_4326_transparent.%ext%
 echo done
 pause
