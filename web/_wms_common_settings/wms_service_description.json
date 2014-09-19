@@ -111,14 +111,282 @@
 		]
 	},
 	kummersberg: {
-		Abstract: 'Administrativ karte von den königreichen galizien und lodomerien.',
+		Abstract: 'Administrativ Karte von den Königreichen Galizien und Lodomerien mit dem Grossherzogthume Krakau und den Herzogthümern Auschwitz, Zator und Bukowina in 60 Blättern, C.R. von Kummersberg.',
 		Keywords: [
 			'115k', '1:115 000',
 			'Administrativ karte',
+			'Kummersberg',
 			'Mapa Kummersberga',
 			'königreichen galizien und lodomerien',
 			'galizien',
-			'lodomerien'
+			'lodomerien',
+			'Krakau',
+			'Herzogthümern Auschwitz',
+			'Zator',
+			'Bukowina'
+		]
+	},
+	bialystok_gsgs4435: {
+		Abstract: 'Białystok (G.S.G.S. 4435)',
+		Keywords: [
+			'Town Plans of Poland',
+			'G.S.G.S. 4435',
+			'G.S.G.S',
+			'GSGS',
+			'Geographic Section, General Staff',
+			'Białystok',
+			'25k',
+			'1:25 000'
+		]
+	},
+	bydgoszcz_gsgs4435: {
+		Abstract: 'Bydgoszcz (G.S.G.S. 4435)',
+		Keywords: [
+			'Town Plans of Poland',
+			'G.S.G.S. 4435',
+			'G.S.G.S',
+			'GSGS',
+			'Geographic Section, General Staff',
+			'Bydgoszcz',
+			'25k',
+			'1:25 000'
+		]
+	},
+	czestochowa_gsgs4435: {
+		Abstract: 'Częstochowa (G.S.G.S. 4435)',
+		Keywords: [
+			'Town Plans of Poland',
+			'G.S.G.S. 4435',
+			'G.S.G.S',
+			'GSGS',
+			'Geographic Section, General Staff',
+			'Częstochowa',
+			'25k',
+			'1:25 000'
+		]
+	},
+	danzig_gsgs4496: {
+		Abstract: ' Danzig (G.S.G.S. 4496) - DANZIG (NORTH), DANZIG (SOUTH)',
+		Keywords: [
+			'Danzig',
+			'G.S.G.S. 4496',
+			'G.S.G.S',
+			'GSGS',
+			'Gdańsk',
+			'Wolne miasto Gdańsk',
+			'DANZIG (NORTH)',
+			'DANZIG (SOUTH)',
+			'10k',
+			'1:10 000'
+		]
+	},
+	grudziac_gsgs4435: {
+		Abstract: 'Grudziądz (G.S.G.S. 4435)',
+		Keywords: [
+			'Town Plans of Poland',
+			'G.S.G.S. 4435',
+			'G.S.G.S',
+			'GSGS',
+			'Geographic Section, General Staff',
+			'Grudziądz',
+			'25k',
+			'1:25 000'
+		]
+	},
+	inowroclaw_gsgs4435: {
+		Abstract: 'Inowrocław (G.S.G.S. 4435)',
+		Keywords: [
+			'Town Plans of Poland',
+			'G.S.G.S. 4435',
+			'G.S.G.S',
+			'GSGS',
+			'Geographic Section, General Staff',
+			'Inowrocław',
+			'25k',
+			'1:25 000'
+		]
+	},
+	jaslo_gsgs4435: {
+		Abstract: 'Jasło (G.S.G.S. 4435)',
+		Keywords: [
+			'Town Plans of Poland',
+			'G.S.G.S. 4435',
+			'G.S.G.S',
+			'GSGS',
+			'Geographic Section, General Staff',
+			'Jasło',
+			'25k',
+			'1:25 000'
+		]
+	},
+	katowice_gsgs4435: {
+		Abstract: 'Katowice (G.S.G.S. 4435)',
+		Keywords: [
+			'Town Plans of Poland',
+			'G.S.G.S. 4435',
+			'G.S.G.S',
+			'GSGS',
+			'Geographic Section, General Staff',
+			'Katowice',
+			'25k',
+			'1:25 000'
+		]
+	},
+	kielce_gsgs4435: {
+		Abstract: 'Kielce (G.S.G.S. 4435)',
+		Keywords: [
+			'Town Plans of Poland',
+			'G.S.G.S. 4435',
+			'G.S.G.S',
+			'GSGS',
+			'Geographic Section, General Staff',
+			'Kielce',
+			'25k',
+			'1:25 000'
+		]
+	},
+	krakow_gsgs4435: {
+		Abstract: 'Kraków (G.S.G.S. 4435)',
+		Keywords: [
+			'Town Plans of Poland',
+			'G.S.G.S. 4435',
+			'G.S.G.S',
+			'GSGS',
+			'Geographic Section, General Staff',
+			'Kraków',
+			'25k',
+			'1:25 000'
+		]
+	},
+	lodz_gsgs4435: {
+		Abstract: 'Łódź (G.S.G.S. 4435)',
+		Keywords: [
+			'Town Plans of Poland',
+			'G.S.G.S. 4435',
+			'G.S.G.S',
+			'GSGS',
+			'Geographic Section, General Staff',
+			'Łódź',
+			'30k',
+			'1:30 000'
+		]
+	},
+	lublin_gsgs4435: {
+		Abstract: 'Lublin (G.S.G.S. 4435)',
+		Keywords: [
+			'Town Plans of Poland',
+			'G.S.G.S. 4435',
+			'G.S.G.S',
+			'GSGS',
+			'Geographic Section, General Staff',
+			'Lublin',
+			'25k',
+			'1:25 000'
+		]
+	},
+	poznan_gsgs4435: {
+		Abstract: 'Poznań (G.S.G.S. 4435)',
+		Keywords: [
+			'Town Plans of Poland',
+			'G.S.G.S. 4435',
+			'G.S.G.S',
+			'GSGS',
+			'Geographic Section, General Staff',
+			'Poznań',
+			'25k',
+			'1:25 000'
+		]
+	},
+	radom_gsgs4435: {
+		Abstract: 'Radom (G.S.G.S. 4435)',
+		Keywords: [
+			'Town Plans of Poland',
+			'G.S.G.S. 4435',
+			'G.S.G.S',
+			'GSGS',
+			'Geographic Section, General Staff',
+			'Radom',
+			'25k',
+			'1:25 000'
+		]
+	},
+	rzeszow_gsgs4435: {
+		Abstract: 'Rzeszów (G.S.G.S. 4435)',
+		Keywords: [
+			'Town Plans of Poland',
+			'G.S.G.S. 4435',
+			'G.S.G.S',
+			'GSGS',
+			'Geographic Section, General Staff',
+			'Rzeszów',
+			'25k',
+			'1:25 000'
+		]
+	},
+	siedlce_gsgs4435: {
+		Abstract: 'Siedlce (G.S.G.S. 4435)',
+		Keywords: [
+			'Town Plans of Poland',
+			'G.S.G.S. 4435',
+			'G.S.G.S',
+			'GSGS',
+			'Geographic Section, General Staff',
+			'Siedlce',
+			'25k',
+			'1:25 000'
+		]
+	},
+	tarnow_gsgs4435: {
+		Abstract: 'Tarnów (G.S.G.S. 4435)',
+		Keywords: [
+			'Town Plans of Poland',
+			'G.S.G.S. 4435',
+			'G.S.G.S',
+			'GSGS',
+			'Geographic Section, General Staff',
+			'Tarnów',
+			'25k',
+			'1:25 000'
+		]
+	},
+	torun_gsgs4435: {
+		Abstract: 'Toruń (G.S.G.S. 4435)',
+		Keywords: [
+			'Town Plans of Poland',
+			'G.S.G.S. 4435',
+			'G.S.G.S',
+			'GSGS',
+			'Geographic Section, General Staff',
+			'Toruń',
+			'25k',
+			'1:25 000'
+		]
+	},
+	warszawa_gsgs4435: {
+		Abstract: 'Warszawa (G.S.G.S. 4435)',
+		Keywords: [
+			'Town Plans of Poland',
+			'G.S.G.S. 4435',
+			'G.S.G.S',
+			'GSGS',
+			'Geographic Section, General Staff',
+			'Warszawa',
+			'25k',
+			'1:25 000'
+		]
+	},
+	breslau_gsgs4480: {
+		Abstract: 'Breslau (G.S.G.S. 4480)',
+		Keywords: [
+			'Town Plans of Germany',
+			'G.S.G.S. 4480',
+			'G.S.G.S',
+			'GSGS',
+			'Geographic Section, General Staff',
+			'Breslau',
+			'Wrocław',
+			'16k',
+			'1:16 000'
 		]
 	}
 }
