@@ -121,19 +121,19 @@ Ext.define('hgis.AppLogic', {
             titleCollapse: true,
             margin: '5 0 5 5', //t r b l // 5px margins
             dockedItems: [
-	            /*{
-	                xtype: 'toolbar',
-                    dock: 'bottom',
-                    items: [
-                        {
-                            glyph: 'xf019@FontAwesome',
-                            text: 'Export PNG',
-                            listeners: {
-                                click: Ext.bind(this.exportMap, this)
-                            }
-                        }
-                    ]
-	            }*/
+	            //{
+	            //    xtype: 'toolbar',
+                //    dock: 'bottom',
+                //    items: [
+                //        {
+                //            glyph: 'xf019@FontAwesome',
+                //            text: 'Export PNG',
+                //            listeners: {
+                //               click: Ext.bind(this.exportMap, this)
+                //            }
+                //        }
+                //    ]
+	            //}
             ]
         });
         
@@ -147,17 +147,51 @@ Ext.define('hgis.AppLogic', {
         });
     },
 
-    exportMap: function(){
-        this.map.once('postcompose', function(event) {
-            var canvas = event.context.canvas;
-            
-            //having problems with CORS on the server...
-            
-            //var dataUrl = canvas.toDataURL('image/png');
-            //console.warn(dataUrl);
-            //document.getElementById('link_downloader').href = dataUrl;
-        });
-        this.map.renderSync();
+    exportMap: function () {
+
+        var a = document.getElementById('link_downloader');
+        var that = this;
+
+        if (!a.evtWiredUp) {
+            console.warn('wiring up click evt');
+            a.addEventListener(
+                'click',
+                function (e) {
+                    //register a postcompose evt listener that will be executed once only
+                    that.map.once(
+                        'postcompose',
+                        function (event) {
+                            var canvas = event.context.canvas;
+                            var dataUrl = canvas.toDataURL('image/png');
+
+                            a.href = dataUrl;
+                        }
+                    );
+                    that.map.renderSync();
+                },
+                false
+            );
+
+            a.evtWiredUp = true;
+        }
+
+
+        //trigger a click on a link element
+        a.click();
+
+        //Note:
+        //It seems to not have an impact on the behavior to set the a href in a click callback or just prior to triggering a click
+        //
+        //the problem though is that when using larger displays (say full hd or larger) chrome continously crashes
+        //
+        //ie does not seem to like click()
+        //
+        //safari also ignores click()
+        //
+        //opera crashes
+        //
+        //So in general a link styled like a button will be a better option as it will work everywhere in terms of receiving clicks
+        //chrome will still go down, opera not tested.
     },
 
     /**
@@ -344,6 +378,7 @@ Ext.define('hgis.AppLogic', {
                 ldef: ldefs[ln],
                 extent: prjext,
                 source: new ol.source.TileWMS({
+                    crossOrigin: 'anonymous', //enable cors, so can dump canvas data later
                     urls: this.getLayerUrls(ldefs[ln].lname),
                     params: {
                         'LAYERS': ldefs[ln].lname
