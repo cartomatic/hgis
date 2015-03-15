@@ -42,7 +42,7 @@ namespace HGIS
                 referrer = request.UrlReferrer.ToString();
 
                 //reset the localhost referrer if needed
-                if (!this.settings.FilterLocalhostRequests && (referrer.StartsWith("http://localhost") || referrer.StartsWith("http://127.0.0.1")))
+                if (this.settings.FilterLocalhostRequests && (referrer.StartsWith("http://localhost") || referrer.StartsWith("http://127.0.0.1")))
                 {
                     referrer = null;
                 }

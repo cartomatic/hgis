@@ -106,7 +106,8 @@ namespace HGIS
 
                 //adjust the base url and call the backend asynchronously
                 var response = await Cartomatic.Utils.Http.ExecuteWebRequestAsync(
-                    wms.GetCompleteBackendServiceUrl(context)
+                    wms.GetCompleteBackendServiceUrl(context),
+                    context
                 );
 
                 //make sure response is available
@@ -124,6 +125,8 @@ namespace HGIS
                 //read the data
                 var data = Cartomatic.Utils.Stream.ReadStream(response.GetResponseStream());
 
+                
+                
                 //write the response 
                 context.Response.BinaryWrite(data);
 
