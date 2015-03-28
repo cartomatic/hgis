@@ -15,6 +15,9 @@ web/www_apps/apps/_build/
 #aptana
 *.project
 
+#webstorm
+.idea/
+
 
 #merge backup files
 *.orig
