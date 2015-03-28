@@ -25,7 +25,7 @@
 		Country: 'Poland',
 		ContactVoiceTelephone: '',
 		ContactElectronicMailAddress: '',
-		AccessConstraints: 'none',
+		AccessConstraints: 'None for non commercial use. See the http://hgis.cartomatic.pl/page/services for the license details.',
 		Fees: 'none',
 		LayerLimit: 1,
 		MaxHeight: 256,
@@ -388,5 +388,25 @@
 			'16k',
 			'1:16 000'
 		]
+	},
+	ahp_xvi: {
+		Abstract: 'Atlas historyczny Polski. Mapy szczegółowe XVI wieku',
+		Keywords: [
+			'Wielka mapa', 'Atlas historyczny Polski', 'Mapy szczegółowe', 'XVI', 'XVI wieku', 'XVI w.',
+			'wm_ahp', '1:250 000',
+			'Zakład Atlasu Historycznego',
+			'Instytut Historii Polskiej Akademii Nauk',
+			'Mapy szczegółowe XVI wieku'
+		],
+		ContactPerson: 'Zakład Atlasu Historycznego Instytutu Historii PAN',
+		ContactOrganization: 'atlasfontium.pl',
+		AddressType: 'postal',
+		Address: 'Rynek Starego Miasta 29/31',
+		City: 'Warsaw',
+		StateOrProvince: 'Mazowieckie',
+		PostCode: '00-272 Warszawa',
+		Country: 'Poland',
+		ContactVoiceTelephone: '22 831 02 61',
+		ContactElectronicMailAddress: 'ihpan@ihpan.edu.pl'
 	}
 }
