@@ -199,9 +199,33 @@ Ext.define('hgis.AppLogic', {
      */
     createLayerManager: function(){
 
-        //create a container for the legend entries
-        var legend = Ext.create('Ext.form.Panel', {
+        this.panelTopo = Ext.create('Ext.form.Panel', {
+            title: 'Mapy topograficzne',
             autoScroll: true
+        });
+        this.panelCity = Ext.create('Ext.form.Panel', {
+            title: 'Plany miast',
+            autoScroll: true
+        });
+        this.panelAhp = Ext.create('Ext.form.Panel', {
+            title: 'Atlas Historyczny Polski',
+            autoScroll: true
+        });
+
+        //create a container for the legend entries
+        this.legend = Ext.create('Ext.form.Panel', {
+            layout: {
+                // layout-specific configs go here
+                type: 'accordion',
+                titleCollapse: true,
+                animate: true,
+                activeOnTop: true
+            },
+            items: [
+                this.panelTopo,
+                this.panelCity,
+                this.panelAhp
+            ]
         });
 
 
@@ -216,7 +240,7 @@ Ext.define('hgis.AppLogic', {
 
         this.opacity.on('change', this.onOpacityChange, this);
 
-        legend.addDocked(
+        this.legend.addDocked(
             Ext.create('Ext.toolbar.Toolbar', {
                 dock: 'top',
                 layout: 'fit',
@@ -231,7 +255,10 @@ Ext.define('hgis.AppLogic', {
         var layers = this.map.getLayers();
 
 
-        var legendEntries = [];
+        var legendEntriesTopo = [];
+        var legendEntriesCity = [];
+        var legendEntriesAhp = [];
+
         for (var l = 0; l < layers.getLength(); l++) {
 
             //get layer & properties
@@ -241,31 +268,61 @@ Ext.define('hgis.AppLogic', {
             //ignore layers flagged as base layers
             if (lProps.is_base_layer) continue;
 
-            legendEntries.push({
+            var le = {
                 name: 'le',
                 inputValue: lay,
                 boxLabel: lProps.ldef.name,
                 lname: lProps.ldef.lname
-            });
+            };
+
+            switch(lProps.ldef.type){
+                case 'topo':
+                    legendEntriesTopo.push(le);
+                    break;
+
+                case 'city':
+                    legendEntriesCity.push(le);
+                    break;
+
+                case 'ahp':
+                    legendEntriesAhp.push(le);
+                    break;
+            }
         }
 
-        //radio group
-        this.rg = Ext.create('Ext.form.RadioGroup', {
+        //radio groups
+        this.rgTopo = Ext.create('Ext.form.RadioGroup', {
             columns: 1,
             vertical: false,
-            items: legendEntries
+            items: legendEntriesTopo,
+            listeners: {
+                change: Ext.bind(this.onLayerChange, this)
+            }
+        });
+        this.rgCity = Ext.create('Ext.form.RadioGroup', {
+            columns: 1,
+            vertical: false,
+            items: legendEntriesCity,
+            listeners: {
+                change: Ext.bind(this.onLayerChange, this)
+            }
+        });
+        this.rgAhp = Ext.create('Ext.form.RadioGroup', {
+            columns: 1,
+            vertical: false,
+            items: legendEntriesAhp,
+            listeners: {
+                change: Ext.bind(this.onLayerChange, this)
+            }
         });
 
 
-        //wire up some evt listeners
-        this.rg.on('change', this.onLayerChange, this);
-
-
         //add the legend to the layout
-        legend.add(this.rg);
+        this.panelTopo.add(this.rgTopo);
+        this.panelCity.add(this.rgCity);
+        this.panelAhp.add(this.rgAhp);
 
-        this.westPanel.add(legend);
-
+        this.westPanel.add(this.legend);
     },
 
     /**
@@ -273,13 +330,33 @@ Ext.define('hgis.AppLogic', {
      */
     activateLayer: function(l){
         if (l) {
-            var radios = this.rg.items.items;
-            for (var r = 0; r < radios.length; r++) {
-                if (radios[r].lname == l) {
-                    radios[r].setValue(true);
-                    break;
+            var radiosTopo = this.rgTopo.items.items,
+                radiosCity = this.rgCity.items.items,
+                radiosAhp = this.rgAhp.items.items,
+                activeItem;
+
+            for (var r = 0; r < radiosTopo.length; r++) {
+                radiosTopo[r].setValue(radiosTopo[r].lname == l);
+                if(radiosTopo[r].lname == l){
+                    activeItem = this.panelTopo;
                 }
             }
+
+            for (var r = 0; r < radiosCity.length; r++) {
+                radiosCity[r].setValue(radiosCity[r].lname == l);
+                if(radiosCity[r].lname == l){
+                    activeItem = this.panelCity;
+                }
+            }
+
+            for (var r = 0; r < radiosAhp.length; r++) {
+                radiosAhp[r].setValue(radiosAhp[r].lname == l);
+                if(radiosAhp[r].lname == l){
+                    activeItem = this.panelAhp;
+                }
+            }
+
+            activeItem.expand();
         }
     },
 
@@ -306,20 +383,34 @@ Ext.define('hgis.AppLogic', {
      */
     activeLayer: null,
 
+    activeRg: null,
+
     /**
      * layer manager change callback
      */
     onLayerChange: function(rg, newV, oldV, eOpts){
-        
-        if (oldV && oldV.le) {
-            oldV.le.setVisible(false);
-            oldV.le.setOpacity(1);
+
+        if (this.activeLayer) {
+            this.activeLayer.setVisible(false);
+            this.activeLayer.setOpacity(1);
+
+            //deactivate previously active rg if different than the incoming
+            if(activeRg !== rg){
+                for(var r = 0; r < activeRg.items.items.length; r++){
+                    activeRg.items.items[r].setValue(false);
+                }
+            }
         }
 
         if (newV && newV.le) {
             this.activeLayer = newV.le;
             this.activeLayer.setVisible(true);
             this.activeLayer.setOpacity(this.opacity.getValue() / 100);
+
+            activeRg = rg;
+
+            //trigger adjustment of the layer panel
+            //this.activateLayer(this.activeLayer.getProperties().ldef.lname);
         }
 
         this.updatePermalink();
@@ -357,16 +448,42 @@ Ext.define('hgis.AppLogic', {
 
         //hgis overlays
         var ldefs = [
-            { name: 'WIG Mapa Polski i Krajów Ościennych 1:500 000', lname: 'wig500k' },
-            { name: 'WIG Mapa operacyjna 1:300 000', lname: 'wig300k' },
-            { name: 'WIG Polska mapa taktyczna 1:100 000', lname: 'wig100k' },
-            { name: 'WIG Mapa szczegółowa 1:25 000', lname: 'wig25k' },
+            //Topo
+            { name: 'WIG Mapa Polski i Krajów Ościennych 1:500 000', lname: 'wig500k', type: 'topo' },
+            { name: 'WIG Mapa operacyjna 1:300 000', lname: 'wig300k', type: 'topo' },
+            { name: 'WIG Polska mapa taktyczna 1:100 000', lname: 'wig100k', type: 'topo' },
+            { name: 'WIG Mapa szczegółowa 1:25 000', lname: 'wig25k', type: 'topo' },
             { name: 'Meßtischblätter 1:25 000', lname: 'm25k' },
-            { name: 'Übersichtskarte von Mitteleuropa 1:300 000', lname: 'ukvme' },
-            { name: 'Karte des Deutschen Reiches 1:100 000', lname: 'kdr' },
-            { name: 'Karte des westlichen Rußlands 1:100 000', lname: 'kdwr' },
-            { name: 'Grossblatt 1:100 000: Karte des Deutschen Reiches, Karte des westlichen Rußlands', lname: 'kdr_gb' },
-            { name: 'Administrativ karte von den königreichen galizien und lodomerien', lname: 'kummersberg' }
+            { name: 'Übersichtskarte von Mitteleuropa 1:300 000', lname: 'ukvme', type: 'topo' },
+            { name: 'Karte des Deutschen Reiches 1:100 000', lname: 'kdr', type: 'topo' },
+            { name: 'Karte des westlichen Rußlands 1:100 000', lname: 'kdwr', type: 'topo' },
+            { name: 'Grossblatt 1:100 000: Karte des Deutschen Reiches, Karte des westlichen Rußlands', lname: 'kdr_gb', type: 'topo' },
+            { name: 'Administrativ karte von den königreichen galizien und lodomerien', lname: 'kummersberg', type: 'topo' },
+
+            //City
+            { name: 'Białystok (G.S.G.S. 4435)', lname: 'bialystok_gsgs4435', type: 'city' },
+            { name: 'Bydgoszcz (G.S.G.S. 4435)', lname: 'bydgoszcz_gsgs4435', type: 'city' },
+            { name: 'Breslau (G.S.G.S. 4480)', lname: 'breslau_gsgs4480', type: 'city' },
+            { name: 'Częstochowa (G.S.G.S. 4435)', lname: 'czestochowa_gsgs4435', type: 'city' },
+            { name: 'Danzig (G.S.G.S. 4496) - DANZIG (NORTH), DANZIG (SOUTH)', lname: 'danzig_gsgs4496', type: 'city' },
+            { name: 'Grudziądz (G.S.G.S. 4435)', lname: 'grudziac_gsgs4435', type: 'city' },
+            { name: 'Inowrocław (G.S.G.S. 4435)', lname: 'inowroclaw_gsgs4435', type: 'city' },
+            { name: 'Jasło (G.S.G.S. 4435)', lname: 'jaslo_gsgs4435', type: 'city' },
+            { name: 'Katowice (G.S.G.S. 4435)', lname: 'katowice_gsgs4435', type: 'city' },
+            { name: 'Kielce (G.S.G.S. 4435)', lname: 'kielce_gsgs4435', type: 'city' },
+            { name: 'Kraków (G.S.G.S. 4435)', lname: 'krakow_gsgs4435', type: 'city' },
+            { name: 'Łódź (G.S.G.S. 4435)', lname: 'lodz_gsgs4435', type: 'city' },
+            { name: 'Lublin (G.S.G.S. 4435)', lname: 'lublin_gsgs4435', type: 'city' },
+            { name: 'Poznań (G.S.G.S. 4435)', lname: 'poznan_gsgs4435', type: 'city' },
+            { name: 'Radom (G.S.G.S. 4435)', lname: 'radom_gsgs4435', type: 'city' },
+            { name: 'Rzeszów (G.S.G.S. 4435)', lname: 'rzeszow_gsgs4435', type: 'city' },
+            { name: 'Siedlce (G.S.G.S. 4435)', lname: 'siedlce_gsgs4435', type: 'city' },
+            { name: 'Tarnów (G.S.G.S. 4435)', lname: 'tarnow_gsgs4435', type: 'city' },
+            { name: 'Toruń (G.S.G.S. 4435)', lname: 'torun_gsgs4435', type: 'city' },
+            { name: 'Warszawa (G.S.G.S. 4435)', lname: 'warszawa_gsgs4435', type: 'city' },
+
+            //Ahp
+            { name: 'Atlas historyczny Polski - Mapy szczegółowe XVI wieku', lname: 'ahp_xvi', type: 'ahp' }
         ];
 
         //create hgis layers
@@ -379,7 +496,7 @@ Ext.define('hgis.AppLogic', {
                 extent: prjext,
                 source: new ol.source.TileWMS({
                     crossOrigin: 'anonymous', //enable cors, so can dump canvas data later
-                    urls: this.getLayerUrls(ldefs[ln].lname),
+                    urls: this.getLayerUrls(ldefs[ln].type, ldefs[ln].lname),
                     params: {
                         'LAYERS': ldefs[ln].lname
                         //'FORMAT': 'image/jpeg'
@@ -421,6 +538,7 @@ Ext.define('hgis.AppLogic', {
                 hgisl
             )
         }
+
 
         //glue in token so the watermark is not applied
         if (typeof (__token__) != 'undefined') {
@@ -485,13 +603,14 @@ Ext.define('hgis.AppLogic', {
         );
     },
 
-    getLayerUrls: function (type) {
+
+    getLayerUrls: function (type, source) {
         return [
-            'http://wms.hgis.cartomatic.pl/topo/3857/' + type,
-            'http://wms1.hgis.cartomatic.pl/topo/3857/' + type,
-            'http://wms2.hgis.cartomatic.pl/topo/3857/' + type,
-            'http://wms3.hgis.cartomatic.pl/topo/3857/' + type,
-            'http://wms4.hgis.cartomatic.pl/topo/3857/' + type
+            'http://wms.hgis.cartomatic.pl/' + type +'/3857/' + source,
+            'http://wms1.hgis.cartomatic.pl/' + type +'/3857/' + source,
+            'http://wms2.hgis.cartomatic.pl/' + type +'/3857/' + source,
+            'http://wms3.hgis.cartomatic.pl/' + type +'/3857/' + source,
+            'http://wms4.hgis.cartomatic.pl/' + type +'/3857/' + source
         ];
     }
 });
