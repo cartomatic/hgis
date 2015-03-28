@@ -79,8 +79,8 @@ namespace HGIS
                 {
                     g.DrawImage(
                         b,
-                        new Rectangle(0, 0, b.Width, b.Height), //source
                         new Rectangle(0, 0, b.Width, b.Height), //destination
+                        new Rectangle(0, 0, b.Width, b.Height), //source
                         GraphicsUnit.Pixel
                     );
                 }
@@ -92,8 +92,8 @@ namespace HGIS
                     var w = new Bitmap(Watermark);
                     g.DrawImage(
                         w,
-                        new Rectangle(0, 0, w.Width, w.Height), //source
                         new Rectangle(0, 0, b.Width, b.Height), //destination
+                        new Rectangle(0, 0, w.Width, w.Height), //source
                         GraphicsUnit.Pixel
                     );
                     w.Dispose();
