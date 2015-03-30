@@ -453,7 +453,7 @@ Ext.define('hgis.AppLogic', {
             { name: 'WIG Mapa operacyjna 1:300 000', lname: 'wig300k', type: 'topo' },
             { name: 'WIG Polska mapa taktyczna 1:100 000', lname: 'wig100k', type: 'topo' },
             { name: 'WIG Mapa szczegółowa 1:25 000', lname: 'wig25k', type: 'topo' },
-            { name: 'Meßtischblätter 1:25 000', lname: 'm25k' },
+            { name: 'Meßtischblätter 1:25 000', lname: 'm25k', type: 'topo' },
             { name: 'Übersichtskarte von Mitteleuropa 1:300 000', lname: 'ukvme', type: 'topo' },
             { name: 'Karte des Deutschen Reiches 1:100 000', lname: 'kdr', type: 'topo' },
             { name: 'Karte des westlichen Rußlands 1:100 000', lname: 'kdwr', type: 'topo' },
