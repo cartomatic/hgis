@@ -54,7 +54,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Generic\Utils\Cartomatic.Utils.csproj">
+    <ProjectReference Include="..\..\_old\Generic\Utils\Cartomatic.Utils.csproj">
       <Project>{718a23f3-4082-444b-9d26-d4225e67a790}</Project>
       <Name>Cartomatic.Utils</Name>
     </ProjectReference>

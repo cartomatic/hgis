@@ -1,13 +1,13 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true"  MasterPageFile="~/Custom/Themes/SimpleBlog/front.master" CodeBehind="FrontPage.aspx.cs" %>
 <asp:content id="Content1" contentplaceholderid="cphBody" runat="Server">
 <!--Just an iframe, so the map app can be loaded from a remote location-->
-<iframe src="http://hgis.maphive.co" id="hgisiframe" style="width: 100%; height: 100%; border: none;">
+<iframe src="http://hgis.maphive.net" id="hgisiframe" style="width: 100%; height: 100%; border: none;">
 </iframe>
 <script type="text/javascript">
 	var ifr = document.getElementById('hgisiframe');
 	var lastHash = window.location.hash;
 	
-	ifr.src = 'http://hgis.maphive.co' + window.location.hash;
+	ifr.src = 'http://hgis.maphive.net' + window.location.hash;
 	
 	var applyPermaLink = function(){
 		var plink = window.location.hash.replace('#','');

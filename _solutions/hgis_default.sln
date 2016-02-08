@@ -1,25 +1,45 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartomatic.Utils", "..\..\Generic\Utils\Cartomatic.Utils.csproj", "{718A23F3-4082-444B-9D26-D4225E67A790}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartomatic.Utils", "..\..\_old\Generic\Utils\Cartomatic.Utils.csproj", "{718A23F3-4082-444B-9D26-D4225E67A790}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "web", "web", "{EE936F71-D07A-42E1-8FE6-6A71DDB24849}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cartomatic", "cartomatic", "{B4332238-DC51-4839-A8F2-021F89D3581A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartomatic.Wms.WmsDriver", "..\..\Generic\Wms\Driver\Cartomatic.Wms.WmsDriver.csproj", "{BF233752-D713-4251-947B-68EF0C7C2478}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartomatic.Wms.WmsDriver", "..\..\_old\Generic\Wms\Driver\Cartomatic.Wms.WmsDriver.csproj", "{BF233752-D713-4251-947B-68EF0C7C2478}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartomatic.MapUtils.TileCache", "..\..\Generic\MapUtils\TileCache\Cartomatic.MapUtils.TileCache.csproj", "{134B753A-F1DD-43C1-ABD9-35552253878D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartomatic.MapUtils.TileCache", "..\..\_old\Generic\MapUtils\TileCache\Cartomatic.MapUtils.TileCache.csproj", "{134B753A-F1DD-43C1-ABD9-35552253878D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartomatic.MapUtils.Tiling", "..\..\Generic\MapUtils\Tiling\Cartomatic.MapUtils.Tiling.csproj", "{145DD93C-F0B0-4386-A647-4EEDCB243A73}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartomatic.MapUtils.Tiling", "..\..\_old\Generic\MapUtils\Tiling\Cartomatic.MapUtils.Tiling.csproj", "{145DD93C-F0B0-4386-A647-4EEDCB243A73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartomatic.Ogc.Schemas", "..\..\Generic\Ogc\Schemas\Cartomatic.Ogc.Schemas.csproj", "{C8B58B6E-B944-4881-BAC1-412785DB8286}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartomatic.Ogc.Schemas", "..\..\_old\Generic\Ogc\Schemas\Cartomatic.Ogc.Schemas.csproj", "{C8B58B6E-B944-4881-BAC1-412785DB8286}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartomatic.Manifold.WmsDriver", "..\..\Manifold\Wms\Cartomatic.Manifold.WmsDriver.csproj", "{F0621CAD-38B4-4B11-9911-2DFF9E093C82}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartomatic.Manifold.WmsDriver", "..\..\_old\Manifold\Wms\Cartomatic.Manifold.WmsDriver.csproj", "{F0621CAD-38B4-4B11-9911-2DFF9E093C82}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "hgis_wms", "http://localhost/hgis_wms", "{6BA2C33C-47B9-4326-A626-7535986EBDB9}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "false"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		ProjectReferences = "{bf233752-d713-4251-947b-68ef0c7c2478}|Cartomatic.Wms.WmsDriver.dll;{C8B58B6E-B944-4881-BAC1-412785DB8286}|Cartomatic.Ogc.Schemas.dll;{718A23F3-4082-444B-9D26-D4225E67A790}|Cartomatic.Utils.dll;{134b753a-f1dd-43c1-abd9-35552253878d}|Cartomatic.MapUtils.TileCache.dll;{145DD93C-F0B0-4386-A647-4EEDCB243A73}|Cartomatic.MapUtils.Tiling.dll;{f0621cad-38b4-4b11-9911-2dff9e093c82}|Cartomatic.Manifold.WmsDriver.dll;{88d776df-fb00-4492-ab4d-a050a7ca4d7e}|HGIS.TokenMaster.dll;{29bef49a-f4d7-44a2-ae7d-de90619fb491}|HGIS.Gdal.WmsDriver.dll;{cf5be157-7eb6-4db8-b575-2f8d9e17625f}|HGIS.StatsMaster.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/hgis_wms"
+		Debug.AspNetCompiler.PhysicalPath = "..\web\wms\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\hgis_wms\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/hgis_wms"
+		Release.AspNetCompiler.PhysicalPath = "..\web\wms\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\hgis_wms\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "..\web\wms\"
+	EndProjectSection
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "false"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
@@ -50,6 +70,26 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HGIS.StatsMaster", "..\StatsMaster\HGIS.StatsMaster.csproj", "{CF5BE157-7EB6-4DB8-B575-2F8D9E17625F}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "hgis_apps", "http://localhost/hgis_apps", "{A7373663-2F0C-4AD8-9EE6-F9DACA85C7F2}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "false"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		ProjectReferences = "{cf5be157-7eb6-4db8-b575-2f8d9e17625f}|HGIS.StatsMaster.dll;{C8B58B6E-B944-4881-BAC1-412785DB8286}|Cartomatic.Ogc.Schemas.dll;{88d776df-fb00-4492-ab4d-a050a7ca4d7e}|HGIS.TokenMaster.dll;{718A23F3-4082-444B-9D26-D4225E67A790}|Cartomatic.Utils.dll;{134B753A-F1DD-43C1-ABD9-35552253878D}|Cartomatic.MapUtils.TileCache.dll;{145DD93C-F0B0-4386-A647-4EEDCB243A73}|Cartomatic.MapUtils.Tiling.dll;{BF233752-D713-4251-947B-68EF0C7C2478}|Cartomatic.Wms.WmsDriver.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/hgis_apps"
+		Debug.AspNetCompiler.PhysicalPath = "..\web\www_apps\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\hgis_apps\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/hgis_apps"
+		Release.AspNetCompiler.PhysicalPath = "..\web\www_apps\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\hgis_apps\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "..\web\www_apps\"
+	EndProjectSection
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "false"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"

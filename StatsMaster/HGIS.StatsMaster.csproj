@@ -61,11 +61,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Generic\MapUtils\TileCache\Cartomatic.MapUtils.TileCache.csproj">
+    <ProjectReference Include="..\..\_old\Generic\MapUtils\TileCache\Cartomatic.MapUtils.TileCache.csproj">
       <Project>{134b753a-f1dd-43c1-abd9-35552253878d}</Project>
       <Name>Cartomatic.MapUtils.TileCache</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Generic\Utils\Cartomatic.Utils.csproj">
+    <ProjectReference Include="..\..\_old\Generic\Utils\Cartomatic.Utils.csproj">
       <Project>{718a23f3-4082-444b-9d26-d4225e67a790}</Project>
       <Name>Cartomatic.Utils</Name>
     </ProjectReference>

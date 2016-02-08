@@ -69,17 +69,13 @@
     <Compile Include="_Blank.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Generic\Ogc\Schemas\Cartomatic.Ogc.Schemas.csproj">
+    <ProjectReference Include="..\..\..\_old\Generic\Ogc\Schemas\Cartomatic.Ogc.Schemas.csproj">
       <Project>{c8b58b6e-b944-4881-bac1-412785db8286}</Project>
       <Name>Cartomatic.Ogc.Schemas</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Generic\Wms\Driver\Cartomatic.Wms.WmsDriver.csproj">
+    <ProjectReference Include="..\..\..\_old\Generic\Wms\Driver\Cartomatic.Wms.WmsDriver.csproj">
       <Project>{bf233752-d713-4251-947b-68ef0c7c2478}</Project>
       <Name>Cartomatic.Wms.WmsDriver</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Manifold\Wms\Cartomatic.Manifold.WmsDriver.csproj">
-      <Project>{f0621cad-38b4-4b11-9911-2dff9e093c82}</Project>
-      <Name>Cartomatic.Manifold.WmsDriver</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
